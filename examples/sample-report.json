@@ -1,0 +1,217 @@
+{
+  "schema_version": 1,
+  "tool": "GapCue",
+  "tool_version": "0.1.0",
+  "synthetic": true,
+  "started_at": "2026-10-01T10:00:00Z",
+  "captured_at": "2026-10-01T10:00:00Z",
+  "collection_status": "complete",
+  "parameters": {
+    "backend": "fictional sample",
+    "page_size": 3,
+    "issue_limit": 2,
+    "reference_limit": 6
+  },
+  "search": null,
+  "repositories": [
+    {
+      "full_name": "sample/research-board",
+      "available": true,
+      "stars": null,
+      "url": null,
+      "captured_at": "2026-10-01T10:00:00Z"
+    }
+  ],
+  "requests": [],
+  "failures": [],
+  "issues": [
+    {
+      "key": "sample/research-board#17",
+      "repository": "sample/research-board",
+      "number": 17,
+      "url": null,
+      "available": true,
+      "title": "Export selected rows as CSV",
+      "state": "open",
+      "state_reason": null,
+      "author": "requester",
+      "account_type": "User",
+      "association": "NONE",
+      "created_at": "2026-10-01T10:00:00Z",
+      "updated_at": "2026-10-01T10:00:00Z",
+      "labels": [
+        "feature request"
+      ],
+      "body": {
+        "text": "I review research rows in a spreadsheet. Could the board export just the selected rows, including their source links? Copying them one at a time is the slow part.",
+        "characters": 162,
+        "truncated": false
+      },
+      "comments": {
+        "available": true,
+        "reported_total": 11,
+        "pages": [
+          1,
+          4
+        ],
+        "has_unread": true,
+        "order": "Fictional first and last pages; six middle comments omitted",
+        "entries": [
+          {
+            "id": 1,
+            "url": null,
+            "author": "reader-a",
+            "account_type": "User",
+            "association": "NONE",
+            "created_at": "2026-10-01T10:00:00Z",
+            "updated_at": "2026-10-01T10:00:00Z",
+            "page": 1,
+            "body": {
+              "text": "I also need the source URL beside each exported row.",
+              "characters": 52,
+              "truncated": false
+            }
+          },
+          {
+            "id": 2,
+            "url": null,
+            "author": "maintainer",
+            "account_type": "User",
+            "association": "MEMBER",
+            "created_at": "2026-10-01T10:00:00Z",
+            "updated_at": "2026-10-01T10:00:00Z",
+            "page": 1,
+            "body": {
+              "text": "A small export action could fit here. We need to preserve the selected row order.",
+              "characters": 81,
+              "truncated": false
+            }
+          },
+          {
+            "id": 3,
+            "url": null,
+            "author": "automation[bot]",
+            "account_type": "Bot",
+            "association": "NONE",
+            "created_at": "2026-10-01T10:00:00Z",
+            "updated_at": "2026-10-01T10:00:00Z",
+            "page": 1,
+            "body": {
+              "text": "This fictional request has been added to the review queue.",
+              "characters": 58,
+              "truncated": false
+            }
+          },
+          {
+            "id": 10,
+            "url": null,
+            "author": "maintainer",
+            "account_type": "User",
+            "association": "MEMBER",
+            "created_at": "2026-10-01T10:00:00Z",
+            "updated_at": "2026-10-01T10:00:00Z",
+            "page": 4,
+            "body": {
+              "text": "The selected-row export is implemented in pull request #42. Please check the current build before starting another exporter.",
+              "characters": 124,
+              "truncated": false
+            }
+          },
+          {
+            "id": 11,
+            "url": null,
+            "author": "requester",
+            "account_type": "User",
+            "association": "NONE",
+            "created_at": "2026-10-01T10:00:00Z",
+            "updated_at": "2026-10-01T10:00:00Z",
+            "page": 4,
+            "body": {
+              "text": "I will try the current build with my spreadsheet workflow.",
+              "characters": 58,
+              "truncated": false
+            }
+          }
+        ]
+      },
+      "references": [
+        {
+          "url": null,
+          "repository": "sample/research-board",
+          "number": 42,
+          "kind": "pull_request",
+          "check": "checked",
+          "state": "merged",
+          "merged_at": "2026-10-01T10:00:00Z",
+          "captured_at": "2026-10-01T10:00:00Z",
+          "reason": "Fictional sample PR state; not a real project result."
+        }
+      ]
+    },
+    {
+      "key": "sample/research-board#23",
+      "repository": "sample/research-board",
+      "number": 23,
+      "url": null,
+      "available": true,
+      "title": "Keep reviewer notes when reopening a report",
+      "state": "open",
+      "state_reason": null,
+      "author": "reader-b",
+      "account_type": "User",
+      "association": "NONE",
+      "created_at": "2026-10-01T10:00:00Z",
+      "updated_at": "2026-10-01T10:00:00Z",
+      "labels": [
+        "workflow"
+      ],
+      "body": {
+        "text": "After reading several threads I close the tab. On the next day I want the exact source snapshot and my own decision notes together in one local file.",
+        "characters": 149,
+        "truncated": false
+      },
+      "comments": {
+        "available": true,
+        "reported_total": 2,
+        "pages": [
+          1
+        ],
+        "has_unread": false,
+        "order": "All two fictional comments",
+        "entries": [
+          {
+            "id": 21,
+            "url": null,
+            "author": "maintainer",
+            "account_type": "User",
+            "association": "MEMBER",
+            "created_at": "2026-10-01T10:00:00Z",
+            "updated_at": "2026-10-01T10:00:00Z",
+            "page": 1,
+            "body": {
+              "text": "Would a downloadable review bundle work without a cloud account?",
+              "characters": 64,
+              "truncated": false
+            }
+          },
+          {
+            "id": 22,
+            "url": null,
+            "author": "reader-b",
+            "account_type": "User",
+            "association": "NONE",
+            "created_at": "2026-10-01T10:00:00Z",
+            "updated_at": "2026-10-01T10:00:00Z",
+            "page": 1,
+            "body": {
+              "text": "Yes. I need to reopen the evidence and notes together; shared storage can wait.",
+              "characters": 79,
+              "truncated": false
+            }
+          }
+        ]
+      },
+      "references": []
+    }
+  ]
+}

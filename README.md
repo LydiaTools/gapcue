@@ -1,0 +1,121 @@
+# GapCue · GitHub Issue Scout
+
+**Read the replies before you build.**
+
+A feature request can outlive the work that answers it. Before turning an open issue into your next product, read the later discussion, inspect the linked changes, and keep the evidence beside your decision.
+
+GapCue is a small, read-only GitHub collector and a local review desk. **Up to 6 issues. First and last comment pages. Source-linked changes. Your judgment.**
+
+[Try the review desk](https://lydiatools.github.io/gapcue/) · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+
+![GapCue's actual English review desk: an open fictional issue, a separately marked merged PR, omitted comments and a place to record the next step.](docs/assets/review-desk.png)
+
+*Actual app screenshot. The included discussion is an original fictional example, visibly labeled in the app. It is not evidence of customer demand or an upstream project result.*
+
+## The question behind the issue
+
+“Could you add CSV export?” is a useful starting point. But what happened afterward?
+
+- Did a maintainer already point to an implementation?
+- Is the linked PR open, closed, or merged?
+- Did your collection skip the middle of the discussion?
+- What would you need to check before building something?
+
+GapCue puts those questions on one desk. You make the decision: **follow up, try a prototype, or pass for your task**. The source snapshot and your notes travel together in one review file.
+
+## What works today
+
+| Your task | GapCue provides |
+| --- | --- |
+| Read a few relevant threads | Explicit issue URLs, or a bounded search within one public repository |
+| Check what happened later | First and last comment pages, shown with the newest collected comments first |
+| Know what you missed | Collected/reported counts, visible omissions, shortened excerpts and unavailable sources |
+| Inspect mentioned work | Current state checks for mentioned issues/PRs; branch and commit links stay clearly marked as links |
+| Separate sources from judgment | Original excerpts and bot/association metadata beside your own decision notes |
+| Return to the same evidence | Download and reopen a review containing the exact report text, its SHA-256 and your notes |
+| Work in either language | English/Chinese controls; original source language is preserved |
+
+The collector uses Python's standard library. The viewer uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. The viewer makes no report-upload requests and does not save notes automatically.
+
+## Try it in a minute
+
+1. Open the [review desk](https://lydiatools.github.io/gapcue/).
+2. Read the fictional sample. Notice that the issue is open while a mentioned PR is marked merged; neither is a release verdict.
+3. Choose a next step, write a note, and select **Save review file**.
+4. Reload the page, open that file, and continue with the same sources and notes.
+
+For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases), then open `app/index.html` in Chrome. No server is needed for the viewer.
+
+## Collect real public issues
+
+Requires **Python 3.10+** and internet access. No Python packages to install.
+
+```bash
+git clone https://github.com/LydiaTools/gapcue.git
+cd gapcue
+python3 gapcue.py collect --issue obsidianmd/pele#35 --references 0 --out artifacts/first-look
+```
+
+Open `artifacts/first-look/report.json` in the review desk. This example reads a real public thread; its state and contents can change. Output directories must be new, so choose a new name for each collection.
+
+To inspect references and another issue, repeat `--issue` and allow a bounded reference budget:
+
+```bash
+python3 gapcue.py collect \
+  --issue OWNER/REPO#123 --issue OWNER/REPO#456 \
+  --page-size 10 --references 6 --out artifacts/another-look
+```
+
+Replace `OWNER/REPO#123` and `#456` with real issue targets. To search one repository instead:
+
+```bash
+python3 gapcue.py collect --repo obsidianmd/pele --query layout --limit 2 --references 0 --out artifacts/layout-search
+```
+
+Anonymous GitHub requests are rate-limited. If GitHub CLI is already installed and logged in, add `--backend gh` to reuse it. The application does not ask you to paste a token into the viewer. Repository visibility is checked before thread content; private repositories are refused even with this backend.
+
+Each run writes `report.json`, a short `report.md`, and `SHA256SUMS.txt`. Exit codes: `0` requested reads completed; `1` a partial report with source failures; `2` invalid arguments or output failure. There are no automatic retries or old-snapshot substitutions.
+
+## Deliberate limits
+
+- **A research aid, not a demand forecast.** Stars, reactions, handles and open issues do not establish independent users, willingness to pay, or a viable product. GapCue produces no opportunity score.
+- **A sample, not the entire conversation.** Up to 6 issues, at most 2 comment pages per issue, 1–20 comments per page, and up to 6 unique mentioned issue/PR checks across the report. A large thread can have a substantial unread middle. The last page is based on the issue's reported count; these reads are not atomic.
+- **Mention checks, not a full dependency graph.** Explicit GitHub issue/PR URLs and simple same-repo `#123` mentions are recognized. It does not enumerate the timeline, infer every linked PR, inspect code, validate a fix, or check releases. Commit/branch links are not fetched.
+- **Snapshots age.** A checked PR state is what GitHub returned during collection. “Merged” is not “released,” and “closed” is not “solved for your task.” Edited comments can sit outside the collected pages.
+- **Local notes require a download.** Closing an unsaved tab can lose your review. The SHA-256 detects a changed source inside the bundle; it is not a signature proving authorship or authenticity. A review contains the collected text and your notes: inspect it before sharing.
+- **Early preview.** Desktop Chrome and a mobile-sized Chrome viewport were exercised. Independent user adoption, Safari/Firefox compatibility and product-market fit have not been established. See [validation](docs/VALIDATION.md).
+
+## How this fits
+
+GitHub itself and `gh` are excellent ways to inspect a thread. GapCue adds a small, portable review surface for a deliberately limited collection.
+
+Other research tools already explore this space: [gh-research](https://github.com/muneebhashone/gh-research) describes agent-oriented JSON research and ranking; [ghscout](https://github.com/lucianfialho/ghscout) describes issue clustering and scoring; [GitHub Opportunity Miner](https://github.com/whitesungun876/Opportunity-Mining-Agent) describes AI opportunity cards. These are related options, not integrations or endorsements. GapCue focuses on human reading, visible sample gaps and a saved decision. Their implementation and effectiveness were not benchmarked here.
+
+## Develop
+
+The app runs directly from `app/index.html`. Optional local HTTP preview:
+
+```bash
+node scripts/serve.cjs
+# http://127.0.0.1:8858
+```
+
+Tests use Node 20+ and Python 3.10+. Playwright is a development dependency only:
+
+```bash
+npm ci
+python3 -m unittest discover -s tests -v
+npm test
+npx playwright install chromium
+BROWSER_CHANNEL=chromium npm run test:browser
+```
+
+If Chrome is installed, `npm run test:browser` uses it by default. The browser test's generated reports stay in ignored `artifacts/`. Rebuild the original fictional sample with `python3 scripts/build-sample.py`.
+
+[Report/review format](docs/FORMAT.md) · [Validation and scope](docs/VALIDATION.md) · [Contributing](CONTRIBUTING.md) · [Provenance](THIRD_PARTY_NOTICES.md)
+
+## Independent project
+
+GapCue is independently authored by [LydiaTools](https://github.com/LydiaTools). It is not an internal or leaked prompt, a vendor product, an official GitHub integration, or a renamed copy of an upstream repository. Public issue content remains attributable to its original authors; no real third-party discussion is bundled as demo content. The source code and original fictional examples are **MIT licensed**. Related projects and GitHub are not affiliated with or endorsing this project.
+
+If this helps your research, a Star makes the project easier to find. More useful still: [tell me where the sources or workflow let you down](https://github.com/LydiaTools/gapcue/issues).
