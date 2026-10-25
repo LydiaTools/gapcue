@@ -1,15 +1,20 @@
 {
   "name": "gapcue",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "A local review desk for public GitHub issue research.",
+  "description": "Browser research desk for public GitHub issues and Hacker News discussions.",
   "license": "MIT",
   "scripts": {
     "start": "node scripts/serve.cjs",
-    "test": "node --test tests/core.test.cjs",
+    "test": "node --test tests/*.test.cjs",
     "test:python": "python3 -m unittest discover -s tests -v",
-    "test:browser": "node tests/browser.cjs"
+    "test:browser": "node tests/browser.cjs",
+    "test:research": "node tests/research-browser.cjs"
   },
-  "devDependencies": { "playwright": "1.64.1" },
-  "engines": { "node": ">=20" }
+  "devDependencies": {
+    "playwright": "1.64.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
 }

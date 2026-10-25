@@ -2,6 +2,8 @@ const http = require('node:http');
 const fs = require('node:fs/promises');
 const path = require('node:path');
 const files = new Map([['/', ['index.html','text/html']],['/index.html',['index.html','text/html']],['/styles.css',['styles.css','text/css']],['/core.js',['core.js','text/javascript']],['/sample.js',['sample.js','text/javascript']],['/app.js',['app.js','text/javascript']]]);
+files.set('/live.js', ['live.js','text/javascript']);
+files.set('/live-i18n.js', ['live-i18n.js','text/javascript']);
 function createServer() {
   return http.createServer(async(req,res)=>{
     const url = new URL(req.url, 'http://127.0.0.1');

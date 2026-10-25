@@ -4,46 +4,54 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="A local review desk for public GitHub issue research. Read source samples, inspect mentioned PR states, and keep your own decision with the evidence.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';connect-src 'none';img-src 'self' data:;font-src 'none';object-src 'none';base-uri 'none';form-action 'none'">
-  <title>GapCue — Read the replies before you build.</title>
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';connect-src 'self' https://api.github.com https://hn.algolia.com https://hacker-news.firebaseio.com;img-src 'self' data:;font-src 'none';object-src 'none';base-uri 'none';form-action 'none'">
+  <title>GapCue — Project research desk</title>
   <link rel="stylesheet" href="styles.css">
   <script src="core.js" defer></script>
   <script src="sample.js" defer></script>
+  <script src="live.js" defer></script>
+  <script src="live-i18n.js" defer></script>
   <script src="app.js" defer></script>
 </head>
 <body>
   <header class="masthead">
     <a class="brand" href="./" aria-label="GapCue home"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 8h20l6 6v20H7z" fill="#ece7f4" stroke="currentColor" stroke-width="2"/><path d="M27 8v7h6M13 18h12M13 24h16M13 29h9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="29" r="6" fill="#466346" stroke="#fff" stroke-width="2"/></svg><span>GapCue<small data-i18n="subtitle">GitHub Issue Scout</small></span></a>
-    <nav><a href="#collect-guide" data-i18n="collectNav">Collect a report</a><a href="https://github.com/LydiaTools/gapcue" target="_blank" rel="noopener">GitHub</a><button id="language" class="quiet" type="button">中文</button></nav>
+    <nav><a href="#research" data-i18n="collectNav">Find discussions</a><a href="https://github.com/LydiaTools/gapcue" target="_blank" rel="noopener">GitHub</a><button id="language" class="quiet" type="button">中文</button></nav>
   </header>
   <main>
     <section class="intro">
-      <div><h1 data-i18n="headline">Read the replies before you build.</h1><p data-i18n="intro">Collect public GitHub issues with Python. Review the sources and keep your decision here.</p></div>
+      <div><h1 data-i18n="headline">Read the replies before you build.</h1></div>
       <div class="open-actions"><button id="open" class="primary" type="button" data-i18n="open">Open report or review</button><input id="file" type="file" accept=".json,application/json" hidden><button id="sample" class="quiet" type="button" data-i18n="sample">Try the sample</button></div>
     </section>
+    <form id="research" class="research">
+      <label for="source-input" data-i18n="inputLabel">Topic or discussion URL</label>
+      <div class="research-controls"><input id="source-input" type="text" maxlength="180" autocomplete="off" required><label class="sort-control"><span data-i18n="searchOrder">HN search order</span><select id="search-order"><option value="relevance" data-i18n="relevant">Relevant</option><option value="recent" data-i18n="recent">Recent</option></select></label><label class="sort-control"><span data-i18n="timeWindow">Period</span><select id="search-days"><option value="90" data-i18n="days90">Past 90 days</option><option value="30" data-i18n="days30">Past 30 days</option><option value="365" data-i18n="days365">Past year</option><option value="0" data-i18n="days0">Any time</option></select></label><button id="search" class="primary" type="submit" data-i18n="searchHN">Search HN</button><button id="stop" type="button" data-i18n="stop" hidden>Stop</button></div>
+      <p id="researchStatus" role="status" class="hint" data-i18n="inputHint">Search Hacker News, or read a public GitHub Issue / HN story link.</p>
+    </form>
+    <details id="discover" class="discover" hidden><summary id="resultTitle"></summary><p id="resultMeta" class="hint"></p><div id="searchResults"></div></details>
     <p id="error" role="alert" hidden></p>
     <section id="snapshot" class="snapshot" aria-label="Report status"><strong id="snapshotType"></strong><span id="snapshotDate"></span><span id="snapshotStatus"></span></section>
     <div class="desk">
-      <aside class="index"><div class="index-heading"><h2 data-i18n="issues">Issues to read</h2><span id="issueCount"></span></div><div id="issueList" class="issue-list"></div><p class="index-note" data-i18n="indexNote">An open issue is a starting point for research. The sources and your judgment do the rest.</p></aside>
+      <aside class="index"><div class="index-heading"><h2 data-i18n="issues">Issues to read</h2><span id="issueCount"></span></div><div id="issueList" class="issue-list"></div></aside>
       <section class="reading" aria-label="Selected issue">
         <div id="empty" hidden></div>
         <article id="thread">
           <div class="thread-heading"><p id="issueKey" class="identifier"></p><span id="issueState" class="badge"></span></div>
           <h2 id="issueTitle" class="issue-title"></h2><p id="issueMeta" class="meta"></p>
           <div id="coverage" class="coverage"></div>
-          <div class="source-heading"><h3 data-i18n="request">The request</h3><a id="issueSource" target="_blank" rel="noopener" class="source-link" data-i18n="source">Open source</a></div>
+          <div class="source-heading"><h3 id="requestHeading" data-i18n="request">The request</h3><a id="issueSource" target="_blank" rel="noopener" class="source-link" data-i18n="source">Open source</a></div>
           <div id="issueBody"></div>
           <div class="source-heading comments-title"><h3 data-i18n="discussion">Collected discussion</h3><span data-i18n="newest">Newest collected page first</span></div>
           <div id="comments"></div>
         </article>
       </section>
       <aside class="margin">
-        <section class="references"><h2 data-i18n="references">Mentioned changes</h2><p class="hint" data-i18n="referenceHint">States collected from GitHub; branch links remain links to inspect.</p><div id="references"></div></section>
+        <section class="references"><h2 id="referenceHeading" data-i18n="references">Mentioned changes</h2><p id="referenceHint" class="hint" data-i18n="referenceHint">States collected from GitHub; branch links remain links to inspect.</p><div id="references"></div></section>
         <section class="decision"><h2 data-i18n="decision">Your decision</h2><label for="verdict" data-i18n="verdict">What is the next step?</label><select id="verdict"><option value="unreviewed"></option><option value="followup"></option><option value="prototype"></option><option value="pass"></option></select><label for="notes" data-i18n="notes">What would change your decision?</label><textarea id="notes" rows="6" maxlength="6000"></textarea><button id="export" class="primary wide" type="button" data-i18n="save">Save review file</button><p id="saveStatus" role="status" class="hint"></p><p class="hint" data-i18n="local">Report content is read locally. Save a review file to keep the source snapshot and your notes together.</p></section>
       </aside>
     </div>
     <section id="collect-guide" class="collect-guide"><div><h2 data-i18n="ownReport">Collect your own report</h2><p data-i18n="collectHint">In a source checkout with Python 3.10+, run a read-only public GitHub collection:</p><pre><code>python3 gapcue.py collect --issue OWNER/REPO#123 --out artifacts/research</code></pre><p data-i18n="thenOpen">Open the generated report.json here. Public mode uses GitHub's anonymous rate limit; --backend gh can reuse your GitHub CLI login.</p></div><details><summary data-i18n="details">Collection details</summary><div id="reportDetails"></div><p data-i18n="scope">This is a bounded, non-atomic snapshot. Comments can be omitted and excerpts shortened. Handles and Stars are not demand votes. A mentioned or merged PR does not establish a released fix.</p></details></section>
-    <footer><p data-i18n="footer">Preview v0.1.0. Source text is displayed as data. No model calls or report uploads.</p><a href="https://github.com/LydiaTools/gapcue/issues" target="_blank" rel="noopener" data-i18n="feedback">Report a problem</a></footer>
+    <footer><p data-i18n="footer">Preview v0.2.0.</p><a href="https://github.com/LydiaTools/gapcue/issues" target="_blank" rel="noopener" data-i18n="feedback">Report a problem</a></footer>
   </main>
 </body>
 </html>

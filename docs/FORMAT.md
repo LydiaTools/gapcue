@@ -1,4 +1,4 @@
-# Report and review format · version 1
+# Report and review formats
 
 `gapcue.py collect` creates a UTF-8 JSON report (`tool: "GapCue"`, `schema_version: 1`) of at most 8 MiB.
 
@@ -39,3 +39,20 @@ Valid decisions: `unreviewed`, `followup`, `prototype`, `pass`. Notes are limite
 A SHA-256 is an integrity check, not a signed provenance record. A person can deliberately edit both source and hash. Both the original excerpts and personal review notes are present in a saved bundle; it is not a redaction mechanism.
 
 Official API references: [issue comments](https://docs.github.com/en/rest/issues/comments#list-issue-comments-for-a-repository) (ascending ID order), [issues](https://docs.github.com/en/rest/issues/issues#get-an-issue), [pull requests](https://docs.github.com/en/rest/pulls/pulls#get-a-pull-request), [search](https://docs.github.com/en/rest/search/search#search-issues-and-pull-requests). These API contracts can change.
+
+
+## Browser collection and HN version 2
+
+Browser GitHub collection produces the same version-1 report shape: one issue, 10 first/last comments and at most two checked issue/PR references. Browser excerpts are capped at 6,000 Unicode code points. Each response is limited to 1 MiB with a 20-second timeout. Public visibility is checked before GitHub issue content, including cross-repository references. Requests use GET, omit credentials, reject redirects and do not retry. A failed top-level read leaves the current review intact; failed later comment/reference reads are retained as partial.
+
+An HN report has `schema_version: 2`, `source_kind: "hackernews"` and `threads` instead of `issues`. Its key is `hn#<story-id>`; `state: "discussion"` does not impersonate a GitHub issue status. The official HN item API supplies story identity, original event time, points and reported descendant count. HN Search supplies the newest and oldest available indexed comment pages, with up to 10 comments each. `comments.indexed_total` is separate from `comments.reported_total`: indexing and successive reads can disagree. A page being read successfully is not complete discussion coverage.
+
+HN HTML is converted to inert readable text, with anchor destinations retained as text. Excerpt counts refer to that converted text, not raw HTML bytes. Each comment preserves its ID, source URL, original event time, API page (shown 1-based) and `parent_id`. The parent may not be present in this sample; open its source link for context. HN does not supply GitHub association or bot-account metadata, so the viewer does not infer those classifications.
+
+A story's submitted project URL is a `project_link` with `check: "link_only"`. Its repository, license, implementation, releases and demand are not checked. Source URLs are restricted to GitHub or exact HTTPS HN item URLs; project links permit ordinary HTTP(S) destinations but never execute/unfurl their contents. Imports do not trigger source fetches.
+
+Selecting an HN search result also keeps a `discovery` record: query, relevance/date order, explicit period, collection time, result metrics/links, read endpoint and selected story ID. The default is the past 90 days, not all-time popularity. Search event dates and collection dates are distinct. These fields identify how the story was found, not causal evidence of a viable product.
+
+The version-1 review wrapper supports either report version in its exact `source_text` and SHA-256. Existing version-1 reports/reviews remain readable. There is no migration that rewrites an old source snapshot.
+
+Primary endpoints: [HN Search API](https://hn.algolia.com/api), [official HN item API](https://github.com/HackerNews/API#items).

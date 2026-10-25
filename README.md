@@ -1,16 +1,25 @@
-# GapCue · GitHub Issue Scout
+# GapCue · Project Research Desk
 
 **Read the replies before you build.**
 
 A feature request can outlive the work that answers it. Before turning an open issue into your next product, read the later discussion, inspect the linked changes, and keep the evidence beside your decision.
 
-GapCue is a small, read-only GitHub collector and a local review desk. **Up to 6 issues. First and last comment pages. Source-linked changes. Your judgment.**
+GapCue is a browser research desk with a small read-only GitHub CLI collector. **Search Hacker News. Read public GitHub issues. Keep the sources beside your decision.** No Python or API key is needed for browser collection.
 
 [Try the review desk](https://lydiatools.github.io/gapcue/) · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
 ![GapCue's actual English review desk: an open fictional issue, a separately marked merged PR, omitted comments and a place to record the next step.](docs/assets/review-desk.png)
 
 *Actual app screenshot. The included discussion is an original fictional example, visibly labeled in the app. It is not evidence of customer demand or an upstream project result.*
+
+## Start with a real discussion
+
+1. Open the [research desk](https://lydiatools.github.io/gapcue/), type a topic such as `PDF tables`, and select **Search HN**. The default period is the past 90 days; choose recent/relevant results or another period.
+2. Choose a story to read its original post, newest/oldest indexed comment samples and project link. Or paste a public GitHub Issue / Hacker News story URL directly.
+3. Compare what people ask for with the current alternatives. Record **Follow up**, **Prototype candidate** or **Pass for my task**, then **Save review file**.
+4. Close the tab and reopen that file to continue with the same source snapshot and notes. Saved reviews also work disconnected.
+
+Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
 
 ## The question behind the issue
 
@@ -27,7 +36,9 @@ GapCue puts those questions on one desk. You make the decision: **follow up, try
 
 | Your task | GapCue provides |
 | --- | --- |
-| Read a few relevant threads | Explicit issue URLs, or a bounded search within one public repository |
+| Find projects discussed elsewhere | Hacker News keyword search, relevant/recent order and an explicit time period |
+| Read a real thread without installing anything | Paste one public GitHub Issue or HN story URL into the browser |
+| Collect several GitHub issues | Python CLI: explicit issue URLs, or bounded search within one public repository |
 | Check what happened later | First and last comment pages, shown with the newest collected comments first |
 | Know what you missed | Collected/reported counts, visible omissions, shortened excerpts and unavailable sources |
 | Inspect mentioned work | Current state checks for mentioned issues/PRs; branch and commit links stay clearly marked as links |
@@ -35,9 +46,9 @@ GapCue puts those questions on one desk. You make the decision: **follow up, try
 | Return to the same evidence | Download and reopen a review containing the exact report text, its SHA-256 and your notes |
 | Work in either language | English/Chinese controls; original source language is preserved |
 
-The collector uses Python's standard library. The viewer uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. The viewer makes no report-upload requests and does not save notes automatically.
+The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search or choose a discussion. Search terms go to HN Search; public source requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. The optional multi-issue collector uses Python's standard library.
 
-## Try it in a minute
+## Try the offline review workflow
 
 1. Open the [review desk](https://lydiatools.github.io/gapcue/).
 2. Read the fictional sample. Notice that the issue is open while a mentioned PR is marked merged; neither is a release verdict.
@@ -46,7 +57,7 @@ The collector uses Python's standard library. The viewer uses plain HTML, CSS an
 
 For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases), then open `app/index.html` in Chrome. No server is needed for the viewer.
 
-## Collect real public issues
+## Optional Python collector for several GitHub issues
 
 Requires **Python 3.10+** and internet access. No Python packages to install.
 
@@ -79,7 +90,8 @@ Each run writes `report.json`, a short `report.md`, and `SHA256SUMS.txt`. Exit c
 ## Deliberate limits
 
 - **A research aid, not a demand forecast.** Stars, reactions, handles and open issues do not establish independent users, willingness to pay, or a viable product. GapCue produces no opportunity score.
-- **A sample, not the entire conversation.** Up to 6 issues, at most 2 comment pages per issue, 1–20 comments per page, and up to 6 unique mentioned issue/PR checks across the report. A large thread can have a substantial unread middle. The last page is based on the issue's reported count; these reads are not atomic.
+- **A sample, not the entire conversation.** Browser collection reads one thread. GitHub: up to 10 first and 10 last comments, with at most two mentioned issue/PR checks. HN: up to 10 newest and 10 oldest available indexed comments; indexing can lag the official count, and sampled replies can have unsampled parents. Parent/source links remain available. Python supports up to six GitHub issues and six mentioned-reference checks. Reads are bounded and non-atomic; substantial middle discussion may be absent.
+- **Public reads can fail.** Browser responses are limited to 1 MiB each, with a 20-second timeout and no automatic retries. GitHub anonymous limits and network/CORS failures remain visible. Stop, failure or a late older response does not replace your current review. A failed comment/reference read can produce an explicitly partial snapshot.
 - **Mention checks, not a full dependency graph.** Explicit GitHub issue/PR URLs and simple same-repo `#123` mentions are recognized. It does not enumerate the timeline, infer every linked PR, inspect code, validate a fix, or check releases. Commit/branch links are not fetched.
 - **Snapshots age.** A checked PR state is what GitHub returned during collection. “Merged” is not “released,” and “closed” is not “solved for your task.” Edited comments can sit outside the collected pages.
 - **Local notes require a download.** Closing an unsaved tab can lose your review. The SHA-256 detects a changed source inside the bundle; it is not a signature proving authorship or authenticity. A review contains the collected text and your notes: inspect it before sharing.
@@ -108,9 +120,10 @@ python3 -m unittest discover -s tests -v
 npm test
 npx playwright install chromium
 BROWSER_CHANNEL=chromium npm run test:browser
+BROWSER_CHANNEL=chromium npm run test:research
 ```
 
-If Chrome is installed, `npm run test:browser` uses it by default. The browser test's generated reports stay in ignored `artifacts/`. Rebuild the original fictional sample with `python3 scripts/build-sample.py`.
+If Chrome is installed, the browser scripts use it by default. The research harness normally intercepts APIs with original synthetic fixtures; set `GAPCUE_REAL_PUBLIC=1 npm run test:research` for a bounded live anonymous API check (network and rate limits apply). The browser test's generated reports stay in ignored `artifacts/`. Rebuild the original fictional sample with `python3 scripts/build-sample.py`.
 
 [Report/review format](docs/FORMAT.md) · [Validation and scope](docs/VALIDATION.md) · [Contributing](CONTRIBUTING.md) · [Provenance](THIRD_PARTY_NOTICES.md)
 

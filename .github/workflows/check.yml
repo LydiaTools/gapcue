@@ -23,6 +23,9 @@ jobs:
       - run: npm run test:browser
         env:
           BROWSER_CHANNEL: chromium
+      - run: npm run test:research
+        env:
+          BROWSER_CHANNEL: chromium
       - uses: actions/upload-artifact@v7.0.2
         if: always()
         with:

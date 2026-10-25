@@ -76,7 +76,7 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 
   await page.locator('#sample').click();await page.waitForFunction(()=>document.getElementById('snapshotStatus').textContent==='');
   await page.locator('#language').click();
-  assert.equal(await page.locator('h1').textContent(),'立项之前，先看后续讨论。');
+  assert.equal(await page.locator('h1').textContent(),'搜索与核对讨论');
   assert.equal(await page.locator('#issueTitle').textContent(),sample.issues[0].title);
   await page.screenshot({path:path.join(shots,'desktop-zh.png'),fullPage:true});
   checks.push('Chinese controls preserve the original source language and data.');

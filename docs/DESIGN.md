@@ -21,3 +21,14 @@ An early cream/serif research-board concept was rejected during design review: i
 3. A local JSON reader exposes the collected sources, author/bot metadata, sample gaps and a manual decision. English/Chinese controls, inert source text, bounded imports and a downloadable review are required.
 4. Python/JS unit cases, CLI fault cases, actual public intake and real desktop/mobile browser operation must pass. The published source, Pages and actual release ZIP are checked separately.
 5. Promotion describes a preview, uses real UI with clearly marked fictional demo data, and claims neither adoption nor future Stars. Personal LydiaTools only.
+
+
+## v0.2 browser research brief (2026-10-25)
+
+The first user's explicit job is discovering projects outside GitHub without programming. The existing desk only imports files produced by Python; opening its demo does not let that user inspect a real discussion. Add a direct keyword/URL input to the existing folio rather than a separate product or a scoring dashboard.
+
+Retain the lilac/paper/ink palette, system navigation font, readable prose, left source index and right decision margin. Replace the promotional hero with a compact task form: topic or public discussion URL → bounded search results → collected source reading → saved decision. A search result's points/comments are source metrics at capture, not a demand score. Search can be relevant or recent; arbitrary popularity multipliers are absent.
+
+Support keyword search on HN, exact HN story URLs and exact public GitHub Issue URLs. Existing Python and offline file-import workflows remain available. HN snapshots use an explicit version-2 thread format, not fictional GitHub issue keys or states. Public APIs are GET-only, without cookies/tokens; no request on page load, automatic retry, background job, upload or persistence. Initial topic results and chosen-story comments are separate actions. Sources, omissions, sample parent links, network errors and timestamps must survive export.
+
+Acceptance: anonymous browser GitHub collection with first/last comments and bounded current PR checks; live HN keyword results and chosen-thread sampling; independent real-public endpoint checks; actual save/close/reopen; abort/stale-response and failed-source recovery preserving notes; old reports and source hashes unchanged; malicious source text inert; English/Chinese and 390px layout; fixed public source/Pages/release ZIP separately verified. A real thread or own research use is not external adoption.
