@@ -21,7 +21,7 @@
   <main>
     <section class="intro">
       <div><h1 data-i18n="headline">Read the replies before you build.</h1></div>
-      <div class="open-actions"><button id="open" class="primary" type="button" data-i18n="open">Open report or review</button><input id="file" type="file" accept=".json,application/json" hidden><button id="sample" class="quiet" type="button" data-i18n="sample">Try the sample</button></div>
+      <div class="open-actions"><button id="open" class="secondary" type="button" data-i18n="open">Open report or review</button><input id="file" type="file" accept=".json,application/json" hidden><button id="sample" class="quiet" type="button" data-i18n="sample">Try the sample</button></div>
     </section>
     <form id="research" class="research">
       <label for="source-input" data-i18n="inputLabel">Topic or discussion URL</label>
@@ -50,7 +50,7 @@
         <section class="decision"><h2 data-i18n="decision">Your decision</h2><label for="verdict" data-i18n="verdict">What is the next step?</label><select id="verdict"><option value="unreviewed"></option><option value="followup"></option><option value="prototype"></option><option value="pass"></option></select><label for="notes" data-i18n="notes">What would change your decision?</label><textarea id="notes" rows="6" maxlength="6000"></textarea><button id="export" class="primary wide" type="button" data-i18n="save">Save review file</button><p id="saveStatus" role="status" class="hint"></p><p class="hint" data-i18n="local">Report content is read locally. Save a review file to keep the source snapshot and your notes together.</p></section>
       </aside>
     </div>
-    <section id="collect-guide" class="collect-guide"><div><h2 data-i18n="ownReport">Collect your own report</h2><p data-i18n="collectHint">In a source checkout with Python 3.10+, run a read-only public GitHub collection:</p><pre><code>python3 gapcue.py collect --issue OWNER/REPO#123 --out artifacts/research</code></pre><p data-i18n="thenOpen">Open the generated report.json here. Public mode uses GitHub's anonymous rate limit; --backend gh can reuse your GitHub CLI login.</p></div><details><summary data-i18n="details">Collection details</summary><div id="reportDetails"></div><p data-i18n="scope">This is a bounded, non-atomic snapshot. Comments can be omitted and excerpts shortened. Handles and Stars are not demand votes. A mentioned or merged PR does not establish a released fix.</p></details></section>
+    <section id="collect-guide" class="collect-guide"><details class="python-guide"><summary data-i18n="ownReport">Python collector</summary><p data-i18n="collectHint">In a source checkout with Python 3.10+, run a read-only public GitHub collection:</p><pre><code>python3 gapcue.py collect --issue OWNER/REPO#123 --out artifacts/research</code></pre><p data-i18n="thenOpen">Open the generated report.json here. Public mode uses GitHub's anonymous rate limit; --backend gh can reuse your GitHub CLI login.</p></details><details><summary data-i18n="details">Collection details</summary><div id="reportDetails"></div><p data-i18n="scope">This is a bounded, non-atomic snapshot. Comments can be omitted and excerpts shortened. Handles and Stars are not demand votes. A mentioned or merged PR does not establish a released fix.</p></details></section>
     <footer><p data-i18n="footer">Preview v0.2.0.</p><a href="https://github.com/LydiaTools/gapcue/issues" target="_blank" rel="noopener" data-i18n="feedback">Report a problem</a></footer>
   </main>
 </body>

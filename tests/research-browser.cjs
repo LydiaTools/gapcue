@@ -15,9 +15,9 @@ const comment=(id,parent,date)=>({objectID:String(id),story_id:101,parent_id:par
  if(process.env.GAPCUE_PUBLIC_URL)assert.equal(new URL(origin).origin,'https://lydiatools.github.io');
  const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true,...(process.env.GAPCUE_PROXY?{proxy:{server:process.env.GAPCUE_PROXY,bypass:'localhost,127.0.0.1'}}:{})});
  const context=await browser.newContext({viewport:{width:1440,height:1000},acceptDownloads:true});
- const page=await context.newPage(),errors=[],reads=[],checks=[];let mode='normal',releaseSlow;
+ const page=await context.newPage(),errors=[],reads=[],checks=[],requestPrivacy=[],violations=[];let mode='normal',releaseSlow;
  context.on('page',p=>p.on('pageerror',e=>errors.push(e.message)));page.on('pageerror',e=>errors.push(e.message));
- context.on('request',request=>{if(['hn.algolia.com','hacker-news.firebaseio.com','api.github.com'].includes(new URL(request.url()).hostname)){assert.equal(request.method(),'GET');assert.equal(request.headers().authorization,undefined);assert.equal(request.headers().cookie,undefined);assert.equal(request.headers().referer,undefined);reads.push(request.url());}});
+ context.on('request',request=>{if(['hn.algolia.com','hacker-news.firebaseio.com','api.github.com'].includes(new URL(request.url()).hostname)){const headers=request.headers();const privacy={url:request.url(),method:request.method(),authorization_present:!!headers.authorization,cookie_present:!!headers.cookie,referrer_present:!!headers.referer};requestPrivacy.push(privacy);if(privacy.method!=='GET'||privacy.authorization_present||privacy.cookie_present||privacy.referrer_present)violations.push('Unexpected request privacy/method at '+new URL(request.url()).hostname);reads.push(request.url());}});
  if(!real)await context.route(/https:\/\/(hn\.algolia\.com|hacker-news\.firebaseio\.com|api\.github\.com)\//,async route=>{
   const url=new URL(route.request().url());let data,status=200;
   if(mode==='rate')status=429,data={message:'Synthetic rate limit'};
@@ -37,7 +37,7 @@ const comment=(id,parent,date)=>({objectID:String(id),story_id:101,parent_id:par
  try{
   await page.goto(origin);await page.locator('#issueList button').first().waitFor();assert.equal(reads.length,0);
   checks.push('Page load and fictional sample make no public API requests.');
-  const query=real?'Corgi':'portable research';
+  const query=real?'Corgi terminal':'portable research';
   if(!real)await page.locator('#notes').fill('Keep this old review until I choose to replace it.');
   await page.locator('#source-input').fill(query);await page.locator('#search').click();await page.locator('.result-open').first().waitFor();
   assert.ok(reads[0].includes('numericFilters='));
@@ -93,8 +93,8 @@ const comment=(id,parent,date)=>({objectID:String(id),story_id:101,parent_id:par
    await recovery.waitForTimeout(80);assert.equal(await recovery.getByRole('button',{name:'Fresh synthetic result',exact:true}).count(),1);assert.equal(await recovery.locator('#notes').inputValue(),'Keep me during cancellation.');
    checks.push('Abort and a late older search response cannot replace the newer result or unsaved notes.');
   }
-  assert.deepEqual(errors,[]);
-  const result={captured_at:new Date().toISOString(),mode:real?'actual anonymous public APIs':'controlled original synthetic API fixtures',browser:browser.version(),source_commit:process.env.GITHUB_SHA||null,checks,public_reads:reads,page_errors:errors,output,scope:'Source retrieval and local research workflow; not external adoption, demand validation or Star attribution.'};
+  assert.deepEqual(errors,[]);assert.deepEqual(violations,[]);
+  const result={captured_at:new Date().toISOString(),mode:real?'actual anonymous public APIs':'controlled original synthetic API fixtures',browser:browser.version(),source_commit:process.env.GITHUB_SHA||null,checks,public_reads:reads,request_privacy:requestPrivacy,page_errors:errors,output,scope:'Source retrieval and local research workflow; not external adoption, demand validation or Star attribution.'};
   await fs.writeFile(path.join(output,'result.json'),JSON.stringify(result,null,2)+'\n');console.log(JSON.stringify(result,null,2));
  }finally{releaseSlow?.();await context.close();await browser.close();await new Promise(resolve=>server.close(resolve));}
 })().catch(error=>{console.error(error);process.exitCode=1;});

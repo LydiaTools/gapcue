@@ -1,0 +1,74 @@
+{
+  "version": "0.2.0",
+  "observed_at": "2026-10-25T06:22:08.883Z",
+  "browser": "156.0.8078.47",
+  "scope": "Developer validation using public sources and original controlled fixtures, not adoption or a demand forecast.",
+  "real_browser_workflows": [
+    "Page load and fictional sample make no public API requests.",
+    "Keyword search returns bounded source-linked stories and dated metrics without replacing current notes.",
+    "Chosen HN story has explicit discussion state, indexed sample/parent links and an actual review download including discovery query and source metrics.",
+    "Actual tab close, file:// reopen and disconnected import preserve the exact HN source and decision.",
+    "390px Chinese controls preserve source text, notes and parent URLs without page overflow.",
+    "Actual anonymous browser collection of microsoft/markitdown#293 completes with visible current source/reference outcomes; partial remains partial."
+  ],
+  "hn": {
+    "url": "https://news.ycombinator.com/item?id=50214373",
+    "search": "Corgi terminal",
+    "days": 90,
+    "source_count": 43,
+    "indexed_count": 43,
+    "collected_comments": 13,
+    "pages": [
+      1,
+      5
+    ],
+    "captured_at": "2026-10-25T06:17:39.142Z",
+    "story_created_at": "2026-10-23T19:46:38.000Z"
+  },
+  "github": {
+    "github_issue": "openai/openai-python#4022",
+    "comment_count": 23,
+    "comments_collected": 13,
+    "pages": [
+      1,
+      3
+    ],
+    "references": [
+      {
+        "url": "https://github.com/openai/openai-python/issues/3201",
+        "repository": "openai/openai-python",
+        "number": 3201,
+        "kind": "issue",
+        "check": "checked",
+        "state": "closed",
+        "captured_at": "2026-10-25T06:22:07.331Z"
+      },
+      {
+        "url": "https://github.com/openai/openai-python/pull/3709",
+        "repository": "openai/openai-python",
+        "number": 3709,
+        "kind": "pull_request",
+        "check": "checked",
+        "state": "open",
+        "captured_at": "2026-10-25T06:22:08.707Z"
+      }
+    ],
+    "collection_status": "complete",
+    "failures": []
+  },
+  "request_privacy": {
+    "all_GET": true,
+    "cookie_or_authorization_or_referrer_present": false
+  },
+  "runtime_sha256": {
+    "app.js": "e50c67fc3c0b4f4f9ca3522fc0c56132c6ac1bb459e5bcb2976bbeb1395bcac9",
+    "core.js": "196d1e0124e04a3552f4fc7eaa9937177cd3aff8ffe1c4da81c3ca12b41cef0a",
+    "index.html": "8551e9000e60bdf4dd34d4fdbd1a259d415a74a9cfc7ff47ce029c56d17f74b9",
+    "live-i18n.js": "3bc402506f65e934681dc33fbd6c1523de00fd1628d269750671917b1d47b4d6",
+    "live.js": "5f72a3aaf37b67d75d37f4068b90f6595b8a311d754e7b114689c50f742bc04e",
+    "sample.js": "b2391f0d66951b7fc7e8f372e8c257908607fc93e45f04fbff57399ff04f2b16",
+    "styles.css": "5023b83a043b70cda5486923458d754836b6b7ae0b2c346b9c63ccac52d34f67"
+  },
+  "page_errors": [],
+  "screenshot_scope": "Chinese image shows a live HN search above the explicitly marked original fictional review sample; not adoption."
+}

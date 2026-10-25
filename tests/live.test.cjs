@@ -23,7 +23,7 @@ test('search is one anonymous GET, bounded to 8, with a recorded time filter and
  const calls=[];
  const result=await live.search('pdf tables','recent',{days:30,fetcher:fake(()=>({nbHits:99,hits:[{objectID:'101',title:'Example',author:'a',created_at:'2020-01-01T00:00:00Z',points:2,num_comments:3,url:'javascript:alert(1)'}]}),calls)});
  assert.equal(calls.length,1);assert.equal(calls[0].options.method,'GET');assert.equal(calls[0].options.credentials,'omit');assert.equal(calls[0].options.referrerPolicy,'no-referrer');assert.match(calls[0].url,/search_by_date/);
- assert.match(new URL(calls[0].url).searchParams.get('numericFilters'),/^created_at_i>=\d+$/);
+ assert.match(new URL(calls[0].url).searchParams.get('numericFilters'),/^created_at_i>=\d+$/);assert.equal(new URL(calls[0].url).searchParams.get('typoTolerance'),'false');assert.equal(new URL(calls[0].url).searchParams.get('removeWordsIfNoResults'),'none');
  assert.equal(result.days,30);assert.equal(result.entries[0].created_at,'2020-01-01T00:00:00Z');assert.equal(result.entries[0].project_url,null);
 });
 test('HN is a discussion snapshot with newest/oldest indexed samples, parent links, own metrics and no fictional GitHub state',async()=>{
@@ -85,4 +85,8 @@ test('an aborted collection does not return a partial successful report or start
  const controller=new AbortController();let calls=0;
  const fetcher=async(url,options)=>{calls++;controller.abort();throw new DOMException('Stopped','AbortError');};
  await assert.rejects(live.collectHN(101,{signal:controller.signal,fetcher}),/Stopped/);assert.equal(calls,1);
+});
+test('a forbidden response is not called a rate limit without rate-limit evidence',async()=>{
+ await assert.rejects(live.search('topic','relevance',{fetcher:async()=>new Response('{}',{status:403})}),/sourceFailed/);
+ await assert.rejects(live.search('topic','relevance',{fetcher:async()=>new Response('{}',{status:403,headers:{'x-ratelimit-remaining':'0'}})}),/rateLimited/);
 });

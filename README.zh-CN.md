@@ -8,9 +8,9 @@ GapCue 帮你把公开讨论、提到的项目和自己的判断放在一起。*
 
 [在线试用](https://lydiatools.github.io/gapcue/?lang=zh) · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
-![GapCue 中文真实界面：原始请求、评论采集缺口、PR 状态与自己的判断。](docs/assets/review-desk-zh.png)
+![GapCue 中文真实界面：上方是真实 HN 搜索结果，下方为明确标注的原创虚构评审示例。](docs/assets/browser-search-zh.png)
 
-*截图来自实际应用。内置讨论是原创虚构示例，界面有明确标识，不代表真实用户需求或上游项目成果。切换界面语言不会翻译原始来源。*
+*截图来自实际应用。搜索结果是真实公开 HN 帖子；下方评审是明确标注的原创虚构示例。两者均不代表 GapCue 用户采用或上游背书。切换界面语言不会翻译原始来源。*
 
 ## 直接查看真实讨论
 

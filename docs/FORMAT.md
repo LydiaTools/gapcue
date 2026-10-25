@@ -51,7 +51,7 @@ HN HTML is converted to inert readable text, with anchor destinations retained a
 
 A story's submitted project URL is a `project_link` with `check: "link_only"`. Its repository, license, implementation, releases and demand are not checked. Source URLs are restricted to GitHub or exact HTTPS HN item URLs; project links permit ordinary HTTP(S) destinations but never execute/unfurl their contents. Imports do not trigger source fetches.
 
-Selecting an HN search result also keeps a `discovery` record: query, relevance/date order, explicit period, collection time, result metrics/links, read endpoint and selected story ID. The default is the past 90 days, not all-time popularity. Search event dates and collection dates are distinct. These fields identify how the story was found, not causal evidence of a viable product.
+Selecting an HN search result also keeps a `discovery` record: query, relevance/date order, explicit period, collection time, result metrics/links, read endpoint and selected story ID. The default is the past 90 days. Search passes `typoTolerance=false` and `removeWordsIfNoResults=none` to avoid spelling expansion or word-dropping fallback; relevance still belongs to the upstream search service, not an opportunity score. Search event dates and collection dates are distinct. These fields identify how the story was found, not causal evidence of a viable product.
 
 The version-1 review wrapper supports either report version in its exact `source_text` and SHA-256. Existing version-1 reports/reviews remain readable. There is no migration that rewrites an old source snapshot.
 

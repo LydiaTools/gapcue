@@ -8,9 +8,9 @@ GapCue is a browser research desk with a small read-only GitHub CLI collector. *
 
 [Try the review desk](https://lydiatools.github.io/gapcue/) · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
-![GapCue's actual English review desk: an open fictional issue, a separately marked merged PR, omitted comments and a place to record the next step.](docs/assets/review-desk.png)
+![Actual HN keyword search above GapCue's explicitly labeled original fictional review example.](docs/assets/browser-search.png)
 
-*Actual app screenshot. The included discussion is an original fictional example, visibly labeled in the app. It is not evidence of customer demand or an upstream project result.*
+*Actual app: the search result is a public HN story; the review example below it is original fiction and visibly labeled. Neither is evidence of GapCue adoption or an upstream endorsement.*
 
 ## Start with a real discussion
 

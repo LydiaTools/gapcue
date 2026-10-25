@@ -47,7 +47,7 @@ function renderReferences(issue) {
     const label=ref.check==="checked"?stateLabel(ref.state):tr(({not_checked:"notChecked",unavailable:"unavailable",link_only:"linkOnly"})[ref.check]||"notChecked");
     top.append(link,element("span",label,"badge "+(ref.check==="checked"?ref.state:ref.check==="unavailable"?"unavailable":"")));item.append(top);
     if(ref.captured_at)item.append(element("p",tr("collected")+" "+date(ref.captured_at)));
-    if(ref.reason)item.append(element("p",ref.reason));parent.append(item);
+    if(ref.reason&&ref.kind!=="project_link")item.append(element("p",ref.reason));parent.append(item);
   }
 }
 function commentBlock(comment, issue) {

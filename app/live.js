@@ -52,7 +52,7 @@
       try {
         const response = await fetcher(url, {method:'GET', credentials:'omit', referrerPolicy:'no-referrer', cache:'no-store', redirect:'error', signal:controller.signal, headers:{Accept:'application/json'}});
         event.status = response.status;
-        if (!response.ok) throw new SourceError([403,429].includes(response.status) ? 'rateLimited' : 'sourceFailed');
+        if (!response.ok) throw new SourceError(response.status===429 || response.status===403 && response.headers.get('x-ratelimit-remaining')==='0' ? 'rateLimited' : 'sourceFailed');
         if (Number(response.headers.get('content-length')) > MAX_RESPONSE) throw new SourceError('responseTooLarge');
         const reader = response.body.getReader(), chunks = []; let size = 0;
         while (true) {
@@ -88,7 +88,7 @@
     if (parsed.kind !== 'search' || !['relevance','recent'].includes(sort)) throw new SourceError('invalidInput');
     const days = options?.days ?? 90;
     if (![0,30,90,365].includes(days)) throw new SourceError('invalidInput');
-    const params = new URLSearchParams({query:parsed.query,tags:'story',hitsPerPage:'8',page:'0'});
+    const params = new URLSearchParams({query:parsed.query,tags:'story',hitsPerPage:'8',page:'0',typoTolerance:'false',removeWordsIfNoResults:'none'});
     if (days) params.set('numericFilters','created_at_i>='+Math.floor(Date.now()/1000-days*86400));
     const url = HN+(sort==='recent'?'search_by_date':'search')+'?'+params;
     const data = await c.get(url);
