@@ -12,7 +12,7 @@ from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
-VERSION = "0.2.0"
+VERSION = "0.3.0"
 MAX_BYTES = 8 * 1024 * 1024
 REPO = re.compile(r"[A-Za-z0-9_-]{1,100}/[A-Za-z0-9_.-]{1,100}\Z")
 ISSUE = re.compile(r"([A-Za-z0-9_-]+/[A-Za-z0-9_.-]+)#([1-9][0-9]*)\Z")

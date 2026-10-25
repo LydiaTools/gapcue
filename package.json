@@ -1,6 +1,6 @@
 {
   "name": "gapcue",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "Browser research desk for public GitHub issues and Hacker News discussions.",
   "license": "MIT",

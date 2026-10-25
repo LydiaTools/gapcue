@@ -21,6 +21,30 @@ GapCue is a browser research desk with a small read-only GitHub CLI collector. *
 
 Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
 
+## Use it from your coding agent
+
+Install the bundled research skill into your current project (the verified installer version is pinned):
+
+```bash
+npx skills@1.7.4 add LydiaTools/gapcue --skill gapcue --agent codex
+```
+
+Then ask: **“Use GapCue to research PDF table workflows. Read later replies, compare current alternatives, and save the evidence with a follow-up or prototype decision.”**
+
+The skill includes the collector and offline viewer. Its Node CLI reuses the browser's source adapters and review format; it needs Node 20+, with no runtime npm dependencies or model API. See [validation](docs/VALIDATION.md) for the installation and execution checks.
+
+To run it directly from this checkout or an extracted release:
+
+```bash
+node scripts/research.cjs search "PDF tables" --sort recent --days 90 --out ./search-01
+node scripts/research.cjs collect "https://news.ycombinator.com/item?id=50214373" --out ./thread-01
+node scripts/research.cjs review ./thread-01/review.json --verdict followup --note "Compare the current alternatives." --out ./decision-01
+```
+
+The HN URL is a real discussion example, not market validation. Replace it with your selected result. Each output directory must be new. Search writes `search.json`; collection writes the source report, a short Markdown index and an openable `review.json`; review adds notes without changing the original source bytes. Open that review in `app/index.html` or the online desk.
+
+CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sources; `2` arguments/files; `130` interrupted. Partial reads remain visible. The CLI never posts, scores an opportunity, retries automatically, or replaces an existing output directory. JavaScript collection is anonymous; the Python collector below can reuse an existing `gh` login for public reads. If your network uses a proxy, configure your Node process using the option supported by your Node version, rather than changing system routing.
+
 ## The question behind the issue
 
 “Could you add CSV export?” is a useful starting point. But what happened afterward?

@@ -12,6 +12,30 @@ GapCue 帮你把公开讨论、提到的项目和自己的判断放在一起。*
 
 *截图来自实际应用。搜索结果是真实公开 HN 帖子；下方评审是明确标注的原创虚构示例。两者均不代表 GapCue 用户采用或上游背书。切换界面语言不会翻译原始来源。*
 
+## 让编程 Agent 直接做调研
+
+在当前项目安装随仓库提供的技能；下面固定为本次核验的安装器版本：
+
+```bash
+npx skills@1.7.4 add LydiaTools/gapcue --skill gapcue --agent codex
+```
+
+然后可以说：**“用 GapCue 调研 PDF 表格处理需求，看看后续评论和现有替代方案，把证据和是否继续做的判断一起保存。”**
+
+技能自带采集器和离线查看页。Node CLI 复用网页的来源适配器与评审格式，需要 Node 20+，运行时无需 npm 依赖或模型 API。具体安装与运行验收见[验证记录](docs/VALIDATION.md)。
+
+在源码或解压后的发行包中也可以直接运行：
+
+```bash
+node scripts/research.cjs search "PDF tables" --sort recent --days 90 --out ./search-01
+node scripts/research.cjs collect "https://news.ycombinator.com/item?id=50214373" --out ./thread-01
+node scripts/research.cjs review ./thread-01/review.json --verdict followup --note "核对当前替代方案，再决定是否做原型。" --out ./decision-01
+```
+
+示例链接是真实讨论，不代表市场机会已成立；实际使用时换成搜索选中的链接。每次输出目录必须是新的。搜索生成 `search.json`；采集生成来源报告、Markdown 索引及可打开的 `review.json`；评审保留原始来源字节，再加入判断与笔记。用 `app/index.html` 或在线调研台打开评审即可。
+
+退出码：`0` 表示请求完成或本地保存完成，`1` 表示来源部分失败/不可用，`2` 表示参数或文件错误，`130` 表示中断。失败不会自动重试，不覆盖旧目录。JavaScript 路径仅匿名读取；下文 Python 模式可复用已有 `gh` 登录读取公开来源。需要代理时使用当前 Node 版本支持的进程级配置，不更改系统路由。
+
 ## 直接查看真实讨论
 
 1. 打开[中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)，输入主题，例如 `PDF tables`，点击“搜索 HN”。默认近 90 天，可改成最新、相关或其他时间范围。
