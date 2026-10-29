@@ -118,9 +118,27 @@ function edit(){if(!selected)return;decisions[selected]={verdict:$("verdict").va
 function cancelOperation() { operationId++;operation?.abort();operation=null;$("stop").hidden=true;$("search").disabled=false; }
 function renderSearch() {
   $("source-input").placeholder=tr("inputPlaceholder");
-  $("search").textContent=tr(/^https?:\/\//i.test($("source-input").value.trim())?"readThread":"searchHN");
+  const url=/^https?:\/\//i.test($("source-input").value.trim()), repos=$("search-source").value==="github";
+  $("hn-sort-label").hidden=repos;
+  $("search").textContent=tr(url?"readThread":repos?"searchRepos":"searchHN");
   if(!searchResult)return;
-  $("discover").hidden=false;$("resultTitle").textContent=tr("results")+": "+searchResult.query;
+  $("discover").hidden=false;
+  if(searchResult.kind==="repositories") {
+    $("resultTitle").textContent=tr("repoResults")+": "+searchResult.query;
+    $("resultMeta").textContent=tr("repoFound",searchResult.entries.length,searchResult.reported_total)+" · "+tr("repoHint")+(searchResult.created_since?" · "+tr("repoSince",searchResult.created_since):"")+" — "+date(searchResult.captured_at)+(searchResult.incomplete_results?" · "+tr("repoPartial"):"");
+    const list=clear("searchResults");
+    if(!searchResult.entries.length)list.append(element("p",tr("noRepoResults"),"hint"));
+    for(const repo of searchResult.entries) {
+      const row=element("div",undefined,"repo-result"),title=element("a",repo.full_name,"repo-title");
+      title.href=core.github(repo.html_url);title.target="_blank";title.rel="noopener noreferrer";
+      const meta=element("p",`${repo.stargazers_count.toLocaleString()} Stars · ${date(repo.created_at)} · ${repo.license||tr("repoLicenseUnknown")}${repo.fork?" · "+tr("repoFork"):""}`,"hint");
+      row.append(title,meta);
+      if(repo.description)row.append(element("p",repo.description,"repo-description"));
+      const issues=element("a",tr("repoIssues"),"source-link");issues.href=title.href+"/issues";issues.target="_blank";issues.rel="noopener noreferrer";row.append(issues);list.append(row);
+    }
+    return;
+  }
+  $("resultTitle").textContent=tr("results")+": "+searchResult.query;
   $("resultMeta").textContent=tr("found",searchResult.entries.length,searchResult.reported_total)+" - "+date(searchResult.captured_at);
   const list=clear("searchResults");
   if(!searchResult.entries.length)list.append(element("p",tr("noResults"),"hint"));
@@ -136,11 +154,13 @@ async function startResearch(discovery=null) {
   $("search").disabled=true;$("stop").hidden=false;$("error").hidden=true;
   try {
     const parsed=live.input($("source-input").value);
-    $("researchStatus").textContent=tr(parsed.kind==="search"?"searching":"collecting");
+    $("researchStatus").textContent=tr(parsed.kind==="search"?($("search-source").value==="github"?"searchingRepos":"searching"):"collecting");
     const options={signal:controller.signal,days:Number($("search-days").value)};
     if(parsed.kind==="search"){
-      const found=await live.search(parsed.query,$("search-order").value,options);
-      if(id!==operationId)return;searchResult=found;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr("chooseResult");
+      const repoMode=$("search-source").value==="github";
+      if(repoMode){searchResult=null;$("discover").hidden=true;}
+      const found=repoMode?await live.searchRepositories(parsed.query,options):await live.search(parsed.query,$("search-order").value,options);
+      if(id!==operationId)return;searchResult=repoMode?{...found,kind:"repositories"}:found;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr(repoMode?"repoChoose":"chooseResult");
     }else{
       const report=await live.collect($("source-input").value,options);
       if(discovery)report.discovery=discovery;
@@ -149,12 +169,13 @@ async function startResearch(discovery=null) {
       if(changed&&discovery)$("discover").open=false;
       if(changed)$("researchStatus").textContent=tr(report.collection_status==="partial"?"partial":"complete")+" - "+tr("reads",report.requests.length);
     }
-  }catch(error){if(id===operationId)$("researchStatus").textContent=tr(controller.signal.aborted?"stopped":messages[lang][error.code]?error.code:"sourceFailed");}
+  }catch(error){if(id===operationId){const code=error.code==="rateLimited"&&$("search-source").value==="github"&&!/^https?:\/\//i.test($("source-input").value.trim())?"repoRateLimited":error.code;$("researchStatus").textContent=tr(controller.signal.aborted?"stopped":messages[lang][code]?code:"sourceFailed");}}
   finally{if(id===operationId){operation=null;$("search").disabled=false;$("stop").hidden=true;}}
 }
 $("research").addEventListener("submit",event=>{event.preventDefault();startResearch();});
 $("stop").addEventListener("click",()=>{cancelOperation();$("researchStatus").textContent=tr("stopped");});
 $("source-input").addEventListener("input",renderSearch);
+$("search-source").addEventListener("change",()=>{cancelOperation();searchResult=null;$("discover").hidden=true;$("researchStatus").textContent=tr("inputHint");renderSearch();});
 $("language").addEventListener("click",()=>{lang=lang==="en"?"zh":"en";render();});
 $("open").addEventListener("click",()=>{cancelOperation();$("file").click();});
 $("file").addEventListener("change",async()=>{try{cancelOperation();const file=$("file").files[0];if(!file)return;if(file.size>core.MAX_FILE)throw new Error(tr("fileLimit"));await load(await file.text());}catch(error){fail(error);}finally{$("file").value="";}});

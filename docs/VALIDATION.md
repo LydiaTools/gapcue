@@ -47,3 +47,10 @@ Original version-1 source bytes and saved reviews remain supported; HN uses a di
 - Source comments and private decision notes are not shipped as release fixtures. The generated fictional example remains clearly marked. Root skill metadata follows the local validator's supported subset; runtime requirements live in its instructions.
 
 This proves installation and deterministic execution of the bundled capability, not that a model will select the skill or judge opportunities correctly. Native agent routing, independent first use, registry listing and Star conversion are unverified. Current Linux/Node-version and browser regression results are available in [Actions](https://github.com/LydiaTools/gapcue/actions).
+
+
+## v0.4 repository discovery · 2026-10-30
+
+- 39 Node tests and 14 Python tests passed locally. Browser regression tests used installed Chrome on macOS, including the prior offline review and HN workflows. The new controlled repository test exercised real browser requests against a fixture: omitted credentials, UTC cutoff, current Stars, absent license, invalid URLs, inert third-party text, incomplete or empty results, rate limits, cancellation, English/Chinese and a 390 px viewport. CI runs the same browser test after installing Playwright Chromium; current results are in Actions.
+- A separate anonymous browser search against GitHub for `agent`, 30-day UTC date cutoff, returned eight public repository results on 2026-10-29 UTC. Browser and CLI queries both completed in the test environment through its existing proxy; this is a bounded point-in-time observation, not evidence of independent adoption or Star growth. The English README screenshot shows that real browser result.
+- The `skills@1.7.4` installer copied a clean temporary project-scoped skill; the installed copy ran a controlled repository search and the existing collection/review path from an unrelated working directory. No global installation or model routing claim is made.

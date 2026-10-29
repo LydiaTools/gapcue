@@ -4,22 +4,22 @@
 
 A feature request can outlive the work that answers it. Before turning an open issue into your next product, read the later discussion, inspect the linked changes, and keep the evidence beside your decision.
 
-GapCue is a browser research desk with a small read-only GitHub CLI collector. **Search Hacker News. Read public GitHub issues. Keep the sources beside your decision.** No Python or API key is needed for browser collection.
+GapCue is a browser research desk with a small read-only GitHub CLI collector. **Find GitHub repositories, search Hacker News, and read public GitHub issues. Keep the sources beside your decision.** No Python or API key is needed for browser collection.
 
 [Try the review desk](https://lydiatools.github.io/gapcue/) · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
-![Actual HN keyword search above GapCue's explicitly labeled original fictional review example.](docs/assets/browser-search.png)
+![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
-*Actual app: the search result is a public HN story; the review example below it is original fiction and visibly labeled. Neither is evidence of GapCue adoption or an upstream endorsement.*
+*Actual anonymous repository search, captured 2026-10-29 UTC. Results and Star counts change over time; they are not evidence of GapCue adoption or project endorsements.*
 
 ## Start with a real discussion
 
-1. Open the [research desk](https://lydiatools.github.io/gapcue/), type a topic such as `PDF tables`, and select **Search HN**. The default period is the past 90 days; choose recent/relevant results or another period.
-2. Choose a story to read its original post, newest/oldest indexed comment samples and project link. Or paste a public GitHub Issue / Hacker News story URL directly.
-3. Compare what people ask for with the current alternatives. Record **Follow up**, **Prototype candidate** or **Pass for my task**, then **Save review file**.
+1. Open the [research desk](https://lydiatools.github.io/gapcue/), type a topic such as `PDF tables`, choose **Hacker News** or **GitHub repositories**, and search. Choose a time period; HN also offers recent/relevant order.
+2. A repository result is a discovery link, not a review. Open its source or issues, inspect the current implementation, then paste a specific public GitHub Issue URL into GapCue to read that discussion. For an HN result, choose a story to read the post and comment samples. You can also paste an HN story URL.
+3. After loading a discussion, compare what people ask for with the current alternatives. Record **Follow up**, **Prototype candidate** or **Pass for my task**, then **Save review file**.
 4. Close the tab and reopen that file to continue with the same source snapshot and notes. Saved reviews also work disconnected.
 
-Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
+GitHub repository search shows up to eight matches, sorted by **current total Stars**, not Star growth. For a selected period, GitHub filters by creation date from the UTC calendar date calculated when the search runs; archived repositories and forks are excluded. An incomplete GitHub response is labeled. A license label is GitHub metadata, not a rights assessment: inspect the actual license and assets. Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
 
 ## Use it from your coding agent
 
@@ -36,12 +36,13 @@ The skill includes the collector and offline viewer. Its Node CLI reuses the bro
 To run it directly from this checkout or an extracted release:
 
 ```bash
+node scripts/research.cjs repos "agent skills" --days 30 --out ./repos-01
 node scripts/research.cjs search "PDF tables" --sort recent --days 90 --out ./search-01
 node scripts/research.cjs collect "https://news.ycombinator.com/item?id=50214373" --out ./thread-01
 node scripts/research.cjs review ./thread-01/review.json --verdict followup --note "Compare the current alternatives." --out ./decision-01
 ```
 
-The HN URL is a real discussion example, not market validation. Replace it with your selected result. Each output directory must be new. Search writes `search.json`; collection writes the source report, a short Markdown index and an openable `review.json`; review adds notes without changing the original source bytes. Open that review in `app/index.html` or the online desk.
+The HN URL is a real discussion example, not market validation. Replace it with your selected result. Each output directory must be new. Repository search writes `repos.json` with current Stars, creation dates, GitHub-reported totals and an incomplete-results flag; it is a separate search result, not a review file. Search writes `search.json`; collection writes the source report, a short Markdown index and an openable `review.json`; review adds notes without changing the original source bytes. Open that review in `app/index.html` or the online desk.
 
 CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sources; `2` arguments/files; `130` interrupted. Partial reads remain visible. The CLI never posts, scores an opportunity, retries automatically, or replaces an existing output directory. JavaScript collection is anonymous; the Python collector below can reuse an existing `gh` login for public reads. If your network uses a proxy, configure your Node process using the option supported by your Node version, rather than changing system routing.
 
@@ -60,6 +61,7 @@ GapCue puts those questions on one desk. You make the decision: **follow up, try
 
 | Your task | GapCue provides |
 | --- | --- |
+| Find candidate repositories | GitHub repository search, creation period and current total Stars |
 | Find projects discussed elsewhere | Hacker News keyword search, relevant/recent order and an explicit time period |
 | Read a real thread without installing anything | Paste one public GitHub Issue or HN story URL into the browser |
 | Collect several GitHub issues | Python CLI: explicit issue URLs, or bounded search within one public repository |
@@ -70,7 +72,7 @@ GapCue puts those questions on one desk. You make the decision: **follow up, try
 | Return to the same evidence | Download and reopen a review containing the exact report text, its SHA-256 and your notes |
 | Work in either language | English/Chinese controls; original source language is preserved |
 
-The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search or choose a discussion. Search terms go to HN Search; public source requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. The optional multi-issue collector uses Python's standard library.
+The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search or choose a discussion. Search terms go to the selected GitHub or HN Search service; public source requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. The optional multi-issue collector uses Python's standard library.
 
 ## Try the offline review workflow
 
@@ -145,6 +147,7 @@ npm test
 npx playwright install chromium
 BROWSER_CHANNEL=chromium npm run test:browser
 BROWSER_CHANNEL=chromium npm run test:research
+BROWSER_CHANNEL=chromium npm run test:repos
 ```
 
 If Chrome is installed, the browser scripts use it by default. The research harness normally intercepts APIs with original synthetic fixtures; set `GAPCUE_REAL_PUBLIC=1 npm run test:research` for a bounded live anonymous API check (network and rate limits apply). The browser test's generated reports stay in ignored `artifacts/`. Rebuild the original fictional sample with `python3 scripts/build-sample.py`.

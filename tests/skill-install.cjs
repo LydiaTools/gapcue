@@ -32,11 +32,16 @@ const {createHash}=require('node:crypto');
 globalThis.fetch=async(url,options)=>{
  calls.push({url,method:options.method,credentials:options.credentials});fs.writeFileSync(${JSON.stringify(requests)},JSON.stringify(calls));
  let data;
- if(url==='https://hacker-news.firebaseio.com/v0/item/101.json')data={id:101,type:'story',title:'Original installed-runtime fixture',by:'fixture',time:1767225600,score:2,descendants:1};
+ if(url.startsWith('https://api.github.com/search/repositories?'))data={total_count:1,incomplete_results:false,items:[{full_name:'example/installed',html_url:'https://github.com/example/installed',description:'Synthetic repository',created_at:'2026-01-01T00:00:00Z',stargazers_count:7,fork:false,archived:false,license:{spdx_id:'MIT'}}]};
+ else if(url==='https://hacker-news.firebaseio.com/v0/item/101.json')data={id:101,type:'story',title:'Original installed-runtime fixture',by:'fixture',time:1767225600,score:2,descendants:1};
  else if(url.startsWith('https://hn.algolia.com/api/v1/search_by_date?'))data={page:0,nbPages:1,nbHits:1,hits:[{objectID:'102',story_id:101,parent_id:101,author:'fixture-reader',created_at:'2026-01-02T00:00:00Z',comment_text:'Synthetic fixture, not adoption.'}]};
  else throw new Error('Unexpected fixture URL');
  return new Response(JSON.stringify(data));
 };`);
+  const repos=path.join(temporary,'repos');
+  const reposReceipt=JSON.parse(execute(['repos','agent','--days','0','--out',repos],preload));
+  const found=JSON.parse(await fs.readFile(path.join(repos,'repos.json'),'utf8'));
+  assert.equal(reposReceipt.status,'complete');assert.equal(found.entries[0].full_name,'example/installed');assert.equal(found.entries[0].stargazers_count,7);
   const collected=path.join(temporary,'thread');
   const receipt=JSON.parse(execute(['collect','https://news.ycombinator.com/item?id=101','--out',collected],preload));
   assert.equal(receipt.status,'complete');assert.equal(receipt.threads[0].comments_collected,1);
@@ -47,6 +52,6 @@ globalThis.fetch=async(url,options)=>{
   assert.equal(review.source_text,await fs.readFile(path.join(collected,'report.json'),'utf8'));
   assert.equal(createHash('sha256').update(review.source_text).digest('hex'),review.source_sha256);
   assert.equal(review.decisions['hn#101'].verdict,'followup');assert.match(review.decisions['hn#101'].notes,/核对替代方案/);
-  process.stdout.write(JSON.stringify({status:'passed',version,checks:['actual installed copy','runtime byte equality','no checkout dependencies','subprocess CLI collect','anonymous GET only','source-preserving bilingual decision'],runtime_sha256:hashes})+'\n');
+  process.stdout.write(JSON.stringify({status:'passed',version,checks:['actual installed copy','runtime byte equality','no checkout dependencies','subprocess CLI collect','installed repository search','anonymous GET only','source-preserving bilingual decision'],runtime_sha256:hashes})+'\n');
  } finally { await fs.rm(temporary,{recursive:true,force:true}); }
 })().catch(error=>{console.error(error);process.exitCode=1;});

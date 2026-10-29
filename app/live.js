@@ -77,7 +77,7 @@
     return {get, requests, signal};
   }
   function report(client, hn = false) {
-    return {schema_version:hn ? 2 : 1, tool:'GapCue', tool_version:'0.3.0', ...(hn ? {source_kind:'hackernews'} : {}), synthetic:false, started_at:new Date().toISOString(), captured_at:new Date().toISOString(), collection_status:'complete', parameters:{backend:'anonymous browser GET',page_size:PAGE_SIZE,issue_limit:1,reference_limit:2}, repositories:[], requests:client.requests, failures:[], ...(hn ? {threads:[]} : {issues:[]})};
+    return {schema_version:hn ? 2 : 1, tool:'GapCue', tool_version:'0.4.0', ...(hn ? {source_kind:'hackernews'} : {}), synthetic:false, started_at:new Date().toISOString(), captured_at:new Date().toISOString(), collection_status:'complete', parameters:{backend:'anonymous browser GET',page_size:PAGE_SIZE,issue_limit:1,reference_limit:2}, repositories:[], requests:client.requests, failures:[], ...(hn ? {threads:[]} : {issues:[]})};
   }
   function unavailable(result, name, error, client) {
     if (client.signal?.aborted || error.name === 'AbortError' && !error.code) throw error;
@@ -95,6 +95,24 @@
     if (!Array.isArray(data.hits) || !nonnegative(data.nbHits)) throw new SourceError('sourceFailed');
     const entries = data.hits.slice(0,8).filter(h => positive(Number(h.objectID)) && typeof h.title==='string' && typeof h.created_at==='string').map(h => ({id:Number(h.objectID),title:plain(h.title).slice(0,1000),author:String(h.author||'[unavailable]').slice(0,200),created_at:h.created_at,points:nonnegative(h.points)?h.points:null,comments:nonnegative(h.num_comments)?h.num_comments:null,url:'https://news.ycombinator.com/item?id='+h.objectID,project_url:core.external(h.url)}));
     return {query:parsed.query,sort,days,captured_at:new Date().toISOString(),reported_total:data.nbHits,entries,requests:c.requests};
+  }
+  // GitHub Search returns current cumulative Stars, not a growth rate.
+  async function searchRepositories(query, options) {
+    const c=client(options), parsed=input(query), days=options?.days ?? 90;
+    if (parsed.kind!=='search' || ![0,30,90,365].includes(days)) throw new SourceError('invalidInput');
+    if (!/^[\p{L}\p{N} ._+#-]+$/u.test(parsed.query)) throw new SourceError('invalidRepoQuery');
+    const terms=[parsed.query,'archived:false','fork:false'];
+    const created_since=days?new Date(Date.now()-days*86400000).toISOString().slice(0,10):null;
+    if (created_since) terms.push('created:>='+created_since);
+    const params=new URLSearchParams({q:terms.join(' '),sort:'stars',order:'desc',per_page:'8',page:'1'});
+    const data=await c.get(GH+'search/repositories?'+params);
+    if (!data || !nonnegative(data.total_count) || typeof data.incomplete_results!=='boolean' || !Array.isArray(data.items) || data.items.length>8) throw new SourceError('sourceFailed');
+    const entries=data.items.map(item=>{
+      if (!item || typeof item.full_name!=='string' || !/^[\w-]+\/[\w.-]+$/.test(item.full_name) || item.html_url!=='https://github.com/'+item.full_name || !nonnegative(item.stargazers_count) || typeof item.fork!=='boolean' || typeof item.archived!=='boolean' || typeof item.created_at!=='string' || !Number.isFinite(Date.parse(item.created_at)) || !(item.description===null || typeof item.description==='string')) throw new SourceError('sourceFailed');
+      const license=typeof item.license?.spdx_id==='string' && item.license.spdx_id!=='NOASSERTION' ? item.license.spdx_id.slice(0,100) : null;
+      return {full_name:item.full_name,html_url:item.html_url,description:item.description===null?null:item.description.slice(0,500),created_at:item.created_at,stargazers_count:item.stargazers_count,fork:item.fork,license};
+    });
+    return {query:parsed.query,days,created_since,captured_at:new Date().toISOString(),reported_total:data.total_count,incomplete_results:data.incomplete_results,entries,requests:c.requests};
   }
   async function collectHN(id, options) {
     if (!positive(id)) throw new SourceError('invalidInput');
@@ -188,6 +206,6 @@
     if (parsed.kind==='github') return collectGitHub(parsed.repository,parsed.number,options);
     throw new SourceError('invalidInput');
   }
-  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,collect,collectHN,collectGitHub};
+  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,collect,collectHN,collectGitHub};
   if (typeof module==='object'&&module.exports) module.exports=api;else globalThis.GapCueLive=api;
 })();

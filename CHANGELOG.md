@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0 · Find repositories and investigate discussions
+
+Adds bounded GitHub repository search to the browser desk and Agent Skill CLI. Results use current cumulative Stars and UTC creation dates, not Star growth or a demand forecast. The search excludes archived repositories and forks, identifies incomplete results, and links to repository issues for further research. License names are GitHub metadata and require checking the actual license and assets. Repository search is separate from a saved discussion review.
+
 ## 0.3.0 · coding-agent research entry
 
 Adds a self-contained `gapcue` Agent Skill and a dependency-free Node CLI for HN search, one public GitHub/HN discussion, and local review decisions. The CLI reuses the existing browser adapters and source-preserving review format. It reserves fresh output directories before network access, writes checksums, distinguishes partial/unavailable reads, and keeps old source bytes and other decisions when adding a review.
