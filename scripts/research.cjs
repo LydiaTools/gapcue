@@ -11,10 +11,12 @@ const VERSION = require('../package.json').version;
 const HELP = `GapCue ${VERSION} — public discussion research, without a browser runtime
 
 node scripts/research.cjs search "PDF tables" --out ./search-01
+node scripts/research.cjs repos "agent skills" --days 30 --out ./repos-01
 node scripts/research.cjs collect "https://news.ycombinator.com/item?id=50214373" --out ./thread-01
 node scripts/research.cjs review ./thread-01/review.json --verdict followup --note "Compare current alternatives." --out ./decision-01
 
 search:  --sort relevance|recent (default relevance); --days 0|30|90|365 (default 90)
+repos:   --days 0|30|90|365 (default 90); sorted by current total Stars, not growth
 review:  --key THREAD_KEY (required only for multi-thread reports)
          --verdict unreviewed|followup|prototype|pass; --note TEXT (up to 6000 characters)
 
@@ -26,8 +28,8 @@ Exit: 0 complete/local review; 1 partial/unavailable source; 2 arguments/files; 
 
 function options(argv) {
   const [command, value, ...rest] = argv;
-  if (!['search','collect','review'].includes(command) || !value || value.startsWith('--')) throw new Error('Choose search, collect or review and one input. Use --help.');
-  const allowed = command==='search' ? ['out','sort','days'] : command==='collect' ? ['out'] : ['out','key','verdict','note'];
+  if (!['search','repos','collect','review'].includes(command) || !value || value.startsWith('--')) throw new Error('Choose search, repos, collect or review and one input. Use --help.');
+  const allowed = command==='search' ? ['out','sort','days'] : command==='repos' ? ['out','days'] : command==='collect' ? ['out'] : ['out','key','verdict','note'];
   const flags = Object.create(null);
   for (let i=0;i<rest.length;i+=2) {
     const key=rest[i]?.slice(2), val=rest[i+1];
@@ -37,6 +39,8 @@ function options(argv) {
   if (!flags.out) throw new Error('Provide --out with a new directory.');
   if (command==='search') {
     if (live.input(value).kind!=='search' || !['relevance','recent'].includes(flags.sort||'relevance') || !['0','30','90','365'].includes(flags.days||'90')) throw new Error('Invalid search, sort or days.');
+  } else if (command==='repos') {
+    if (live.input(value).kind!=='search' || !/^[\p{L}\p{N} ._+#-]+$/u.test(value.trim()) || !['0','30','90','365'].includes(flags.days||'90')) throw new Error('Invalid repository search or days.');
   } else if (command==='collect') {
     if (live.input(value).kind==='search') throw new Error('Collect needs a public HN story or GitHub Issue URL.');
   } else if (!core.verdicts.includes(flags.verdict) || flags.note===undefined || flags.note.length>6000) throw new Error('Review needs --verdict and --note (up to 6000 characters).');
@@ -94,6 +98,11 @@ async function run(argv, sourceOptions={}) {
       await core.parse(text);
       await writeFiles(directory,{'review.json':text});
       return {exitCode:0,summary:{status:'saved',command,directory,source_sha256:loaded.sha256,decisions:review.decisions}};
+    }
+    if (command==='repos') {
+      const result=await live.searchRepositories(value,{...sourceOptions,days:Number(flags.days||90)});
+      await writeFiles(directory,{'repos.json':JSON.stringify(result,null,2)+'\n'});
+      return {exitCode:result.incomplete_results?1:0,summary:{status:result.incomplete_results?'partial':'complete',command,directory,returned:result.entries.length,reported_total:result.reported_total,incomplete_results:result.incomplete_results}};
     }
     if (command==='search') {
       const result=await live.search(value,flags.sort||'relevance',{...sourceOptions,days:Number(flags.days||90)});

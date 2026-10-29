@@ -4,7 +4,7 @@
 
 看到一条功能请求，很容易想“这个我来做”。但请求可能还开着，后面的评论已经给出了实现、替代方案，或者说明了另一个问题。
 
-GapCue 帮你把公开讨论、提到的项目和自己的判断放在一起。**搜索 Hacker News，读取公开 GitHub Issue，保留来源，再决定下一步。** 网页采集无需 Python 或 API Key。
+GapCue 帮你把公开讨论、提到的项目和自己的判断放在一起。**搜索 GitHub 仓库和 Hacker News，读取公开 GitHub Issue，保留来源，再决定下一步。** 网页采集无需 Python 或 API Key。
 
 [在线试用](https://lydiatools.github.io/gapcue/?lang=zh) · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
@@ -27,23 +27,24 @@ npx skills@1.7.4 add LydiaTools/gapcue --skill gapcue --agent codex
 在源码或解压后的发行包中也可以直接运行：
 
 ```bash
+node scripts/research.cjs repos "agent skills" --days 30 --out ./repos-01
 node scripts/research.cjs search "PDF tables" --sort recent --days 90 --out ./search-01
 node scripts/research.cjs collect "https://news.ycombinator.com/item?id=50214373" --out ./thread-01
 node scripts/research.cjs review ./thread-01/review.json --verdict followup --note "核对当前替代方案，再决定是否做原型。" --out ./decision-01
 ```
 
-示例链接是真实讨论，不代表市场机会已成立；实际使用时换成搜索选中的链接。每次输出目录必须是新的。搜索生成 `search.json`；采集生成来源报告、Markdown 索引及可打开的 `review.json`；评审保留原始来源字节，再加入判断与笔记。用 `app/index.html` 或在线调研台打开评审即可。
+示例链接是真实讨论，不代表市场机会已成立；实际使用时换成搜索选中的链接。每次输出目录必须是新的。仓库搜索生成独立的 `repos.json`，包含当前累计 Star、创建时间、GitHub 报告总数和结果是否完整，它不是评审文件。HN 搜索生成 `search.json`；采集生成来源报告、Markdown 索引及可打开的 `review.json`；评审保留原始来源字节，再加入判断与笔记。用 `app/index.html` 或在线调研台打开评审即可。
 
 退出码：`0` 表示请求完成或本地保存完成，`1` 表示来源部分失败/不可用，`2` 表示参数或文件错误，`130` 表示中断。失败不会自动重试，不覆盖旧目录。JavaScript 路径仅匿名读取；下文 Python 模式可复用已有 `gh` 登录读取公开来源。需要代理时使用当前 Node 版本支持的进程级配置，不更改系统路由。
 
 ## 直接查看真实讨论
 
-1. 打开[中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)，输入主题，例如 `PDF tables`，点击“搜索 HN”。默认近 90 天，可改成最新、相关或其他时间范围。
-2. 选择帖子，查看原帖、索引中的最新/最早评论样本和项目链接。也可以直接粘贴公开 GitHub Issue 或 HN 帖子链接。
-3. 比较用户请求与现有替代方案，选择下一步、写下判断，点击“保存评审文件”。
+1. 打开[中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)，输入主题，例如 `PDF tables`，选择“Hacker News”或“GitHub 仓库”并搜索。可以选择时间范围；HN 还可选最新或相关排序。
+2. 仓库结果用于发现项目，不能直接生成评审。打开源码或问题列表查看实际实现后，将具体的公开 GitHub Issue 链接粘回 GapCue，读取讨论。HN 搜索结果可选择帖子，查看原帖与评论样本；也可直接粘贴 HN 帖子链接。
+3. 加载讨论后，比较用户请求与现有替代方案，选择下一步、写下判断，点击“保存评审文件”。
 4. 关闭标签页，再打开这个文件，接着核对同一份来源和笔记；保存后的评审也能离线查看。
 
-分数和评论数只是采集时的帖子指标，不是需求分、独立用户数或爆款预测。项目链接仍需要进一步核对源码、许可证和当前功能。
+GitHub 仓库搜索最多显示 8 条，按**当前累计 Star**排序，并非 Star 增长速度。时间范围从搜索时计算出的 UTC 日历日期开始，筛选仓库创建时间；排除归档仓库与 fork。GitHub 返回结果不完整时会提示。许可证标签是 GitHub 元数据，不代表已核实使用权；请检查许可证原文与素材。分数和评论数只是采集时的帖子指标，不是需求分、独立用户数或爆款预测。项目链接仍需要进一步核对源码、许可证和当前功能。
 
 ## 先回答这几个问题
 
@@ -58,6 +59,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 
 | 你要做的事 | 工具提供什么 |
 | --- | --- |
+| 发现候选仓库 | GitHub 仓库搜索，按创建时间和当前累计 Star 查看 |
 | 在其他平台发现项目 | Hacker News 主题搜索，可选相关/最新和时间范围 |
 | 不安装工具就读真实讨论 | 在网页粘贴一个公开 GitHub Issue 或 HN 帖子地址 |
 | 批量采集 GitHub 问题 | 可选 Python 采集器：指定地址或限定一个仓库搜索 |
@@ -68,7 +70,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 | 下次接着看 | 评审文件保留原始报告文本、SHA-256 和笔记，可重新打开 |
 | 分享给海外用户 | 中英文界面和文档，来源语言保持原样 |
 
-网页使用原生 HTML/CSS/JavaScript，无需构建、数据库、模型 API 或账号。点击搜索/读取后才请求公开来源：搜索词发给 HN Search，来源请求发给 GitHub、HN Search 或 HN 官方 API，不携带 Cookie 或认证信息。报告与笔记不上传、不自动持久保存。可选批量采集器仅依赖 Python 标准库。
+网页使用原生 HTML/CSS/JavaScript，无需构建、数据库、模型 API 或账号。点击搜索/读取后才请求公开来源：搜索词发给选择的 GitHub 或 HN Search，来源请求发给 GitHub、HN Search 或 HN 官方 API，不携带 Cookie 或认证信息。报告与笔记不上传、不自动持久保存。可选批量采集器仅依赖 Python 标准库。
 
 ## 试用离线评审流程
 
