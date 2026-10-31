@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.0 · Compare repository observations
+
+Save a bounded GitHub repository search as a local snapshot and compare two files in English or Chinese. Repository IDs align renamed projects; only entries present in both snapshots receive a Star difference. Capture times come from the device, files can be edited, and date filters or incomplete results can change the sample. Comparison also works offline; collecting a new snapshot requires GitHub access. The saved snapshot is distinct from a discussion review and is not a demand forecast.
+
 ## 0.5.0 · Discover and investigate
 
 The browser desk can show AgentAtlas's attributed public snapshot of recently created agent projects. The list displays its generation time and the source's average Stars per day since creation; it is a discovery lead, not recent growth, user demand, or a saved review. AgentAtlas data is CC BY 4.0; descriptions may be shortened.

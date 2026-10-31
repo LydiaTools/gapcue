@@ -8,7 +8,7 @@ Then you read on. Someone has found a workaround. A maintainer has linked a pull
 
 I built GapCue for that moment between finding an idea and deciding what to do with it. Search GitHub projects and Hacker News, follow public discussions, and keep the sources next to your own notes and decision. Start in your browser, or use the included research skill with your coding agent.
 
-**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
 The browser desk needs no account, Python, or API key. Search a topic, or open the included fictional example to try the review workflow.
 
@@ -37,9 +37,11 @@ Start with a topic, a project, or a question you cannot quite let go of. Follow 
 
 Want to compare interest over time? Search **GitHub repositories** and select **Save search snapshot**. Later, repeat the same query and period, save a second snapshot, then [compare the files locally](https://lydiatools.github.io/gapcue/compare.html). The comparison uses stable GitHub repository IDs and shows the change only for projects in both samples. Each search returns at most eight projects, so a missing project is not zero; the rolling creation-date cutoff can move. Counts and client-clock timestamps are observations, not proof of demand or future growth. This snapshot is separate from your saved discussion review.
 
+To compare saved files without internet, extract the v0.6.0 preview ZIP and open `app/compare.html` in Chrome. New searches require a connection to GitHub. Older CLI `repos.json` files are not compatible with the browser snapshot format.
+
 ![Actual snapshot comparison showing repository names, both Star counts and their difference](docs/assets/repo-snapshot-compare.png)
 
-*Actual anonymous searches for “browser agent,” captured on 2026-10-31 UTC about two seconds apart to verify the workflow. The unchanged counts do not describe growth over a meaningful interval. The comparison page is in current source; the v0.5.0 ZIP predates it.*
+*Actual anonymous searches for “browser agent,” captured on 2026-10-31 UTC about two seconds apart to verify the workflow. The unchanged counts do not describe growth over a meaningful interval. The comparison page is in v0.6.0; the v0.5.0 ZIP predates it.*
 
 Looking for an idea? Select **Explore rising agent projects** in the browser desk to read [AgentAtlas's curated snapshot](https://agentatlas.dev/trending) of recently created agent repositories. It shows the feed's generation time and its average Stars per day since creation; this is not a live growth rate or proof of demand. The list is not a keyword search, and it is not included in saved reviews. Feed descriptions may be shortened. Data attribution: AgentAtlas, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Available in the online desk and the v0.5.0 preview. The older v0.4.0 archive predates this feature.
 
@@ -100,7 +102,7 @@ The browser app uses plain HTML, CSS and JavaScript: no build step, model API, d
 3. Choose a next step, write a note, and select **Save review file**.
 4. Reload the page, open that file, and continue with the same sources and notes.
 
-For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0), then open `app/index.html` in Chrome. No server is needed for the viewer.
+For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0), then open `app/index.html` in Chrome. No server is needed for the viewer.
 
 ## Optional Python collector for several GitHub issues
 

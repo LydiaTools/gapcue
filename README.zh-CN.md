@@ -8,7 +8,7 @@
 
 我做了 GapCue，想陪你走过从发现点子到决定要不要做的这一段。搜索 GitHub 项目和 Hacker News，顺着公开讨论往下看，把来源、笔记和自己的判断放在一起。你可以直接在网页使用，也可以让编程 Agent 使用随项目提供的调研技能。
 
-**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
+**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
 网页版无需账号、Python 或 API Key。输入主题开始搜索，也可以先打开内置虚构示例，体验评审流程。
 
@@ -37,9 +37,11 @@ GapCue 想帮你留下的，就是这样的过程：**原始讨论、你核对�
 
 想观察一段时间内的变化？选择“GitHub 仓库”搜索并点击“保存搜索快照”；稍后用相同主题和时间范围重新搜索，再保存第二份。打开[快照对比页](https://lydiatools.github.io/gapcue/compare.html?lang=zh)，本地选择两份文件。工具按 GitHub 仓库 ID 对齐，只计算两次都出现的项目。每次最多 8 条，未出现不代表零；滚动创建日期筛选也可能变化。数字和设备时钟记录的是观察值，不代表需求或未来增长。搜索快照与讨论评审文件分开保存。
 
+离线对比时，解压 v0.6.0 预览 ZIP，在 Chrome 打开 `app/compare.html`；重新搜索需要连接 GitHub。旧版 CLI 的 `repos.json` 与浏览器快照格式不兼容。
+
 ![实际的仓库快照对比页面，显示仓库、两次 Star 和变化](docs/assets/repo-snapshot-compare.png)
 
-*截图来自 2026-10-31 UTC 的真实匿名搜索，两次间隔约两秒，用于验证流程；数字不代表有意义的增长区间。对比页在当前源码中，旧 v0.5.0 ZIP 不包含它。*
+*截图来自 2026-10-31 UTC 的真实匿名搜索，两次间隔约两秒，用于验证流程；数字不代表有意义的增长区间。对比页包含在 v0.6.0 中，旧 v0.5.0 ZIP 不包含它。*
 
 想找选题？在网页点击“发现热门 Agent 项目”，查看 [AgentAtlas 的精选快照](https://agentatlas.dev/trending)：它展示榜单生成时间和项目自创建以来的日均 Star，不代表实时日增长或已验证的需求。这不是关键词搜索，榜单不会写入评审文件，简介可能被缩短。数据来自 AgentAtlas，遵循 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)；在线调研台和 v0.5.0 预览版均包含此功能，旧 v0.4.0 源码包不包含。
 
@@ -100,7 +102,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 3. 选择下一步、写一条笔记，点击“保存评审文件”。
 4. 刷新页面，再打开保存的 JSON，检查来源和笔记是否还在。
 
-也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
+也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
 
 ## 可选：用 Python 批量采集 GitHub
 
