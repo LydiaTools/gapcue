@@ -14,7 +14,8 @@
     "test:compare": "node tests/compare-browser.cjs",
     "test:atlas": "node tests/atlas-browser.cjs",
     "test:provenance": "node tests/repo-hn-provenance.cjs",
-    "test:hn-repo": "node tests/hn-linked-repo.cjs"
+    "test:hn-repo": "node tests/hn-linked-repo.cjs",
+    "test:hn-find-repos": "node tests/hn-find-repos.cjs"
   },
   "devDependencies": {
     "playwright": "1.64.1"

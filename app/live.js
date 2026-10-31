@@ -116,6 +116,12 @@
     if(new Set(entries.map(e=>e.id)).size!==entries.length)throw new SourceError('sourceFailed');
     return {query:parsed.query,days,created_since,captured_at:new Date().toISOString(),reported_total:data.total_count,incomplete_results:data.incomplete_results,entries,requests:c.requests};
   }
+  // A search suggestion only: HN titles do not establish repository identity.
+  function repositoryQueryFromTitle(value) {
+    const title=String(value||'').replace(/^\s*(?:show|ask|launch)\s+hn\s*:\s*/i,'');
+    const first=title.split(/\s+[—–|:]\s*|\s+-\s+|,\s+/u,1)[0];
+    return first.replace(/[^\p{L}\p{N} ._+#-]+/gu,' ').trim().replace(/\s+/g,' ').split(' ').slice(0,6).join(' ').slice(0,120).trim();
+  }
   // Only direct GitHub repository links are considered; no website crawling or inferred identity.
   function linkedRepository(value) {
     const safe=core.github(value); if(!safe)return null;
@@ -237,6 +243,6 @@
     if (parsed.kind==='github') return collectGitHub(parsed.repository,parsed.number,options);
     throw new SourceError('invalidInput');
   }
-  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,linkedRepository,linkedRepositoryInfo,risingAgents,collect,collectHN,collectGitHub,readHNParent};
+  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,repositoryQueryFromTitle,linkedRepository,linkedRepositoryInfo,risingAgents,collect,collectHN,collectGitHub,readHNParent};
   if (typeof module==='object'&&module.exports) module.exports=api;else globalThis.GapCueLive=api;
 })();

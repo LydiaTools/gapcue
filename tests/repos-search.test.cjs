@@ -46,3 +46,11 @@ test('HN direct GitHub links can be checked without inferring other links or ide
  await assert.rejects(live.linkedRepositoryInfo('https://example.com/a/b',{fetcher:async()=>{throw Error('must not read');}}),e=>e.code==='invalidInput');
  await assert.rejects(live.linkedRepositoryInfo('https://github.com/Example/project',{fetcher:async()=>reply({},429)}),e=>e.code==='rateLimited');
 });
+test('HN title produces an editable repository search suggestion, never an identity claim',()=>{
+ assert.equal(live.repositoryQueryFromTitle('Show HN: Corgi – a terminal for agents'),'Corgi');
+ assert.equal(live.repositoryQueryFromTitle('Corgi, a helpful {agent, terminal} multiplexer'),'Corgi');
+ assert.equal(live.repositoryQueryFromTitle('项目工具：A / B'),'项目工具 A B');
+ assert.equal(live.repositoryQueryFromTitle('!!!'),'');
+ assert.equal(live.repositoryQueryFromTitle('one two three four five six seven eight'),'one two three four five six');
+ assert.ok(live.repositoryQueryFromTitle('x'.repeat(300)).length<=120);
+});

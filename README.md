@@ -33,6 +33,12 @@ Start with a topic, a project, or a question you cannot quite let go of. Follow 
    From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. If you open a story, the originating repository is kept with the review as an **unverified search origin**. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available online and in the v0.6.1 preview; the v0.6.0 ZIP predates it.
    If an HN result links directly to a GitHub repository, choose **Check linked GitHub repository** to read its current Stars and creation time on demand. Archived and fork status are shown when applicable. This live information is not saved in the review and is not a growth or demand score. The v0.6.1 ZIP predates this button.
 
+   If a story points to a website instead, choose **Find repositories by name**. Edit the suggested name, then search GitHub; return to the HN results or reopen the starting discussion from the candidate list. Names can match unrelated projects, and relevant repositories can be outside the eight results. Check the project's own links before deciding. The story is not stored in the repository snapshot. This is in current source and the online desk; the v0.6.1 ZIP predates it.
+
+   ![Real search for corgi terminal showing GitHub candidates and a link back to the HN discussion](docs/assets/hn-name-candidates-en.png)
+
+   *Actual anonymous HN-to-GitHub search on 2026-10-31 UTC. The suggested “Corgi” was edited to “corgi terminal”; the project website links to `tals/corgi`. Counts and search order can change.*
+
    ![Actual on-demand GitHub repository lookup from an HN story showing the repository and current Stars](docs/assets/hn-linked-repo-en.png)
 
    *Actual anonymous lookup from the Hob HN story on 2026-10-31 UTC; the count changes over time.*

@@ -4,7 +4,7 @@ const core = window.GapCueCore;
 const $ = (id) => document.getElementById(id);
 let lang = new URLSearchParams(location.search).get("lang") === "zh" ? "zh" : "en";
 let loaded = null, selected = null, decisions = Object.create(null), dirty = false;
-let operation = null, operationId = 0, searchResult = null, atlasExpanded = false, hnRepoLookup = null;
+let operation = null, operationId = 0, searchResult = null, atlasExpanded = false, hnRepoLookup = null, hnCandidateLookup = null;
 const live = window.GapCueLive;
 const messages = {
   en: {
@@ -54,6 +54,18 @@ function linkedRepositoryAction(container,url) {
   });
   container.append(button,detail);
 }
+function repositoryCandidateAction(container, storyTitle, storyUrl) {
+  const button=element("button",tr("findRepoFromStory"),"secondary hn-find-repos");button.type="button";
+  button.addEventListener("click",()=>{
+    const previous=searchResult && !searchResult.kind ? searchResult : null;
+    hnCandidateLookup={previous,storyUrl:core.hn(storyUrl),controls:{source:previous?"hn":$("search-source").value,query:previous?previous.query:$("source-input").value,days:previous?String(previous.days):$("search-days").value,order:previous?previous.sort:$("search-order").value}};
+    cancelOperation();hnRepoLookup=null;
+    $("search-source").value="github";$("search-days").value="0";
+    $("source-input").value=live.repositoryQueryFromTitle(storyTitle);
+    renderSearch();$("researchStatus").textContent=tr("repoCandidatePrompt");$("source-input").focus();
+  });
+  container.append(button);
+}
 function renderReferences(issue) {
   const parent=clear("references");
   const origin=issue?.source_kind==="hackernews"?loaded.report.discovery?.repository_context:null;
@@ -62,6 +74,7 @@ function renderReferences(issue) {
     link.href=core.github(origin.url);link.target="_blank";link.rel="noopener noreferrer";
     top.append(link,element("span",tr("repoOriginBadge"),"badge"));item.append(top,element("p",tr("repoOriginHint")));parent.append(item);
   }
+  if(issue?.source_kind==="hackernews" && !loaded.report.synthetic && !issue.references?.some(ref=>ref.kind==="project_link"&&live.linkedRepository(ref.url)))repositoryCandidateAction(parent,issue.title,issue.url);
   if(!issue?.references?.length){parent.append(element("p",tr(issue?.source_kind==="hackernews"?"noProjectLink":"noRefs"),"hint"));return;}
   for(const ref of issue.references){
     const item=element("div",undefined,"reference");const top=element("div",undefined,"reference-top");
@@ -197,8 +210,10 @@ function renderSearch() {
   }
   if(searchResult.kind==="repositories") {
     $("resultTitle").textContent=tr("repoResults")+": "+searchResult.query;
-    $("resultMeta").textContent=tr("repoFound",searchResult.entries.length,searchResult.reported_total)+" · "+tr("repoHint")+(searchResult.created_since?" · "+tr("repoSince",searchResult.created_since):"")+" — "+date(searchResult.captured_at)+(searchResult.incomplete_results?" · "+tr("repoPartial"):"");
+    $("resultMeta").textContent=tr("repoFound",searchResult.entries.length,searchResult.reported_total)+" · "+tr("repoHint")+(searchResult.created_since?" · "+tr("repoSince",searchResult.created_since):"")+" — "+date(searchResult.captured_at)+(searchResult.incomplete_results?" · "+tr("repoPartial"):"")+(hnCandidateLookup?" · "+tr("repoCandidateHint"):"");
+    if(hnCandidateLookup?.storyUrl){const source=element("a",tr("repoCandidateSource"),"source-link");source.href=hnCandidateLookup.storyUrl;source.target="_blank";source.rel="noopener noreferrer";$("resultMeta").append(document.createTextNode(" · "),source);}
     const list=clear("searchResults");
+    if(hnCandidateLookup?.previous){const back=element("button",tr("repoCandidateBack"),"secondary");back.type="button";back.addEventListener("click",()=>{const saved=hnCandidateLookup;hnCandidateLookup=null;searchResult=saved.previous;$("search-source").value=saved.controls.source;$("source-input").value=saved.controls.query;$("search-days").value=saved.controls.days;$("search-order").value=saved.controls.order;renderSearch();$("researchStatus").textContent=tr("chooseResult");});list.append(back);}
     const actions=element("p",undefined,"snapshot-actions"),saveSnapshot=element("button",tr("saveRepoSnapshot"),"secondary");
     saveSnapshot.type="button";saveSnapshot.id="save-repo-snapshot";
     saveSnapshot.addEventListener("click",()=>{const value=window.GapCueCompare.snapshot(searchResult),blob=new Blob([JSON.stringify(value,null,2)+"\n"],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="gapcue-repositories-"+new Date().toISOString().replace(/[:.]/g,"-")+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);$("researchStatus").textContent=tr("savedRepoSnapshot");});
@@ -228,7 +243,9 @@ function renderSearch() {
       startResearch(discovery);
     });
     row.append(button,element("span",tr("storyMetrics",story.points,story.comments)+" - "+date(story.created_at),"hint"));
-    if(story.project_url){const project=element("a",new URL(story.project_url).hostname,"source-link");project.href=story.project_url;project.target="_blank";project.rel="noopener noreferrer";row.append(project);linkedRepositoryAction(row,story.project_url);}list.append(row);
+    if(story.project_url){const project=element("a",new URL(story.project_url).hostname,"source-link");project.href=story.project_url;project.target="_blank";project.rel="noopener noreferrer";row.append(project);linkedRepositoryAction(row,story.project_url);}
+    if(!story.project_url || !live.linkedRepository(story.project_url))repositoryCandidateAction(row,story.title,story.url);
+    list.append(row);
   }
 }
 async function startResearch(discovery=null, repoLookup=null) {
@@ -240,6 +257,7 @@ async function startResearch(discovery=null, repoLookup=null) {
     const options={signal:controller.signal,days:Number($("search-days").value)};
     if(parsed.kind==="search"){
       const repoMode=$("search-source").value==="github";
+      if(!repoMode)hnCandidateLookup=null;
       if(repoMode){searchResult=null;$("discover").hidden=true;}
       const found=repoMode?await live.searchRepositories(parsed.query,options):await live.search(parsed.query,$("search-order").value,options);
       if(id!==operationId)return;searchResult=repoMode?{...found,kind:"repositories"}:found;hnRepoLookup=repoLookup;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr(repoMode?"repoChoose":"chooseResult");
@@ -257,7 +275,7 @@ async function startResearch(discovery=null, repoLookup=null) {
 async function startAtlas(){
   cancelOperation();const id=operationId;operation=new AbortController();const controller=operation;
   $("search").disabled=true;$("atlas").disabled=true;$("stop").hidden=false;$("error").hidden=true;
-  searchResult=null;hnRepoLookup=null;atlasExpanded=false;$("discover").hidden=true;$("researchStatus").textContent=tr("atlasLoading");
+  searchResult=null;hnRepoLookup=null;hnCandidateLookup=null;atlasExpanded=false;$("discover").hidden=true;$("researchStatus").textContent=tr("atlasLoading");
   try{const found=await live.risingAgents({signal:controller.signal});if(id!==operationId)return;searchResult=found;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr("repoChoose");}
   catch(error){if(id===operationId)$("researchStatus").textContent=tr(controller.signal.aborted?"stopped":"atlasSourceFailed");}
   finally{if(id===operationId){operation=null;$("search").disabled=false;$("atlas").disabled=false;$("stop").hidden=true;}}
@@ -266,7 +284,7 @@ $("atlas").addEventListener("click",startAtlas);
 $("research").addEventListener("submit",event=>{event.preventDefault();startResearch();});
 $("stop").addEventListener("click",()=>{cancelOperation();$("researchStatus").textContent=tr("stopped");});
 $("source-input").addEventListener("input",renderSearch);
-$("search-source").addEventListener("change",()=>{cancelOperation();searchResult=null;hnRepoLookup=null;$("discover").hidden=true;$("researchStatus").textContent=tr("inputHint");renderSearch();});
+$("search-source").addEventListener("change",()=>{cancelOperation();searchResult=null;hnRepoLookup=null;hnCandidateLookup=null;$("discover").hidden=true;$("researchStatus").textContent=tr("inputHint");renderSearch();});
 $("language").addEventListener("click",()=>{lang=lang==="en"?"zh":"en";render();});
 $("open").addEventListener("click",()=>{cancelOperation();$("file").click();});
 $("file").addEventListener("change",async()=>{try{cancelOperation();const file=$("file").files[0];if(!file)return;if(file.size>core.MAX_FILE)throw new Error(tr("fileLimit"));await load(await file.text());}catch(error){fail(error);}finally{$("file").value="";}});
