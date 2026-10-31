@@ -5,10 +5,10 @@ const os=require('node:os');
 const path=require('node:path');
 const live=require('../app/live.js');
 const cli=require('../scripts/research.cjs');
-const repo={full_name:'Example/project',html_url:'https://github.com/Example/project',description:'Fictional sample',created_at:'2026-10-05T12:30:00Z',stargazers_count:42,fork:false,archived:false,license:{spdx_id:'MIT'}};
+const repo={id:123,full_name:'Example/project',html_url:'https://github.com/Example/project',description:'Fictional sample',created_at:'2026-10-05T12:30:00Z',stargazers_count:42,fork:false,archived:false,license:{spdx_id:'MIT'}};
 const reply=(data,status=200,headers={})=>new Response(JSON.stringify(data),{status,headers});
 test('GitHub repository search uses one anonymous GET, stars-desc ordering and explicit UTC window',async()=>{
- const calls=[];const result=await live.searchRepositories('agent skills',{days:30,fetcher:async(url,options)=>{calls.push({url,options});return reply({total_count:25,incomplete_results:false,items:[repo,{...repo,full_name:'Example/no-license',html_url:'https://github.com/Example/no-license',license:null}]});}});
+ const calls=[];const result=await live.searchRepositories('agent skills',{days:30,fetcher:async(url,options)=>{calls.push({url,options});return reply({total_count:25,incomplete_results:false,items:[repo,{...repo,id:124,full_name:'Example/no-license',html_url:'https://github.com/Example/no-license',license:null}]});}});
  assert.equal(calls.length,1);assert.equal(calls[0].options.method,'GET');assert.equal(calls[0].options.credentials,'omit');assert.equal(calls[0].options.referrerPolicy,'no-referrer');
  const url=new URL(calls[0].url);assert.equal(url.origin,'https://api.github.com');assert.equal(url.pathname,'/search/repositories');assert.equal(url.searchParams.get('sort'),'stars');assert.equal(url.searchParams.get('order'),'desc');assert.equal(url.searchParams.get('per_page'),'8');assert.match(url.searchParams.get('q'),/created:>=\d{4}-\d\d-\d\d/);assert.match(url.searchParams.get('q'),/fork:false/);assert.equal(result.reported_total,25);assert.equal(result.incomplete_results,false);assert.equal(result.entries[0].license,'MIT');assert.equal(result.entries[1].license,null);assert.equal(result.entries[0].stargazers_count,42);
 });

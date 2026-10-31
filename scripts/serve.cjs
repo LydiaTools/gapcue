@@ -4,6 +4,10 @@ const path = require('node:path');
 const files = new Map([['/', ['index.html','text/html']],['/index.html',['index.html','text/html']],['/styles.css',['styles.css','text/css']],['/core.js',['core.js','text/javascript']],['/sample.js',['sample.js','text/javascript']],['/app.js',['app.js','text/javascript']]]);
 files.set('/live.js', ['live.js','text/javascript']);
 files.set('/live-i18n.js', ['live-i18n.js','text/javascript']);
+files.set('/compare.html', ['compare.html','text/html']);
+files.set('/compare.css', ['compare.css','text/css']);
+files.set('/compare.js', ['compare.js','text/javascript']);
+files.set('/compare-core.js', ['compare-core.js','text/javascript']);
 function createServer() {
   return http.createServer(async(req,res)=>{
     const url = new URL(req.url, 'http://127.0.0.1');

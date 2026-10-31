@@ -109,10 +109,11 @@
     const data=await c.get(GH+'search/repositories?'+params);
     if (!data || !nonnegative(data.total_count) || typeof data.incomplete_results!=='boolean' || !Array.isArray(data.items) || data.items.length>8) throw new SourceError('sourceFailed');
     const entries=data.items.map(item=>{
-      if (!item || typeof item.full_name!=='string' || !/^[\w-]+\/[\w.-]+$/.test(item.full_name) || item.html_url!=='https://github.com/'+item.full_name || !nonnegative(item.stargazers_count) || typeof item.fork!=='boolean' || typeof item.archived!=='boolean' || typeof item.created_at!=='string' || !Number.isFinite(Date.parse(item.created_at)) || !(item.description===null || typeof item.description==='string')) throw new SourceError('sourceFailed');
+      if (!item || !Number.isSafeInteger(item.id) || item.id<=0 || typeof item.full_name!=='string' || !/^[\w-]+\/[\w.-]+$/.test(item.full_name) || item.html_url!=='https://github.com/'+item.full_name || !nonnegative(item.stargazers_count) || typeof item.fork!=='boolean' || typeof item.archived!=='boolean' || typeof item.created_at!=='string' || !Number.isFinite(Date.parse(item.created_at)) || !(item.description===null || typeof item.description==='string')) throw new SourceError('sourceFailed');
       const license=typeof item.license?.spdx_id==='string' && item.license.spdx_id!=='NOASSERTION' ? item.license.spdx_id.slice(0,100) : null;
-      return {full_name:item.full_name,html_url:item.html_url,description:item.description===null?null:item.description.slice(0,500),created_at:item.created_at,stargazers_count:item.stargazers_count,fork:item.fork,license};
+      return {id:item.id,full_name:item.full_name,html_url:item.html_url,description:item.description===null?null:item.description.slice(0,500),created_at:item.created_at,stargazers_count:item.stargazers_count,fork:item.fork,license};
     });
+    if(new Set(entries.map(e=>e.id)).size!==entries.length)throw new SourceError('sourceFailed');
     return {query:parsed.query,days,created_since,captured_at:new Date().toISOString(),reported_total:data.total_count,incomplete_results:data.incomplete_results,entries,requests:c.requests};
   }
   // This is AgentAtlas's fixed public feed, not a GitHub search or a demand score.

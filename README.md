@@ -35,6 +35,12 @@ Start with a topic, a project, or a question you cannot quite let go of. Follow 
 3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
 4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
 
+Want to compare interest over time? Search **GitHub repositories** and select **Save search snapshot**. Later, repeat the same query and period, save a second snapshot, then [compare the files locally](https://lydiatools.github.io/gapcue/compare.html). The comparison uses stable GitHub repository IDs and shows the change only for projects in both samples. Each search returns at most eight projects, so a missing project is not zero; the rolling creation-date cutoff can move. Counts and client-clock timestamps are observations, not proof of demand or future growth. This snapshot is separate from your saved discussion review.
+
+![Actual snapshot comparison showing repository names, both Star counts and their difference](docs/assets/repo-snapshot-compare.png)
+
+*Actual anonymous searches for “browser agent,” captured on 2026-10-31 UTC about two seconds apart to verify the workflow. The unchanged counts do not describe growth over a meaningful interval. The comparison page is in current source; the v0.5.0 ZIP predates it.*
+
 Looking for an idea? Select **Explore rising agent projects** in the browser desk to read [AgentAtlas's curated snapshot](https://agentatlas.dev/trending) of recently created agent repositories. It shows the feed's generation time and its average Stars per day since creation; this is not a live growth rate or proof of demand. The list is not a keyword search, and it is not included in saved reviews. Feed descriptions may be shortened. Data attribution: AgentAtlas, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Available in the online desk and the v0.5.0 preview. The older v0.4.0 archive predates this feature.
 
 <details>
@@ -161,6 +167,7 @@ npx playwright install chromium
 BROWSER_CHANNEL=chromium npm run test:browser
 BROWSER_CHANNEL=chromium npm run test:research
 BROWSER_CHANNEL=chromium npm run test:repos
+BROWSER_CHANNEL=chromium npm run test:compare
 ```
 
 If Chrome is installed, the browser scripts use it by default. The research harness normally intercepts APIs with original synthetic fixtures; set `GAPCUE_REAL_PUBLIC=1 npm run test:research` for a bounded live anonymous API check (network and rate limits apply). The browser test's generated reports stay in ignored `artifacts/`. Rebuild the original fictional sample with `python3 scripts/build-sample.py`.

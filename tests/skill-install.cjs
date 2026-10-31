@@ -11,7 +11,7 @@ const {createHash}=require('node:crypto');
  const source=path.resolve(__dirname,'..');
  const temporary=await fs.mkdtemp(path.join(os.tmpdir(),'gapcue-installed-check-'));
  try {
-  const runtime=['SKILL.md','scripts/research.cjs','app/core.js','app/live.js','app/index.html','package.json','examples/sample-report.json'];
+  const runtime=['SKILL.md','scripts/research.cjs','app/core.js','app/live.js','app/index.html','app/compare-core.js','app/compare.html','app/compare.js','app/compare.css','package.json','examples/sample-report.json'];
   const hashes={};
   for(const name of runtime) {
    const destination=path.join(installed,name),real=await fs.realpath(destination);
@@ -32,7 +32,7 @@ const {createHash}=require('node:crypto');
 globalThis.fetch=async(url,options)=>{
  calls.push({url,method:options.method,credentials:options.credentials});fs.writeFileSync(${JSON.stringify(requests)},JSON.stringify(calls));
  let data;
- if(url.startsWith('https://api.github.com/search/repositories?'))data={total_count:1,incomplete_results:false,items:[{full_name:'example/installed',html_url:'https://github.com/example/installed',description:'Synthetic repository',created_at:'2026-01-01T00:00:00Z',stargazers_count:7,fork:false,archived:false,license:{spdx_id:'MIT'}}]};
+ if(url.startsWith('https://api.github.com/search/repositories?'))data={total_count:1,incomplete_results:false,items:[{id:123,full_name:'example/installed',html_url:'https://github.com/example/installed',description:'Synthetic repository',created_at:'2026-01-01T00:00:00Z',stargazers_count:7,fork:false,archived:false,license:{spdx_id:'MIT'}}]};
  else if(url==='https://hacker-news.firebaseio.com/v0/item/101.json')data={id:101,type:'story',title:'Original installed-runtime fixture',by:'fixture',time:1767225600,score:2,descendants:1};
  else if(url.startsWith('https://hn.algolia.com/api/v1/search_by_date?'))data={page:0,nbPages:1,nbHits:1,hits:[{objectID:'102',story_id:101,parent_id:101,author:'fixture-reader',created_at:'2026-01-02T00:00:00Z',comment_text:'Synthetic fixture, not adoption.'}]};
  else throw new Error('Unexpected fixture URL');

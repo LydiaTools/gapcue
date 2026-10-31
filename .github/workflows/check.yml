@@ -46,6 +46,7 @@ jobs:
         env:
           BROWSER_CHANNEL: chromium
       - run: npm run test:repos
+      - run: npm run test:compare
         env:
           BROWSER_CHANNEL: chromium
       - run: npm run test:atlas

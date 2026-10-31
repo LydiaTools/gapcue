@@ -163,6 +163,10 @@ function renderSearch() {
     $("resultTitle").textContent=tr("repoResults")+": "+searchResult.query;
     $("resultMeta").textContent=tr("repoFound",searchResult.entries.length,searchResult.reported_total)+" · "+tr("repoHint")+(searchResult.created_since?" · "+tr("repoSince",searchResult.created_since):"")+" — "+date(searchResult.captured_at)+(searchResult.incomplete_results?" · "+tr("repoPartial"):"");
     const list=clear("searchResults");
+    const actions=element("p",undefined,"snapshot-actions"),saveSnapshot=element("button",tr("saveRepoSnapshot"),"secondary");
+    saveSnapshot.type="button";saveSnapshot.id="save-repo-snapshot";
+    saveSnapshot.addEventListener("click",()=>{const value=window.GapCueCompare.snapshot(searchResult),blob=new Blob([JSON.stringify(value,null,2)+"\n"],{type:"application/json;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="gapcue-repositories-"+new Date().toISOString().replace(/[:.]/g,"-")+".json";a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);$("researchStatus").textContent=tr("savedRepoSnapshot");});
+    const compareLink=element("a",tr("compareRepoSnapshots"),"source-link");compareLink.href="compare.html"+(lang==="zh"?"?lang=zh":"");actions.append(saveSnapshot,document.createTextNode(" "),compareLink);list.append(actions);
     if(!searchResult.entries.length)list.append(element("p",tr("noRepoResults"),"hint"));
     for(const repo of searchResult.entries) {
       const row=element("div",undefined,"repo-result"),title=element("a",repo.full_name,"repo-title");

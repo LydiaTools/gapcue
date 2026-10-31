@@ -11,6 +11,7 @@
     "test:browser": "node tests/browser.cjs",
     "test:research": "node tests/research-browser.cjs",
     "test:repos": "node tests/repo-browser.cjs",
+    "test:compare": "node tests/compare-browser.cjs",
     "test:atlas": "node tests/atlas-browser.cjs"
   },
   "devDependencies": {

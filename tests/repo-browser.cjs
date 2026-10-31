@@ -3,7 +3,7 @@ const path=require('node:path');
 const os=require('node:os');
 const {chromium}=require(process.env.GAPCUE_PLAYWRIGHT||'playwright');
 const {createServer}=require('../scripts/serve.cjs');
-const fixture={full_name:'example/desk',html_url:'https://github.com/example/desk',description:'<img src=x onerror="window.injected=1">',created_at:'2026-10-02T00:00:00Z',stargazers_count:145,archived:false,fork:false,license:{spdx_id:"NOASSERTION"}};
+const fixture={id:123,full_name:'example/desk',html_url:'https://github.com/example/desk',description:'<img src=x onerror="window.injected=1">',created_at:'2026-10-02T00:00:00Z',stargazers_count:145,archived:false,fork:false,license:{spdx_id:"NOASSERTION"}};
 (async()=>{
  const browser=await chromium.launch({channel:process.env.BROWSER_CHANNEL||'chrome',headless:true});
  const server=createServer();await new Promise(r=>server.listen(0,'127.0.0.1',r));
