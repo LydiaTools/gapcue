@@ -16,3 +16,10 @@ test('snapshot exports bounded fields rather than descriptions or request metada
  const source={query:'agents',days:0,created_since:null,captured_at:'2026-11-01T01:00:00.000Z',incomplete_results:false,requests:[{secret:'not needed'}],entries:[{...repo(1,'x/y',5),description:'not needed'}]};
  const snap=core.snapshot(source);assert.equal(snap.entries[0].id,1);assert.equal('description' in snap.entries[0],false);assert.equal('requests' in snap,false);
 });
+test('optional HN origin is safe, minimal and works with old snapshots',()=>{
+ const source={query:'agents',days:0,created_since:null,captured_at:'2026-11-01T01:00:00.000Z',incomplete_results:false,entries:[repo(1,'x/y',5)]};
+ const old=core.snapshot(source),newer=core.snapshot({...source,captured_at:'2026-11-02T01:00:00.000Z'}, {story_url:'https://news.ycombinator.com/item?id=101',relation:'name_search_unverified',extra:'do not save'});
+ assert.equal('origin' in old,false);assert.deepEqual(newer.origin,{story_url:'https://news.ycombinator.com/item?id=101',relation:'name_search_unverified'});
+ assert.equal(core.compare(old,newer).matches.length,1);
+ for(const origin of [null,{story_url:'javascript:alert(1)',relation:'name_search_unverified'},{story_url:'https://news.ycombinator.com.evil/item?id=101',relation:'name_search_unverified'},{story_url:'https://news.ycombinator.com/item?id=101&next=evil',relation:'name_search_unverified'},{story_url:'https://news.ycombinator.com/item?id=0',relation:'name_search_unverified'},{story_url:'https://news.ycombinator.com/item?id=9999999999999999',relation:'name_search_unverified'},{story_url:'https://news.ycombinator.com/item?id=101',relation:'verified'},{story_url:'https://news.ycombinator.com/item?id=101',relation:'name_search_unverified',secret:'do not accept'}])assert.throws(()=>core.validate({...old,origin}),/invalid/);
+});

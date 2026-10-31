@@ -34,7 +34,7 @@ In the [research desk](https://lydiatools.github.io/gapcue/), choose a source an
 
 When an HN result links directly to GitHub, **Check linked GitHub repository** reads current Stars and creation time on demand, with archived or fork status where applicable. These live details are not saved in the review and do not measure growth or demand. The v0.6.1 ZIP predates this button.
 
-If a story points to a website, **Find repositories by name** lets you edit the suggested name and search GitHub. The candidate list links back to the HN results and starting discussion. Similar names can be unrelated, and the right repository may be outside the eight results; verify using the project's own links. The story is not saved in the repository snapshot. This is available online and in the v0.6.2 preview; the v0.6.1 ZIP predates it.
+If a story points to a website, **Find repositories by name** lets you edit the suggested name and search GitHub. The candidate list links back to the HN results and starting discussion. Similar names can be unrelated, and the right repository may be outside the eight results; verify using the project's own links. A saved repository snapshot keeps the starting HN link, not the discussion content; view the link in the comparison page even with one file selected. Loading the original discussion requires a connection. The link records a search origin, not verified project identity. The online desk includes this link; the v0.6.2 ZIP predates it.
 
 ![Real search for corgi terminal showing GitHub candidates and a link back to the HN discussion](docs/assets/hn-name-candidates-en.png)
 
