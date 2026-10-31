@@ -1,24 +1,16 @@
 # GapCue · Project Research Desk
 
-**A good idea is exciting. Knowing what to build next takes a closer look.**
+**An idea is exciting. Knowing what to build takes a closer look.**
 
-GapCue is a research desk for finding public GitHub projects and Hacker News discussions, reading the evidence, and keeping it beside your own decisions.
+You find a project people are talking about. An open issue sounds exactly like the tool you had in mind. You can already picture building it.
 
-**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+Then you read on. Someone has a workaround. A maintainer has linked a pull request. The issue is still open, but the question has changed: **what part of the problem still needs solving?**
 
-The browser desk needs no account, Python, or API key. You can also use the included [research skill](#use-it-from-your-coding-agent) with a coding agent.
+I built GapCue for that moment: a place to explore public GitHub projects and Hacker News discussions, follow the evidence, and keep it beside your own decisions.
 
-You find a project people are talking about. An open issue describes exactly the tool you had in mind. For a moment, you can already picture building it.
+**[Open the research desk](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.6.2 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
-Then you read on. Someone found a workaround. A maintainer linked a pull request. The issue is still open, but the question has changed: **what part of this problem still needs solving?**
-
-I built GapCue for that moment between finding an idea and deciding what to do next:
-
-- **Find the conversation.** Search GitHub repositories or Hacker News, then open a public issue or story to read its collected discussion.
-- **Look beyond the first impression.** Check sampled replies and mentioned changes, then follow the original sources for context.
-- **Keep the trail.** Save a review with the source snapshot and your notes, or compare two saved repository search snapshots over time.
-
-When you come back to an idea, you can see what you found—and why you made that decision.
+The browser desk needs no account, Python, or API key. Prefer working with a coding agent? The repository also includes a [research skill](#use-it-from-your-coding-agent).
 
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
@@ -26,29 +18,37 @@ When you come back to an idea, you can see what you found—and why you made tha
 
 ## From an idea to a decision
 
-Start with a topic, a project, or a question you cannot quite let go of. Follow the discussion, compare what already exists, and leave yourself a record of what you found and why it mattered.
+Start with a topic, a project, or a question you cannot quite let go of. You do the thinking; GapCue helps you keep the trail.
 
-1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
+1. **Find a lead.** Search public GitHub repositories or Hacker News for a topic such as `PDF tables`. Follow a repository to related HN searches, or look for GitHub candidates from an HN discussion.
+2. **Read what happened next.** Open an HN story or paste a public GitHub Issue URL. Review sampled replies and mentioned changes, then follow the source when you need more context.
+3. **Make your call.** Compare what you found with existing options. Choose **Follow up**, **Prototype candidate**, or **Pass for my task**, and add your own note.
+4. **Pick it up again.** Save the review file with its source snapshot and your notes. You can reopen it later, even offline. You can also save and [compare repository search snapshots](#see-how-a-project-changes-over-time).
 
-   From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. If you open a story, the originating repository is kept with the review as an **unverified search origin**. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available online and in the v0.6.1 preview; the v0.6.0 ZIP predates it.
-   If an HN result links directly to a GitHub repository, choose **Check linked GitHub repository** to read its current Stars and creation time on demand. Archived and fork status are shown when applicable. This live information is not saved in the review and is not a growth or demand score. The v0.6.1 ZIP predates this button.
+When you come back to an idea, you can see what you found—and why you made that decision.
 
-   If a story points to a website instead, choose **Find repositories by name**. Edit the suggested name, then search GitHub; return to the HN results or reopen the starting discussion from the candidate list. Names can match unrelated projects, and relevant repositories can be outside the eight results. Check the project's own links before deciding. The story is not stored in the repository snapshot. This is available online and in the v0.6.2 preview; the v0.6.1 ZIP predates it.
+<details>
+<summary>See how to move between Hacker News and GitHub</summary>
 
-   ![Real search for corgi terminal showing GitHub candidates and a link back to the HN discussion](docs/assets/hn-name-candidates-en.png)
+In the [research desk](https://lydiatools.github.io/gapcue/), choose a source and time period; HN also offers recent or relevant order. From a repository result, **Find HN discussions** searches its name across all time. Open a story and the originating repository is kept in the review as an **unverified search origin**. Names can match unrelated stories or differ from the discussion; check the original source. This is available online and in the v0.6.1 preview; the v0.6.0 ZIP predates it.
 
-   *Actual anonymous HN-to-GitHub search on 2026-10-31 UTC. The suggested “Corgi” was edited to “corgi terminal”; the project website links to `tals/corgi`. Counts and search order can change.*
+When an HN result links directly to GitHub, **Check linked GitHub repository** reads current Stars and creation time on demand, with archived or fork status where applicable. These live details are not saved in the review and do not measure growth or demand. The v0.6.1 ZIP predates this button.
 
-   ![Actual on-demand GitHub repository lookup from an HN story showing the repository and current Stars](docs/assets/hn-linked-repo-en.png)
+If a story points to a website, **Find repositories by name** lets you edit the suggested name and search GitHub. The candidate list links back to the HN results and starting discussion. Similar names can be unrelated, and the right repository may be outside the eight results; verify using the project's own links. The story is not saved in the repository snapshot. This is available online and in the v0.6.2 preview; the v0.6.1 ZIP predates it.
 
-   *Actual anonymous lookup from the Hob HN story on 2026-10-31 UTC; the count changes over time.*
-2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
-3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
-4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
+![Real search for corgi terminal showing GitHub candidates and a link back to the HN discussion](docs/assets/hn-name-candidates-en.png)
+
+*Actual anonymous HN-to-GitHub search on 2026-10-31 UTC. The suggested “Corgi” was edited to “corgi terminal”; the project website links to `tals/corgi`. Counts and search order can change.*
+
+![Actual on-demand GitHub repository lookup from an HN story showing the repository and current Stars](docs/assets/hn-linked-repo-en.png)
+
+*Actual anonymous lookup from the Hob HN story on 2026-10-31 UTC; the count changes over time.*
 
 <p><img src="docs/assets/repo-to-hn-repository-en.png" width="49%" alt="Actual GitHub repository search with a Find HN discussions button"><img src="docs/assets/repo-to-hn-discussion-en.png" width="49%" alt="Actual Hacker News name search showing a matching discussion and the option to return"></p>
 
 *Actual searches on 2026-10-31 UTC: the BetterWispr repository and a name-matching HN story whose submitted link is the project website. The review below the search is the labeled fictional sample. Results can change; this is not an endorsement or evidence of GapCue adoption.*
+
+</details>
 
 ## Follow a real research trail
 
