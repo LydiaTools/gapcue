@@ -1,12 +1,12 @@
 # GapCue · 项目需求调研台
 
-**一个好想法，值得在动手之前多看一眼。**
+**发现了一个想做的点子，它现在还值得做吗？**
 
 看到一条还开着的功能请求，你眼前一亮：“这不就是我想做的工具吗？”
 
 再往下翻，有人已经找到了替代办法，维护者也提到了一个 PR。问题仍然开着，但你想问的已经变成：**到底还有哪一部分没有解决？**
 
-GapCue 陪你把这条线索找下去。搜索 GitHub 项目和 Hacker News，阅读公开讨论，把来源和自己的判断放在一起。你可以直接在网页使用，也可以让编程 Agent 使用随项目提供的调研技能。
+我做了 GapCue，想陪你把这条线索找下去。搜索 GitHub 项目和 Hacker News，阅读公开讨论，把来源和自己的判断放在一起。你可以直接在网页使用，也可以让编程 Agent 使用随项目提供的调研技能。
 
 **[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
