@@ -43,6 +43,7 @@ Start with a topic, a project, or a question you cannot quite let go of. Follow 
 
 Sometimes the most useful result isn't another idea to build. It's a clearer view of the problem—and what to check next.
 
+- **[Where did the model storage go?](docs/case-model-storage-research.md):** A local AI discussion led us to a specific Ollama report, a proposed fix and existing tools. The next step is further research, not another duplicate app. This case was added after the v0.6.1 ZIP.
 - **[A handoff that looked complete](docs/case-worktree-handoff.md):** An agent could report work as merged while uncommitted files remained in another worktree. We reproduced the Git situation locally and checked existing options. The result was a question worth investigating further, not proof that a new product was needed.
 - **[A popular request for UI evidence](docs/case-mobile-ui-research.md):** A discussion about mobile and desktop testing led us to compare existing options and continue researching before building a general simulator tool.
 - **[One caption, three tools](docs/case-caption-research.md):** A portrait-video discussion led us to try a Chinese subtitle sample in three tools, with an English control. It narrowed the next question; one sample can't establish a market.
