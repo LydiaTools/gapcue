@@ -39,6 +39,12 @@ function renderIndex() {
 }
 function renderReferences(issue) {
   const parent=clear("references");
+  const origin=issue?.source_kind==="hackernews"?loaded.report.discovery?.repository_context:null;
+  if(origin){
+    const item=element("div",undefined,"reference"),top=element("div",undefined,"reference-top"),link=element("a",origin.full_name,"reference-title");
+    link.href=core.github(origin.url);link.target="_blank";link.rel="noopener noreferrer";
+    top.append(link,element("span",tr("repoOriginBadge"),"badge"));item.append(top,element("p",tr("repoOriginHint")));parent.append(item);
+  }
   if(!issue?.references?.length){parent.append(element("p",tr(issue?.source_kind==="hackernews"?"noProjectLink":"noRefs"),"hint"));return;}
   for(const ref of issue.references){
     const item=element("div",undefined,"reference");const top=element("div",undefined,"reference-top");
@@ -196,7 +202,12 @@ function renderSearch() {
   if(!searchResult.entries.length)list.append(element("p",tr("noResults"),"hint"));
   for(const story of searchResult.entries){
     const row=element("div",undefined,"search-result"),button=element("button",story.title,"result-open");button.type="button";
-    button.addEventListener("click",()=>{$("source-input").value=story.url;startResearch({search:searchResult,selected_id:story.id});});
+    button.addEventListener("click",()=>{
+      $("source-input").value=story.url;
+      const discovery={search:searchResult,selected_id:story.id};
+      if(hnRepoLookup)discovery.repository_context={full_name:hnRepoLookup.repository,url:"https://github.com/"+hnRepoLookup.repository,relation:"name_search_unverified"};
+      startResearch(discovery);
+    });
     row.append(button,element("span",tr("storyMetrics",story.points,story.comments)+" - "+date(story.created_at),"hint"));
     if(story.project_url){const project=element("a",new URL(story.project_url).hostname,"source-link");project.href=story.project_url;project.target="_blank";project.rel="noopener noreferrer";row.append(project);}list.append(row);
   }

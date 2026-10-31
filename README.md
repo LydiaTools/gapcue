@@ -30,7 +30,7 @@ Start with a topic, a project, or a question you cannot quite let go of. Follow 
 
 1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
 
-   From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available in the online desk and current source; the v0.6.0 ZIP predates it.
+   From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. If you open a story, the originating repository is kept with the review as an **unverified search origin**. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available in the online desk and current source; the v0.6.0 ZIP predates it.
 2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
 3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
 4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.

@@ -50,6 +50,7 @@ jobs:
         env:
           BROWSER_CHANNEL: chromium
       - run: npm run test:atlas
+      - run: npm run test:provenance
         env:
           BROWSER_CHANNEL: chromium
       - uses: actions/upload-artifact@v7.0.2

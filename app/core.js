@@ -44,6 +44,14 @@
     requireValue(Array.isArray(report.failures) && report.failures.length <= 200 && report.failures.every(x => string(x, 1000)), "Invalid source failures.");
     requireValue(report.collection_status !== "complete" || !report.failures.length, "A report with unavailable sources must be marked partial.");
     requireValue(Array.isArray(report.requests) && report.requests.length <= 200, "Invalid request list.");
+    if (object(report.discovery) && Object.prototype.hasOwnProperty.call(report.discovery, "repository_context")) {
+      const origin = report.discovery.repository_context;
+      requireValue(isHN && object(origin) && string(origin.full_name, 230) && /^[A-Za-z0-9_-]+\/[A-Za-z0-9_.-]+$/.test(origin.full_name), "Invalid repository search origin.");
+      const safe = github(origin.url);
+      requireValue(safe && origin.relation === "name_search_unverified" && report.threads.length === 1 && object(report.threads[0]) && report.discovery.selected_id === report.threads[0].number, "Invalid repository search origin.");
+      const url = new URL(safe);
+      requireValue(url.pathname.toLowerCase() === ("/" + origin.full_name).toLowerCase() && !url.search && !url.hash, "Invalid repository search origin.");
+    }
     const keys = new Set();
     for (const issue of records(report)) {
       requireValue(object(issue) && string(issue.key, 230) && (isHN ? /^hn#[1-9][0-9]*$/ : /^[A-Za-z0-9_-]+\/[A-Za-z0-9_.-]+#[1-9][0-9]*$/).test(issue.key), "Invalid issue key.");

@@ -53,6 +53,8 @@ A story's submitted project URL is a `project_link` with `check: "link_only"`. I
 
 Selecting an HN search result also keeps a `discovery` record: query, relevance/date order, explicit period, collection time, result metrics/links, read endpoint and selected story ID. The default is the past 90 days. Search passes `typoTolerance=false` and `removeWordsIfNoResults=none` to avoid spelling expansion or word-dropping fallback; relevance still belongs to the upstream search service, not an opportunity score. Search event dates and collection dates are distinct. These fields identify how the story was found, not causal evidence of a viable product.
 
+When an HN search starts from a GitHub or AgentAtlas repository result, the selected story additionally records `discovery.repository_context` with its original GitHub `full_name`, canonical `url`, and relation `name_search_unverified`. This is the user's search origin, not an assertion that the story is about that repository. The viewer checks its URL and story ID before displaying it and labels the connection unverified. Older reports without this optional field remain valid. The v0.6.0 ZIP predates this field.
+
 The version-1 review wrapper supports either report version in its exact `source_text` and SHA-256. Existing version-1 reports/reviews remain readable. There is no migration that rewrites an old source snapshot.
 
 Primary endpoints: [HN Search API](https://hn.algolia.com/api), [official HN item API](https://github.com/HackerNews/API#items).

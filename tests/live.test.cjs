@@ -61,6 +61,21 @@ test('HN source identity, comment identity and project links cannot be promoted 
   const altered=structuredClone(report);mutate(altered);assert.throws(()=>core.validate(altered));
  }
 });
+test('repository search origin is optional, unverified, canonical and tied to the selected story',async()=>{
+ const report=await live.collectHN(101,{fetcher:fake(hnRoutes)});
+ const context={full_name:'sampleorg/desk',url:'https://github.com/sampleorg/desk',relation:'name_search_unverified'};
+ report.discovery={selected_id:101,repository_context:context};
+ assert.doesNotThrow(()=>core.validate(report));
+ for(const mutate of [
+  r=>r.discovery.repository_context.url='https://evil.invalid/sampleorg/desk',
+  r=>r.discovery.repository_context.url='https://github.com/sampleorg/other',
+  r=>r.discovery.repository_context.url='https://github.com/sampleorg/desk?x=1',
+  r=>r.discovery.repository_context.url='https://user:pass@github.com/sampleorg/desk',
+  r=>r.discovery.repository_context.relation='verified',
+  r=>r.discovery.selected_id=102,
+ ]){const altered=structuredClone(report);mutate(altered);assert.throws(()=>core.validate(altered),/Invalid repository search origin/);}
+ delete report.discovery.repository_context;assert.doesNotThrow(()=>core.validate(report));
+});
 const ghIssue={number:5,title:'Synthetic issue',comments:11,state:'open',html_url:'https://github.com/example/project/issues/5',created_at:'2026-10-01T00:00:00Z',updated_at:'2026-10-02T00:00:00Z',user:{login:'requester'},body:'The related implementation is #7.'};
 const ghComment=id=>({id,html_url:'https://github.com/example/project/issues/5#issuecomment-'+id,user:{login:'reader',type:'User'},created_at:'2026-10-01T00:00:00Z',body:'A synthetic follow-up.'});
 function ghRoutes(url){
