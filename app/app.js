@@ -4,7 +4,7 @@ const core = window.GapCueCore;
 const $ = (id) => document.getElementById(id);
 let lang = new URLSearchParams(location.search).get("lang") === "zh" ? "zh" : "en";
 let loaded = null, selected = null, decisions = Object.create(null), dirty = false;
-let operation = null, operationId = 0, searchResult = null, atlasExpanded = false;
+let operation = null, operationId = 0, searchResult = null, atlasExpanded = false, hnRepoLookup = null;
 const live = window.GapCueLive;
 const messages = {
   en: {
@@ -133,6 +133,17 @@ async function load(text,restoredMessage=true,stillCurrent=()=>true) {
 function fail(error){$("error").textContent=tr("errorPrefix")+error.message;$("error").hidden=false;}
 function edit(){if(!selected)return;decisions[selected]={verdict:$("verdict").value,notes:$("notes").value,updated_at:new Date().toISOString()};dirty=true;$("saveStatus").textContent=tr("edited");}
 function cancelOperation() { operationId++;operation?.abort();operation=null;$("stop").hidden=true;$("search").disabled=false;$("atlas").disabled=false; }
+function repoActions(row,title,repo) {
+  const issues=element("a",tr("repoIssues"),"source-link");issues.href=title.href+"/issues";issues.target="_blank";issues.rel="noopener noreferrer";
+  const find=element("button",tr("repoFindHN"),"secondary repo-hn");find.type="button";
+  find.addEventListener("click",()=>{
+    const parts=repo.full_name.split("/"), term=parts[1].length>=2?parts[1]:parts.join(" ");
+    const context={repository:repo.full_name,previous:searchResult,controls:{source:$("search-source").value,query:$("source-input").value,days:$("search-days").value,order:$("search-order").value}};
+    $("source-input").value=term;$("search-source").value="hn";$("search-days").value="0";$("search-order").value="relevance";
+    startResearch(null,context);
+  });
+  row.append(issues,document.createTextNode(" "),find);
+}
 function renderSearch() {
   $("source-input").placeholder=tr("inputPlaceholder");
   const url=/^https?:\/\//i.test($("source-input").value.trim()), repos=$("search-source").value==="github";
@@ -154,7 +165,7 @@ function renderSearch() {
       title.href=core.github(repo.html_url);title.target="_blank";title.rel="noopener noreferrer";
       row.append(title,element("p",`${repo.stargazers_count.toLocaleString()} Stars · ${repo.stars_per_day===null?"—":repo.stars_per_day.toLocaleString()} ${tr("atlasPerDay")} · ${date(repo.created_at)}`,"hint"));
       if(repo.description)row.append(element("p",repo.description,"repo-description"));
-      const issues=element("a",tr("repoIssues"),"source-link");issues.href=title.href+"/issues";issues.target="_blank";issues.rel="noopener noreferrer";row.append(issues);list.append(row);
+      repoActions(row,title,repo);list.append(row);
     }
     if(searchResult.entries.length>8){const toggle=element("button",atlasExpanded?tr("atlasShowLess"):tr("atlasShowAll",searchResult.entries.length),"secondary");toggle.type="button";toggle.id="atlas-more";toggle.addEventListener("click",()=>{atlasExpanded=!atlasExpanded;renderSearch();$("atlas-more").focus();});list.append(toggle);}
     return;
@@ -174,13 +185,14 @@ function renderSearch() {
       const meta=element("p",`${repo.stargazers_count.toLocaleString()} Stars · ${date(repo.created_at)} · ${repo.license||tr("repoLicenseUnknown")}${repo.fork?" · "+tr("repoFork"):""}`,"hint");
       row.append(title,meta);
       if(repo.description)row.append(element("p",repo.description,"repo-description"));
-      const issues=element("a",tr("repoIssues"),"source-link");issues.href=title.href+"/issues";issues.target="_blank";issues.rel="noopener noreferrer";row.append(issues);list.append(row);
+      repoActions(row,title,repo);list.append(row);
     }
     return;
   }
   $("resultTitle").textContent=tr("results")+": "+searchResult.query;
-  $("resultMeta").textContent=tr("found",searchResult.entries.length,searchResult.reported_total)+" - "+date(searchResult.captured_at);
+  $("resultMeta").textContent=tr("found",searchResult.entries.length,searchResult.reported_total)+" - "+date(searchResult.captured_at)+(hnRepoLookup?" · "+tr("repoHNHint",hnRepoLookup.repository):"");
   const list=clear("searchResults");
+  if(hnRepoLookup){const back=element("button",tr("repoHNBack"),"secondary");back.type="button";back.addEventListener("click",()=>{const saved=hnRepoLookup;hnRepoLookup=null;searchResult=saved.previous;$("search-source").value=saved.controls.source;$("source-input").value=saved.controls.query;$("search-days").value=saved.controls.days;$("search-order").value=saved.controls.order;renderSearch();$("researchStatus").textContent=tr("repoChoose");});list.append(back);}
   if(!searchResult.entries.length)list.append(element("p",tr("noResults"),"hint"));
   for(const story of searchResult.entries){
     const row=element("div",undefined,"search-result"),button=element("button",story.title,"result-open");button.type="button";
@@ -189,7 +201,7 @@ function renderSearch() {
     if(story.project_url){const project=element("a",new URL(story.project_url).hostname,"source-link");project.href=story.project_url;project.target="_blank";project.rel="noopener noreferrer";row.append(project);}list.append(row);
   }
 }
-async function startResearch(discovery=null) {
+async function startResearch(discovery=null, repoLookup=null) {
   cancelOperation();const id=operationId;operation=new AbortController();const controller=operation;
   $("search").disabled=true;$("atlas").disabled=true;$("stop").hidden=false;$("error").hidden=true;
   try {
@@ -200,7 +212,7 @@ async function startResearch(discovery=null) {
       const repoMode=$("search-source").value==="github";
       if(repoMode){searchResult=null;$("discover").hidden=true;}
       const found=repoMode?await live.searchRepositories(parsed.query,options):await live.search(parsed.query,$("search-order").value,options);
-      if(id!==operationId)return;searchResult=repoMode?{...found,kind:"repositories"}:found;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr(repoMode?"repoChoose":"chooseResult");
+      if(id!==operationId)return;searchResult=repoMode?{...found,kind:"repositories"}:found;hnRepoLookup=repoLookup;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr(repoMode?"repoChoose":"chooseResult");
     }else{
       const report=await live.collect($("source-input").value,options);
       if(discovery)report.discovery=discovery;
@@ -215,7 +227,7 @@ async function startResearch(discovery=null) {
 async function startAtlas(){
   cancelOperation();const id=operationId;operation=new AbortController();const controller=operation;
   $("search").disabled=true;$("atlas").disabled=true;$("stop").hidden=false;$("error").hidden=true;
-  searchResult=null;atlasExpanded=false;$("discover").hidden=true;$("researchStatus").textContent=tr("atlasLoading");
+  searchResult=null;hnRepoLookup=null;atlasExpanded=false;$("discover").hidden=true;$("researchStatus").textContent=tr("atlasLoading");
   try{const found=await live.risingAgents({signal:controller.signal});if(id!==operationId)return;searchResult=found;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr("repoChoose");}
   catch(error){if(id===operationId)$("researchStatus").textContent=tr(controller.signal.aborted?"stopped":"atlasSourceFailed");}
   finally{if(id===operationId){operation=null;$("search").disabled=false;$("atlas").disabled=false;$("stop").hidden=true;}}
@@ -224,7 +236,7 @@ $("atlas").addEventListener("click",startAtlas);
 $("research").addEventListener("submit",event=>{event.preventDefault();startResearch();});
 $("stop").addEventListener("click",()=>{cancelOperation();$("researchStatus").textContent=tr("stopped");});
 $("source-input").addEventListener("input",renderSearch);
-$("search-source").addEventListener("change",()=>{cancelOperation();searchResult=null;$("discover").hidden=true;$("researchStatus").textContent=tr("inputHint");renderSearch();});
+$("search-source").addEventListener("change",()=>{cancelOperation();searchResult=null;hnRepoLookup=null;$("discover").hidden=true;$("researchStatus").textContent=tr("inputHint");renderSearch();});
 $("language").addEventListener("click",()=>{lang=lang==="en"?"zh":"en";render();});
 $("open").addEventListener("click",()=>{cancelOperation();$("file").click();});
 $("file").addEventListener("change",async()=>{try{cancelOperation();const file=$("file").files[0];if(!file)return;if(file.size>core.MAX_FILE)throw new Error(tr("fileLimit"));await load(await file.text());}catch(error){fail(error);}finally{$("file").value="";}});
