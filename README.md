@@ -1,12 +1,12 @@
 # GapCue · Project Research Desk
 
-**A good idea deserves a closer look before you build it.**
+**You found an idea. Is it still worth building?**
 
 An open issue catches your eye. Someone is asking for exactly the tool you had in mind.
 
-You scroll a little further. Another person has found a workaround. A maintainer has linked a pull request. The issue is still open, but your question has changed: **what is still left to solve?**
+Then you read the replies. Someone has found a workaround. A maintainer has linked a pull request. The issue is still open, but the question has changed: **what is still left to solve?**
 
-GapCue gives you a place to follow that question. Search GitHub projects and Hacker News, read public discussions, and keep the sources beside your own decision. Start in your browser, or bring the included research skill to your coding agent.
+I built GapCue for that moment. Search GitHub projects and Hacker News, follow public discussions, and keep the sources beside your own decision. Use it in your browser, or bring the included research skill to your coding agent.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
