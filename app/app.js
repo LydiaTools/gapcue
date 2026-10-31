@@ -4,7 +4,7 @@ const core = window.GapCueCore;
 const $ = (id) => document.getElementById(id);
 let lang = new URLSearchParams(location.search).get("lang") === "zh" ? "zh" : "en";
 let loaded = null, selected = null, decisions = Object.create(null), dirty = false;
-let operation = null, operationId = 0, searchResult = null;
+let operation = null, operationId = 0, searchResult = null, atlasExpanded = false;
 const live = window.GapCueLive;
 const messages = {
   en: {
@@ -132,7 +132,7 @@ async function load(text,restoredMessage=true,stillCurrent=()=>true) {
 }
 function fail(error){$("error").textContent=tr("errorPrefix")+error.message;$("error").hidden=false;}
 function edit(){if(!selected)return;decisions[selected]={verdict:$("verdict").value,notes:$("notes").value,updated_at:new Date().toISOString()};dirty=true;$("saveStatus").textContent=tr("edited");}
-function cancelOperation() { operationId++;operation?.abort();operation=null;$("stop").hidden=true;$("search").disabled=false; }
+function cancelOperation() { operationId++;operation?.abort();operation=null;$("stop").hidden=true;$("search").disabled=false;$("atlas").disabled=false; }
 function renderSearch() {
   $("source-input").placeholder=tr("inputPlaceholder");
   const url=/^https?:\/\//i.test($("source-input").value.trim()), repos=$("search-source").value==="github";
@@ -140,6 +140,25 @@ function renderSearch() {
   $("search").textContent=tr(url?"readThread":repos?"searchRepos":"searchHN");
   if(!searchResult)return;
   $("discover").hidden=false;
+  if(searchResult.kind==="atlas") {
+    $("resultTitle").textContent=tr("atlasTitle");
+    const meta=clear("resultMeta"), attribution=element("a",tr("atlasSource"),"source-link"), license=element("a",tr("atlasLicense"),"source-link");
+    attribution.href="https://agentatlas.dev/trending";attribution.target="_blank";attribution.rel="noopener noreferrer";
+    license.href="https://creativecommons.org/licenses/by/4.0/";license.target="_blank";license.rel="noopener noreferrer";
+    const visible=atlasExpanded?searchResult.entries:searchResult.entries.slice(0,8);
+    meta.append(attribution,document.createTextNode(" · "),license,document.createTextNode(" · "+tr("atlasGenerated")+" "+date(searchResult.generated_at)+" · "+tr("atlasShowing",visible.length,searchResult.entries.length)+" · "+tr("atlasHint")));
+    const list=clear("searchResults");
+    if(!searchResult.entries.length)list.append(element("p",tr("atlasEmpty"),"hint"));
+    for(const repo of visible){
+      const row=element("div",undefined,"repo-result"),title=element("a",repo.full_name,"repo-title");
+      title.href=core.github(repo.html_url);title.target="_blank";title.rel="noopener noreferrer";
+      row.append(title,element("p",`${repo.stargazers_count.toLocaleString()} Stars · ${repo.stars_per_day===null?"—":repo.stars_per_day.toLocaleString()} ${tr("atlasPerDay")} · ${date(repo.created_at)}`,"hint"));
+      if(repo.description)row.append(element("p",repo.description,"repo-description"));
+      const issues=element("a",tr("repoIssues"),"source-link");issues.href=title.href+"/issues";issues.target="_blank";issues.rel="noopener noreferrer";row.append(issues);list.append(row);
+    }
+    if(searchResult.entries.length>8){const toggle=element("button",atlasExpanded?tr("atlasShowLess"):tr("atlasShowAll",searchResult.entries.length),"secondary");toggle.type="button";toggle.id="atlas-more";toggle.addEventListener("click",()=>{atlasExpanded=!atlasExpanded;renderSearch();$("atlas-more").focus();});list.append(toggle);}
+    return;
+  }
   if(searchResult.kind==="repositories") {
     $("resultTitle").textContent=tr("repoResults")+": "+searchResult.query;
     $("resultMeta").textContent=tr("repoFound",searchResult.entries.length,searchResult.reported_total)+" · "+tr("repoHint")+(searchResult.created_since?" · "+tr("repoSince",searchResult.created_since):"")+" — "+date(searchResult.captured_at)+(searchResult.incomplete_results?" · "+tr("repoPartial"):"");
@@ -168,7 +187,7 @@ function renderSearch() {
 }
 async function startResearch(discovery=null) {
   cancelOperation();const id=operationId;operation=new AbortController();const controller=operation;
-  $("search").disabled=true;$("stop").hidden=false;$("error").hidden=true;
+  $("search").disabled=true;$("atlas").disabled=true;$("stop").hidden=false;$("error").hidden=true;
   try {
     const parsed=live.input($("source-input").value);
     $("researchStatus").textContent=tr(parsed.kind==="search"?($("search-source").value==="github"?"searchingRepos":"searching"):"collecting");
@@ -187,8 +206,17 @@ async function startResearch(discovery=null) {
       if(changed)$("researchStatus").textContent=tr(report.collection_status==="partial"?"partial":"complete")+" - "+tr("reads",report.requests.length);
     }
   }catch(error){if(id===operationId){const code=error.code==="rateLimited"&&$("search-source").value==="github"&&!/^https?:\/\//i.test($("source-input").value.trim())?"repoRateLimited":error.code;$("researchStatus").textContent=tr(controller.signal.aborted?"stopped":messages[lang][code]?code:"sourceFailed");}}
-  finally{if(id===operationId){operation=null;$("search").disabled=false;$("stop").hidden=true;}}
+  finally{if(id===operationId){operation=null;$("search").disabled=false;$("atlas").disabled=false;$("stop").hidden=true;}}
 }
+async function startAtlas(){
+  cancelOperation();const id=operationId;operation=new AbortController();const controller=operation;
+  $("search").disabled=true;$("atlas").disabled=true;$("stop").hidden=false;$("error").hidden=true;
+  searchResult=null;atlasExpanded=false;$("discover").hidden=true;$("researchStatus").textContent=tr("atlasLoading");
+  try{const found=await live.risingAgents({signal:controller.signal});if(id!==operationId)return;searchResult=found;renderSearch();$("discover").open=true;$("researchStatus").textContent=tr("repoChoose");}
+  catch(error){if(id===operationId)$("researchStatus").textContent=tr(controller.signal.aborted?"stopped":"atlasSourceFailed");}
+  finally{if(id===operationId){operation=null;$("search").disabled=false;$("atlas").disabled=false;$("stop").hidden=true;}}
+}
+$("atlas").addEventListener("click",startAtlas);
 $("research").addEventListener("submit",event=>{event.preventDefault();startResearch();});
 $("stop").addEventListener("click",()=>{cancelOperation();$("researchStatus").textContent=tr("stopped");});
 $("source-input").addEventListener("input",renderSearch);

@@ -33,6 +33,8 @@ You don't need a finished idea to begin. Start with a question, follow the conve
 3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
 4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
 
+Looking for an idea? Select **Explore rising agent projects** in the browser desk to read [AgentAtlas's curated snapshot](https://agentatlas.dev/trending) of recently created agent repositories. It shows the feed's generation time and its average Stars per day since creation; this is not a live growth rate or proof of demand. The list is not a keyword search, and it is not included in saved reviews. Feed descriptions may be shortened. Data attribution: AgentAtlas, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This feature is in current source and the online desk; the fixed v0.4.0 ZIP predates it.
+
 <details>
 <summary>How repository search and its numbers work</summary>
 
@@ -81,7 +83,7 @@ CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sourc
 | Return to the same evidence | Download and reopen a review containing the exact report text, its SHA-256 and your notes |
 | Work in either language | English/Chinese controls; original source language is preserved |
 
-The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search, choose a discussion, or request an HN parent comment. Search terms go to the selected GitHub or HN Search service; public source requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. Parent comments fetched on demand are shown live and are not added to the saved review; an already-collected parent comes from the original snapshot. The optional multi-issue collector uses Python's standard library.
+The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search, choose a discussion, request an HN parent comment, or request the AgentAtlas snapshot. Search terms go to the selected GitHub or HN Search service; the snapshot request goes to AgentAtlas without search terms. Discussion requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. Parent comments fetched on demand are shown live and are not added to the saved review; an already-collected parent comes from the original snapshot. The optional multi-issue collector uses Python's standard library.
 
 ## Try the offline review workflow
 

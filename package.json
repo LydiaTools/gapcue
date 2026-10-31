@@ -10,7 +10,8 @@
     "test:python": "python3 -m unittest discover -s tests -v",
     "test:browser": "node tests/browser.cjs",
     "test:research": "node tests/research-browser.cjs",
-    "test:repos": "node tests/repo-browser.cjs"
+    "test:repos": "node tests/repo-browser.cjs",
+    "test:atlas": "node tests/atlas-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.64.1"

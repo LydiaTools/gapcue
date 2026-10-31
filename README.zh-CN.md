@@ -33,6 +33,8 @@ GapCue 想帮你留下的，就是这样的过程：**原始讨论、你核对�
 3. **留下你的判断。** 对照讨论和现有方案，选择下一步，写一条笔记，点击“保存评审文件”。
 4. **下次从这里继续。** 重新打开文件，就能看到同一份来源快照和自己的笔记；保存后的评审也可以离线查看。
 
+想找选题？在网页点击“发现热门 Agent 项目”，查看 [AgentAtlas 的精选快照](https://agentatlas.dev/trending)：它展示榜单生成时间和项目自创建以来的日均 Star，不代表实时日增长或已验证的需求。这不是关键词搜索，榜单不会写入评审文件，简介可能被缩短。数据来自 AgentAtlas，遵循 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)；此功能在当前源码和在线调研台中，固定 v0.4.0 ZIP 不包含。
+
 <details>
 <summary>仓库搜索和结果数字说明</summary>
 
@@ -81,7 +83,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 | 下次接着看 | 评审文件保留原始报告文本、SHA-256 和笔记，可重新打开 |
 | 分享给海外用户 | 中英文界面和文档，来源语言保持原样 |
 
-网页使用原生 HTML/CSS/JavaScript，无需构建、数据库、模型 API 或账号。点击搜索、读取讨论或查看 HN 上文后才请求公开来源：搜索词发给选择的 GitHub 或 HN Search，来源请求发给 GitHub、HN Search 或 HN 官方 API，不携带 Cookie 或认证信息。报告与笔记不上传、不自动持久保存。按需读取的上文为实时展示，不会加入保存的评审文件；如果上文已在采集样本中，则展示原始快照。可选批量采集器仅依赖 Python 标准库。
+网页使用原生 HTML/CSS/JavaScript，无需构建、数据库、模型 API 或账号。点击搜索、读取讨论、查看 HN 上文或请求 AgentAtlas 快照后才请求公开来源：搜索词发给选择的 GitHub 或 HN Search；快照请求发给 AgentAtlas，不包含搜索词；讨论来源请求发给 GitHub、HN Search 或 HN 官方 API。请求不携带 Cookie 或认证信息。报告与笔记不上传、不自动持久保存。按需读取的上文为实时展示，不会加入保存的评审文件；如果上文已在采集样本中，则展示原始快照。可选批量采集器仅依赖 Python 标准库。
 
 ## 试用离线评审流程
 
