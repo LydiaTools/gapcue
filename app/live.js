@@ -5,6 +5,7 @@
   const HN = 'https://hn.algolia.com/api/v1/';
   const FIREBASE = 'https://hacker-news.firebaseio.com/v0/';
   const GH = 'https://api.github.com/';
+  const ATLAS = 'https://agentatlas.dev/trending.json';
   const PAGE_SIZE = 10;
   const MAX_RESPONSE = 1024 * 1024;
   class SourceError extends Error { constructor(code) { super(code); this.code = code; } }
@@ -42,7 +43,7 @@
     const requests = [];
     async function get(url) {
       if (signal?.aborted) throw new DOMException('Stopped', 'AbortError');
-      if (![HN, FIREBASE, GH].some(prefix => url.startsWith(prefix))) throw new SourceError('invalidInput');
+      if (![HN, FIREBASE, GH].some(prefix => url.startsWith(prefix)) && url !== ATLAS) throw new SourceError('invalidInput');
       const event = {url, started_at:new Date().toISOString(), available:false}; requests.push(event);
       onProgress(requests.length);
       const controller = new AbortController();
@@ -113,6 +114,16 @@
       return {full_name:item.full_name,html_url:item.html_url,description:item.description===null?null:item.description.slice(0,500),created_at:item.created_at,stargazers_count:item.stargazers_count,fork:item.fork,license};
     });
     return {query:parsed.query,days,created_since,captured_at:new Date().toISOString(),reported_total:data.total_count,incomplete_results:data.incomplete_results,entries,requests:c.requests};
+  }
+  // This is AgentAtlas's fixed public feed, not a GitHub search or a demand score.
+  async function risingAgents(options) {
+    const c=client(options),data=await c.get(ATLAS);
+    if (!data || !Array.isArray(data.rising) || data.rising.length>100 || typeof data.generatedAt!=='string' || !Number.isFinite(Date.parse(data.generatedAt))) throw new SourceError('sourceFailed');
+    const entries=data.rising.map(item=>{
+      if (!item || typeof item.repo!=='string' || !/^[\w-]+\/[\w.-]+$/.test(item.repo) || item.url!=='https://github.com/'+item.repo || !nonnegative(item.stars) || !(item.starsPerDay===null || nonnegative(item.starsPerDay)) || typeof item.createdAt!=='string' || !/^\d{4}-\d{2}-\d{2}$/.test(item.createdAt) || !Number.isFinite(Date.parse(item.createdAt)) || !(item.description===null || typeof item.description==='string')) throw new SourceError('sourceFailed');
+      return {full_name:item.repo,html_url:item.url,description:item.description?.slice(0,500)||null,created_at:item.createdAt,stargazers_count:item.stars,stars_per_day:item.starsPerDay};
+    });
+    return {kind:'atlas',generated_at:data.generatedAt,captured_at:new Date().toISOString(),entries,requests:c.requests};
   }
   async function collectHN(id, options) {
     if (!positive(id)) throw new SourceError('invalidInput');
@@ -212,6 +223,6 @@
     if (parsed.kind==='github') return collectGitHub(parsed.repository,parsed.number,options);
     throw new SourceError('invalidInput');
   }
-  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,collect,collectHN,collectGitHub,readHNParent};
+  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,risingAgents,collect,collectHN,collectGitHub,readHNParent};
   if (typeof module==='object'&&module.exports) module.exports=api;else globalThis.GapCueLive=api;
 })();
