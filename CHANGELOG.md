@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.0 · Discover and investigate
+
+The browser desk can show AgentAtlas's attributed public snapshot of recently created agent projects. The list displays its generation time and the source's average Stars per day since creation; it is a discovery lead, not recent growth, user demand, or a saved review. AgentAtlas data is CC BY 4.0; descriptions may be shortened.
+
+HN comments can display a parent on request. A parent already in the sample comes from the source snapshot; a live-read parent is not saved in the review. Public reads can fail or become stale. Existing saved reviews remain supported.
+
 ## 0.4.0 · Find repositories and investigate discussions
 
 Adds bounded GitHub repository search to the browser desk and Agent Skill CLI. Results use current cumulative Stars and UTC creation dates, not Star growth or a demand forecast. The search excludes archived repositories and forks, identifies incomplete results, and links to repository issues for further research. License names are GitHub metadata and require checking the actual license and assets. Repository search is separate from a saved discussion review.

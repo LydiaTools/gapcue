@@ -8,7 +8,7 @@ You scroll a little further. Another person has found a workaround. A maintainer
 
 GapCue gives you a place to follow that question. Search GitHub projects and Hacker News, read public discussions, and keep the sources beside your own decision. Start in your browser, or bring the included research skill to your coding agent.
 
-**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
 The browser desk needs no account, Python, or API key. Search a topic, or open the included fictional example to try the review workflow.
 
@@ -33,7 +33,7 @@ You don't need a finished idea to begin. Start with a question, follow the conve
 3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
 4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
 
-Looking for an idea? Select **Explore rising agent projects** in the browser desk to read [AgentAtlas's curated snapshot](https://agentatlas.dev/trending) of recently created agent repositories. It shows the feed's generation time and its average Stars per day since creation; this is not a live growth rate or proof of demand. The list is not a keyword search, and it is not included in saved reviews. Feed descriptions may be shortened. Data attribution: AgentAtlas, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). This feature is in current source and the online desk; the fixed v0.4.0 ZIP predates it.
+Looking for an idea? Select **Explore rising agent projects** in the browser desk to read [AgentAtlas's curated snapshot](https://agentatlas.dev/trending) of recently created agent repositories. It shows the feed's generation time and its average Stars per day since creation; this is not a live growth rate or proof of demand. The list is not a keyword search, and it is not included in saved reviews. Feed descriptions may be shortened. Data attribution: AgentAtlas, [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Available in the online desk and the v0.5.0 preview. The older v0.4.0 archive predates this feature.
 
 <details>
 <summary>How repository search and its numbers work</summary>
@@ -92,7 +92,7 @@ The browser app uses plain HTML, CSS and JavaScript: no build step, model API, d
 3. Choose a next step, write a note, and select **Save review file**.
 4. Reload the page, open that file, and continue with the same sources and notes.
 
-For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases), then open `app/index.html` in Chrome. No server is needed for the viewer.
+For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0), then open `app/index.html` in Chrome. No server is needed for the viewer.
 
 ## Optional Python collector for several GitHub issues
 
