@@ -1,16 +1,14 @@
 # GapCue · Project Research Desk
 
-**Read the replies before you build.**
+**A good idea deserves a closer look before you build it.**
 
-A project catches your eye. An open issue sounds like something you could build.
+You find an open issue that sounds like the perfect starting point. Then you read a little further: someone has shared a workaround, and a maintainer has linked a pull request. The original question is still interesting—but now you have a better question: **what, exactly, is left to solve?**
 
-You start sketching the idea, then scroll a little further. Someone has already shared a workaround. A maintainer has linked a pull request. The question you need to answer has changed.
-
-GapCue gives that research a place to land. **Find GitHub repositories, search Hacker News, read public discussions, and save the sources alongside your own decision.** Use it in your browser, or bring the bundled research skill to your coding agent.
+GapCue helps you follow that trail. **Find GitHub projects, search Hacker News, read public discussions, and keep the sources beside your own decision.** Start in your browser, or use the bundled research skill with your coding agent.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
-The browser desk needs no account, Python, or API key. Search a topic or open the included fictional example to try the review workflow.
+The browser desk needs no account, Python, or API key. Search a topic, or open the included fictional example to try the review workflow. Want to see the research in context? Follow a [real worktree handoff case](docs/case-worktree-handoff.md).
 
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
@@ -18,14 +16,12 @@ The browser desk needs no account, Python, or API key. Search a topic or open th
 
 ## From an idea to a decision
 
-You don't have to know what to build when you arrive. Start with a topic, follow a promising source, and leave with a record you can return to.
+You don't need a finished idea to begin. Start with a question, follow the conversation, and leave yourself a record of what you found and why it mattered.
 
 1. **Find a starting point.** Open the [research desk](https://lydiatools.github.io/gapcue/), enter a topic such as `PDF tables`, choose **Hacker News** or **GitHub repositories**, and search. Choose a time period; HN also offers recent/relevant order.
 2. **Follow the conversation.** Open a repository's source or issues, then paste a specific public GitHub Issue URL into GapCue. For an HN result, choose a story to read the post and comment samples; you can also paste a story URL directly. A repository result is a discovery link, not a review.
 3. **Make your call.** Compare the request with current alternatives. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add your notes, then select **Save review file**.
 4. **Pick up where you left off.** Reopen the file later to continue with the same source snapshot and notes. Saved reviews also work offline.
-
-See a worked example: [when a worktree looks merged but changes are still elsewhere](docs/case-worktree-handoff.md).
 
 GitHub repository search shows up to eight matches, sorted by **current total Stars**, not Star growth. For a selected period, GitHub filters by creation date from the UTC calendar date calculated when the search runs; archived repositories and forks are excluded. An incomplete GitHub response is labeled. A license label is GitHub metadata, not a rights assessment: inspect the actual license and assets. Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
 
@@ -53,17 +49,6 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 The HN URL is a real discussion example, not market validation. Replace it with your selected result. Each output directory must be new. Repository search writes `repos.json` with current Stars, creation dates, GitHub-reported totals and an incomplete-results flag; it is a separate search result, not a review file. Search writes `search.json`; collection writes the source report, a short Markdown index and an openable `review.json`; review adds notes without changing the original source bytes. Open that review in `app/index.html` or the online desk.
 
 CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sources; `2` arguments/files; `130` interrupted. Partial reads remain visible. The CLI never posts, scores an opportunity, retries automatically, or replaces an existing output directory. JavaScript collection is anonymous; the Python collector below can reuse an existing `gh` login for public reads. If your network uses a proxy, configure your Node process using the option supported by your Node version, rather than changing system routing.
-
-## The question behind the issue
-
-“Could you add CSV export?” is a useful starting point. But what happened afterward?
-
-- Did a maintainer already point to an implementation?
-- Is the linked PR open, closed, or merged?
-- Did your collection skip the middle of the discussion?
-- What would you need to check before building something?
-
-GapCue puts those questions on one desk. You make the decision: **follow up, try a prototype, or pass for your task**. The source snapshot and your notes travel together in one review file.
 
 ## What works today
 
