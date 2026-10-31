@@ -2,17 +2,25 @@
 
 **A good idea deserves a closer look before you build it.**
 
-You find an open issue that sounds like the perfect starting point. Then you read a little further: someone has shared a workaround, and a maintainer has linked a pull request. The original question is still interesting—but now you have a better question: **what, exactly, is left to solve?**
+An open issue catches your eye. Someone is asking for exactly the tool you had in mind.
 
-GapCue helps you follow that trail. **Find GitHub projects, search Hacker News, read public discussions, and keep the sources beside your own decision.** Start in your browser, or use the bundled research skill with your coding agent.
+You scroll a little further. Another person has found a workaround. A maintainer has linked a pull request. The issue is still open, but your question has changed: **what is still left to solve?**
+
+GapCue gives you a place to follow that question. Search GitHub projects and Hacker News, read public discussions, and keep the sources beside your own decision. Start in your browser, or bring the included research skill to your coding agent.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
-The browser desk needs no account, Python, or API key. Search a topic, or open the included fictional example to try the review workflow. Want to see the research in context? Follow a [real worktree handoff case](docs/case-worktree-handoff.md).
+The browser desk needs no account, Python, or API key. Search a topic, or open the included fictional example to try the review workflow.
 
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
-*Actual anonymous repository search, captured 2026-10-29 UTC. Results and Star counts change over time; they are not evidence of GapCue adoption or project endorsements.*
+*An actual anonymous repository search, captured 2026-10-29 UTC. Results and Star counts change over time.*
+
+## One question led us further
+
+In [a real worktree handoff discussion](docs/case-worktree-handoff.md), a coding agent could report that its work was merged while uncommitted files were still in another worktree. We followed the public issue, reproduced the underlying Git situation locally, and compared existing options. Our conclusion: a useful check to keep investigating, not proof that a new product was needed.
+
+That's the kind of trail GapCue helps you keep: **the original discussion, what you checked, and the decision you made with the evidence available.**
 
 ## From an idea to a decision
 
