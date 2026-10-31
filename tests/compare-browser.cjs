@@ -9,6 +9,7 @@ const repo=(id,full_name,stars)=>({id,full_name,html_url:'https://github.com/'+f
  try{
   const base='http://127.0.0.1:'+server.address().port;await page.goto(base);await page.locator('#search-source').selectOption('github');await page.locator('#source-input').fill('agents');await page.locator('#search').click();await page.locator('#save-repo-snapshot').waitFor();
   let event=page.waitForEvent('download');await page.locator('#save-repo-snapshot').click();const a=await event;const aPath=await a.path();
+  const ordinary=JSON.parse(await require('node:fs/promises').readFile(aPath,'utf8'));assert.equal('origin' in ordinary,false);
   await page.waitForTimeout(30);await page.locator('#search').click();await page.waitForFunction(()=>document.querySelector('.repo-title')?.textContent==='example/renamed');event=page.waitForEvent('download');await page.locator('#save-repo-snapshot').click();const b=await event;const bPath=await b.path();
   await page.goto(base+'/compare.html?lang=zh');await page.locator('#first').setInputFiles(bPath);await page.locator('#second').setInputFiles(aPath);
   await page.waitForFunction(()=>!document.getElementById('result').hidden);assert.match(await page.locator('#rows').innerText(),/example\/renamed/);assert.match(await page.locator('#rows').innerText(),/example\/old/);assert.match(await page.locator('#rows').innerText(),/\+7/);assert.match(await page.locator('#missing').innerText(),/1.*1/);assert.match(await page.locator('#scope').innerText(),/不完整/);

@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased · Keep the starting discussion link
+
+When an HN story starts a name-based GitHub search, a saved repository snapshot can retain the canonical story link as an unverified search origin. The comparison page shows it after opening even one file, including offline; following the link requires a connection. Older snapshots remain compatible. The fixed v0.6.2 ZIP predates this change.
+
 ## 0.6.2 · Find a repository from an HN discussion
 
 From an HN story that points to a website, prepare an editable project-name search on GitHub and review candidate repositories. The starting discussion stays accessible during the search; name matches are not verified identities and are not saved with repository snapshots. Direct GitHub story links can also be checked on demand. These browser features and the current research cases are included in this preview.

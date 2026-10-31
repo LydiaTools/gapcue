@@ -6,11 +6,12 @@
   if(new Date(s.captured_at).toISOString()!==s.captured_at)throw Error('invalid');
   if(!(s.created_since===null||typeof s.created_since==='string'&&/^\d{4}-\d\d-\d\d$/.test(s.created_since)&&Number.isFinite(Date.parse(s.created_since+'T00:00:00Z'))&&new Date(s.created_since+'T00:00:00Z').toISOString().slice(0,10)===s.created_since))throw Error('invalid');
   if((s.days===0)!==(s.created_since===null))throw Error('invalid');
+  if('origin' in s){const o=s.origin;if(!o||typeof o!=='object'||Array.isArray(o)||Object.keys(o).sort().join(',')!=='relation,story_url'||o.relation!=='name_search_unverified'||typeof o.story_url!=='string'||!/^https:\/\/news\.ycombinator\.com\/item\?id=[1-9][0-9]{0,15}$/.test(o.story_url)||!Number.isSafeInteger(Number(o.story_url.split('=')[1])))throw Error('invalid');}
   const ids=new Set();
   for(const e of s.entries){if(!e||!Number.isSafeInteger(e.id)||e.id<=0||ids.has(e.id)||typeof e.full_name!=='string'||! /^[\w-]+\/[\w.-]+$/.test(e.full_name)||e.html_url!=='https://github.com/'+e.full_name||!Number.isSafeInteger(e.stargazers_count)||e.stargazers_count<0)throw Error('invalid');ids.add(e.id);}
   return s;
  }
- function snapshot(result){return validate({tool:'GapCue',kind:'repo-snapshot',schema_version:1,query:result.query,days:result.days,created_since:result.created_since,captured_at:result.captured_at,incomplete_results:result.incomplete_results,entries:result.entries.map(({id,full_name,html_url,stargazers_count})=>({id,full_name,html_url,stargazers_count}))});}
+ function snapshot(result,origin){const value={tool:'GapCue',kind:'repo-snapshot',schema_version:1,query:result.query,days:result.days,created_since:result.created_since,captured_at:result.captured_at,incomplete_results:result.incomplete_results,entries:result.entries.map(({id,full_name,html_url,stargazers_count})=>({id,full_name,html_url,stargazers_count}))};if(origin)value.origin={story_url:origin.story_url,relation:origin.relation};return validate(value);}
  function compare(a,b){validate(a);validate(b);if(a.query!==b.query||a.days!==b.days)throw Error('different_search');if(Date.parse(a.captured_at)===Date.parse(b.captured_at))throw Error('same_time');
   const [earlier,later]=Date.parse(a.captured_at)<Date.parse(b.captured_at)?[a,b]:[b,a],old=new Map(earlier.entries.map(e=>[e.id,e])),now=new Set(later.entries.map(e=>e.id));
   const matches=later.entries.filter(e=>old.has(e.id)).map(e=>({id:e.id,full_name:e.full_name,html_url:e.html_url,old_name:old.get(e.id).full_name,before:old.get(e.id).stargazers_count,after:e.stargazers_count,change:e.stargazers_count-old.get(e.id).stargazers_count}));
