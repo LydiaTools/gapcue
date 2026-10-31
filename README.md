@@ -2,22 +2,28 @@
 
 **Read the replies before you build.**
 
-A feature request can outlive the work that answers it. Before turning an open issue into your next product, read the later discussion, inspect the linked changes, and keep the evidence beside your decision.
+A project catches your eye. An open issue sounds like something you could build.
 
-GapCue is a browser research desk with a small read-only GitHub CLI collector. **Find GitHub repositories, search Hacker News, and read public GitHub issues. Keep the sources beside your decision.** No Python or API key is needed for browser collection.
+You start sketching the idea, then scroll a little further. Someone has already shared a workaround. A maintainer has linked a pull request. The question you need to answer has changed.
 
-[Try the review desk](https://lydiatools.github.io/gapcue/) · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+GapCue gives that research a place to land. **Find GitHub repositories, search Hacker News, read public discussions, and save the sources alongside your own decision.** Use it in your browser, or bring the bundled research skill to your coding agent.
+
+**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+
+The browser desk needs no account, Python, or API key. Search a topic or open the included fictional example to try the review workflow.
 
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
 *Actual anonymous repository search, captured 2026-10-29 UTC. Results and Star counts change over time; they are not evidence of GapCue adoption or project endorsements.*
 
-## Start with a real discussion
+## From an idea to a decision
 
-1. Open the [research desk](https://lydiatools.github.io/gapcue/), type a topic such as `PDF tables`, choose **Hacker News** or **GitHub repositories**, and search. Choose a time period; HN also offers recent/relevant order.
-2. A repository result is a discovery link, not a review. Open its source or issues, inspect the current implementation, then paste a specific public GitHub Issue URL into GapCue to read that discussion. For an HN result, choose a story to read the post and comment samples. You can also paste an HN story URL.
-3. After loading a discussion, compare what people ask for with the current alternatives. Record **Follow up**, **Prototype candidate** or **Pass for my task**, then **Save review file**.
-4. Close the tab and reopen that file to continue with the same source snapshot and notes. Saved reviews also work disconnected.
+You don't have to know what to build when you arrive. Start with a topic, follow a promising source, and leave with a record you can return to.
+
+1. **Find a starting point.** Open the [research desk](https://lydiatools.github.io/gapcue/), enter a topic such as `PDF tables`, choose **Hacker News** or **GitHub repositories**, and search. Choose a time period; HN also offers recent/relevant order.
+2. **Follow the conversation.** Open a repository's source or issues, then paste a specific public GitHub Issue URL into GapCue. For an HN result, choose a story to read the post and comment samples; you can also paste a story URL directly. A repository result is a discovery link, not a review.
+3. **Make your call.** Compare the request with current alternatives. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add your notes, then select **Save review file**.
+4. **Pick up where you left off.** Reopen the file later to continue with the same source snapshot and notes. Saved reviews also work offline.
 
 GitHub repository search shows up to eight matches, sorted by **current total Stars**, not Star growth. For a selected period, GitHub filters by creation date from the UTC calendar date calculated when the search runs; archived repositories and forks are excluded. An incomplete GitHub response is labeled. A license label is GitHub metadata, not a rights assessment: inspect the actual license and assets. Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
 
