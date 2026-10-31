@@ -1,12 +1,12 @@
 # GapCue · Project Research Desk
 
-**You found an idea. Is it still worth building?**
+**You found an idea. Before you build it, follow the conversation.**
 
-An open issue catches your eye. Someone is asking for exactly the tool you had in mind.
+An open issue catches your eye. Someone is asking for exactly the tool you had in mind. You can already picture building it.
 
-Then you read the replies. Someone has found a workaround. A maintainer has linked a pull request. The issue is still open, but the question has changed: **what is still left to solve?**
+Then you read on. Someone has found a workaround. A maintainer has linked a pull request. The issue is still open, but now there's a better question: **what is still left to solve?**
 
-I built GapCue for that moment. Search GitHub projects and Hacker News, follow public discussions, and keep the sources beside your own decision. Use it in your browser, or bring the included research skill to your coding agent.
+I built GapCue for that moment. Search GitHub projects and Hacker News, read public discussions, and keep the sources beside your own decision. Start in your browser, or bring the included research skill to your coding agent.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
@@ -16,15 +16,15 @@ The browser desk needs no account, Python, or API key. Search a topic, or open t
 
 *An actual anonymous repository search, captured 2026-10-29 UTC. Results and Star counts change over time.*
 
-## One question led us further
+## Follow a real research trail
 
-In [a real worktree handoff discussion](docs/case-worktree-handoff.md), a coding agent could report that its work was merged while uncommitted files were still in another worktree. We followed the public issue, reproduced the underlying Git situation locally, and compared existing options. Our conclusion: a useful check to keep investigating, not proof that a new product was needed.
+Sometimes the most useful result isn't another idea to build. It's a clearer view of the problem—and what to check next.
 
-That's the kind of trail GapCue helps you keep: **the original discussion, what you checked, and the decision you made with the evidence available.**
+- **[A handoff that looked complete](docs/case-worktree-handoff.md):** An agent could report work as merged while uncommitted files remained in another worktree. We reproduced the Git situation locally and checked existing options. The result was a question worth investigating further, not proof that a new product was needed.
+- **[A popular request for UI evidence](docs/case-mobile-ui-research.md):** A discussion about mobile and desktop testing led us to compare existing options and continue researching before building a general simulator tool.
+- **[One caption, three tools](docs/case-caption-research.md):** A portrait-video discussion led us to try a Chinese subtitle sample in three tools, with an English control. It narrowed the next question; one sample can't establish a market.
 
-Another trail started with a popular request for [mobile and desktop UI evidence](docs/case-mobile-ui-research.md). Looking at what exists today led us to keep researching instead of starting another general simulator tool.
-
-A third follows a [portrait-caption discussion](docs/case-caption-research.md) through a Chinese sample, an English control and three existing tools.
+Each trail keeps the discussion, the checks and the decision together—so you can revisit the reasoning, not just the idea.
 
 ## From an idea to a decision
 
