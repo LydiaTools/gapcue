@@ -22,6 +22,8 @@ In [a real worktree handoff discussion](docs/case-worktree-handoff.md), a coding
 
 That's the kind of trail GapCue helps you keep: **the original discussion, what you checked, and the decision you made with the evidence available.**
 
+Another trail started with a popular request for [mobile and desktop UI evidence](docs/case-mobile-ui-research.md). Looking at what exists today led us to keep researching instead of starting another general simulator tool.
+
 ## From an idea to a decision
 
 You don't need a finished idea to begin. Start with a question, follow the conversation, and leave yourself a record of what you found and why it mattered.
