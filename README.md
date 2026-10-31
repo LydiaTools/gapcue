@@ -23,9 +23,15 @@ The browser desk needs no account, Python, or API key. Search a topic, or open t
 Start with a topic, a project, or a question you cannot quite let go of. Follow the discussion, compare what already exists, and leave yourself a record of what you found and why it mattered.
 
 1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
+
+   From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available in the online desk and current source; the v0.6.0 ZIP predates it.
 2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
 3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
 4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
+
+<p><img src="docs/assets/repo-to-hn-repository-en.png" width="49%" alt="Actual GitHub repository search with a Find HN discussions button"><img src="docs/assets/repo-to-hn-discussion-en.png" width="49%" alt="Actual Hacker News name search showing a matching discussion and the option to return"></p>
+
+*Actual searches on 2026-10-31 UTC: the BetterWispr repository and a name-matching HN story whose submitted link is the project website. The review below the search is the labeled fictional sample. Results can change; this is not an endorsement or evidence of GapCue adoption.*
 
 ## Follow a real research trail
 

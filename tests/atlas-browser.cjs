@@ -14,10 +14,14 @@ const fixture={generatedAt:'2026-10-30T05:49:31.902Z',rising:[entry,...Array.fro
   const data=mode==='invalid'?{...fixture,rising:[{...entry,url:'https://attacker.invalid/agent'}]}:fixture;
   try{await route.fulfill({status:mode==='failed'?503:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify(data)});}catch(error){if(!req.failure())throw error;}
  });
+ await context.route('https://hn.algolia.com/api/v1/search**',async route=>{
+  await route.fulfill({status:200,contentType:'application/json',headers:{'access-control-allow-origin':'*'},body:JSON.stringify({nbHits:1,hits:[{objectID:'1234',title:'Agent discussion',author:'example',created_at:'2026-10-10T00:00:00Z',points:12,num_comments:3,url:'https://example.com/agent'}]})});
+ });
  try{
   await page.goto('http://127.0.0.1:'+server.address().port);await page.locator('#issueList button').first().waitFor();
   await page.locator('#notes').fill('Keep this note');await page.locator('#source-input').fill('private search words');await page.locator('#atlas').click();await page.locator('.repo-title').first().waitFor();
   assert.equal(await page.locator('.repo-title').first().textContent(),'example/agent');assert.equal(await page.locator('.repo-title').first().getAttribute('href'),'https://github.com/example/agent');assert.equal(await page.locator('.repo-title').count(),8);await page.locator('#atlas-more').click();assert.equal(await page.locator('.repo-title').count(),10);await page.locator('#atlas-more').click();assert.equal(await page.locator('.repo-title').count(),8);
+  await page.locator('.repo-hn').first().click();await page.locator('.result-open').first().waitFor();assert.match(await page.locator('#resultMeta').innerText(),/matches may be unrelated/);await page.getByRole('button',{name:'Back to projects'}).click();assert.equal(await page.locator('.repo-title').count(),8);assert.equal(await page.locator('#source-input').inputValue(),'private search words');
   assert.match(await page.locator('#resultMeta').innerText(),/2026-10-30 05:49 UTC/);assert.match(await page.locator('#resultMeta').innerText(),/not recent daily growth/);assert.match(await page.locator('#searchResults').innerText(),/3 average Stars\/day since creation/);
   assert.equal(await page.locator('#resultMeta a').first().getAttribute('href'),'https://agentatlas.dev/trending');assert.equal(await page.locator('#resultMeta a').nth(1).getAttribute('href'),'https://creativecommons.org/licenses/by/4.0/');
   assert.equal(await page.locator('.repo-description img').count(),0);assert.equal(await page.evaluate(()=>window.injected),undefined);assert.equal(await page.locator('#notes').inputValue(),'Keep this note');
