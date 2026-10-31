@@ -25,6 +25,8 @@ You don't have to know what to build when you arrive. Start with a topic, follow
 3. **Make your call.** Compare the request with current alternatives. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add your notes, then select **Save review file**.
 4. **Pick up where you left off.** Reopen the file later to continue with the same source snapshot and notes. Saved reviews also work offline.
 
+See a worked example: [when a worktree looks merged but changes are still elsewhere](docs/case-worktree-handoff.md).
+
 GitHub repository search shows up to eight matches, sorted by **current total Stars**, not Star growth. For a selected period, GitHub filters by creation date from the UTC calendar date calculated when the search runs; archived repositories and forks are excluded. An incomplete GitHub response is labeled. A license label is GitHub metadata, not a rights assessment: inspect the actual license and assets. Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
 
 ## Use it from your coding agent
