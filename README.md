@@ -1,12 +1,12 @@
 # GapCue · Project Research Desk
 
-**You found an idea. Before you build it, follow the conversation.**
+**A promising idea is a beginning. The conversation tells you where to look next.**
 
-An open issue catches your eye. Someone is asking for exactly the tool you had in mind. You can already picture building it.
+You find a project people are talking about. Then an open issue catches your eye: someone is asking for exactly the tool you had in mind. You can already picture building it.
 
-Then you read on. Someone has found a workaround. A maintainer has linked a pull request. The issue is still open, but now there's a better question: **what is still left to solve?**
+Then you read on. Someone has found a workaround. A maintainer has linked a pull request. The issue is still open, but now there is a better question: **what part of this problem still needs solving?**
 
-I built GapCue for that moment. Search GitHub projects and Hacker News, read public discussions, and keep the sources beside your own decision. Start in your browser, or bring the included research skill to your coding agent.
+I built GapCue for that moment between finding an idea and deciding what to do with it. Search GitHub projects and Hacker News, follow public discussions, and keep the sources next to your own notes and decision. Start in your browser, or use the included research skill with your coding agent.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
@@ -28,7 +28,7 @@ Each trail keeps the discussion, the checks and the decision together—so you c
 
 ## From an idea to a decision
 
-You don't need a finished idea to begin. Start with a question, follow the conversation, and leave yourself a record of what you found and why it mattered.
+Start with a topic, a project, or a question you cannot quite let go of. Follow the discussion, compare what already exists, and leave yourself a record of what you found and why it mattered.
 
 1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
 2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
