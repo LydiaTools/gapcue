@@ -18,12 +18,17 @@ The browser desk needs no account, Python, or API key. Search a topic, or open t
 
 You don't need a finished idea to begin. Start with a question, follow the conversation, and leave yourself a record of what you found and why it mattered.
 
-1. **Find a starting point.** Open the [research desk](https://lydiatools.github.io/gapcue/), enter a topic such as `PDF tables`, choose **Hacker News** or **GitHub repositories**, and search. Choose a time period; HN also offers recent/relevant order.
-2. **Follow the conversation.** Open a repository's source or issues, then paste a specific public GitHub Issue URL into GapCue. For an HN result, choose a story to read the post and comment samples; you can also paste a story URL directly. A repository result is a discovery link, not a review.
-3. **Make your call.** Compare the request with current alternatives. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add your notes, then select **Save review file**.
-4. **Pick up where you left off.** Reopen the file later to continue with the same source snapshot and notes. Saved reviews also work offline.
+1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
+2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
+3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
+4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
+
+<details>
+<summary>How repository search and its numbers work</summary>
 
 GitHub repository search shows up to eight matches, sorted by **current total Stars**, not Star growth. For a selected period, GitHub filters by creation date from the UTC calendar date calculated when the search runs; archived repositories and forks are excluded. An incomplete GitHub response is labeled. A license label is GitHub metadata, not a rights assessment: inspect the actual license and assets. Search points and comment counts describe those posts at collection time. They are not a demand score, user count or forecast. A project's link is a starting point for checking its code and license.
+
+</details>
 
 ## Use it from your coding agent
 
