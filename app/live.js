@@ -116,6 +116,19 @@
     if(new Set(entries.map(e=>e.id)).size!==entries.length)throw new SourceError('sourceFailed');
     return {query:parsed.query,days,created_since,captured_at:new Date().toISOString(),reported_total:data.total_count,incomplete_results:data.incomplete_results,entries,requests:c.requests};
   }
+  // Only direct GitHub repository links are considered; no website crawling or inferred identity.
+  function linkedRepository(value) {
+    const safe=core.github(value); if(!safe)return null;
+    const u=new URL(safe), match=u.pathname.match(/^\/([A-Za-z0-9_-]{1,39})\/([A-Za-z0-9_.-]{1,100})\/?$/);
+    if(!match || match[2]==='.' || match[2]==='..' || u.search || u.hash)return null;
+    return match[1]+'/'+match[2];
+  }
+  async function linkedRepositoryInfo(value, options) {
+    const repository=linkedRepository(value);if(!repository)throw new SourceError('invalidInput');
+    const c=client(options),item=await c.get(GH+'repos/'+repository);
+    if(!item || item.private!==false || typeof item.full_name!=='string' || item.full_name.toLowerCase()!==repository.toLowerCase() || item.html_url!=='https://github.com/'+item.full_name || !nonnegative(item.stargazers_count) || typeof item.created_at!=='string' || !Number.isFinite(Date.parse(item.created_at)) || typeof item.archived!=='boolean' || typeof item.fork!=='boolean')throw new SourceError('sourceFailed');
+    return {full_name:item.full_name,url:item.html_url,stars:item.stargazers_count,created_at:item.created_at,archived:item.archived,fork:item.fork,captured_at:new Date().toISOString()};
+  }
   // This is AgentAtlas's fixed public feed, not a GitHub search or a demand score.
   async function risingAgents(options) {
     const c=client(options),data=await c.get(ATLAS);
@@ -224,6 +237,6 @@
     if (parsed.kind==='github') return collectGitHub(parsed.repository,parsed.number,options);
     throw new SourceError('invalidInput');
   }
-  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,risingAgents,collect,collectHN,collectGitHub,readHNParent};
+  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,linkedRepository,linkedRepositoryInfo,risingAgents,collect,collectHN,collectGitHub,readHNParent};
   if (typeof module==='object'&&module.exports) module.exports=api;else globalThis.GapCueLive=api;
 })();

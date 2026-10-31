@@ -35,3 +35,14 @@ test('failed GitHub source yields a failure artifact, never a false empty result
  const result=await cli.run(['repos','agent','--out',dir],{fetcher:async()=>reply({},429)});
  assert.equal(result.exitCode,1);assert.equal(result.summary.status,'failed');assert.equal(JSON.parse(await fs.readFile(path.join(dir,'failure.json'),'utf8')).error,'rateLimited');await assert.rejects(fs.stat(path.join(dir,'repos.json')),{code:'ENOENT'});
 });
+test('HN direct GitHub links can be checked without inferring other links or identities',async()=>{
+ assert.equal(live.linkedRepository('https://github.com/Example/project'),'Example/project');
+ assert.equal(live.linkedRepository('https://github.com/Example/project/'),'Example/project');
+ for(const input of ['https://example.com/Example/project','https://github.com.evil.invalid/Example/project','https://user@github.com/Example/project','http://github.com/Example/project','https://github.com/Example/project/issues/5','https://github.com/Example/project?x=1','https://github.com/Example/project#fragment'])assert.equal(live.linkedRepository(input),null);
+ const calls=[];const result=await live.linkedRepositoryInfo('https://github.com/example/PROJECT',{fetcher:async(url,options)=>{calls.push({url,options});return reply({...repo,private:false});}});
+ assert.equal(calls.length,1);assert.equal(calls[0].url,'https://api.github.com/repos/example/PROJECT');assert.equal(calls[0].options.credentials,'omit');assert.equal(result.full_name,'Example/project');assert.equal(result.stars,42);assert.ok(Number.isFinite(Date.parse(result.captured_at)));
+ await assert.rejects(live.linkedRepositoryInfo('https://github.com/Example/project',{fetcher:async()=>reply({...repo,private:true})}),e=>e.code==='sourceFailed');
+ await assert.rejects(live.linkedRepositoryInfo('https://github.com/Example/project',{fetcher:async()=>reply({...repo,private:false,full_name:'Other/project',html_url:'https://github.com/Other/project'})}),e=>e.code==='sourceFailed');
+ await assert.rejects(live.linkedRepositoryInfo('https://example.com/a/b',{fetcher:async()=>{throw Error('must not read');}}),e=>e.code==='invalidInput');
+ await assert.rejects(live.linkedRepositoryInfo('https://github.com/Example/project',{fetcher:async()=>reply({},429)}),e=>e.code==='rateLimited');
+});

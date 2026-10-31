@@ -37,6 +37,23 @@ function renderIndex() {
     button.addEventListener("click",()=>{selected=issue.key;render();});list.append(button);
   }
 }
+function linkedRepositoryAction(container,url) {
+  if(!live.linkedRepository(url))return;
+  const button=element("button",tr("linkedRepoButton"),"secondary linked-repo"),detail=element("div",undefined,"linked-repo-detail");
+  button.type="button";detail.setAttribute("role","status");
+  button.addEventListener("click",async()=>{
+    button.disabled=true;detail.replaceChildren(element("p",tr("linkedRepoLoading"),"hint"));
+    try {
+      const info=await live.linkedRepositoryInfo(url);
+      if(!container.isConnected)return;
+      const text=tr("linkedRepoResult",info.full_name,info.stars,date(info.created_at),date(info.captured_at));
+      const flags=[info.archived?tr("linkedRepoArchived"):null,info.fork?tr("linkedRepoFork"):null].filter(Boolean);
+      detail.replaceChildren(element("p",text+(flags.length?" · "+flags.join(" · "):""),"hint"),element("p",tr("linkedRepoHint"),"hint"));
+    } catch(error) { if(container.isConnected)detail.replaceChildren(element("p",tr("linkedRepoFailed"),"hint")); }
+    finally { if(container.isConnected)button.disabled=false; }
+  });
+  container.append(button,detail);
+}
 function renderReferences(issue) {
   const parent=clear("references");
   const origin=issue?.source_kind==="hackernews"?loaded.report.discovery?.repository_context:null;
@@ -53,7 +70,9 @@ function renderReferences(issue) {
     const label=ref.check==="checked"?stateLabel(ref.state):tr(({not_checked:"notChecked",unavailable:"unavailable",link_only:"linkOnly"})[ref.check]||"notChecked");
     top.append(link,element("span",label,"badge "+(ref.check==="checked"?ref.state:ref.check==="unavailable"?"unavailable":"")));item.append(top);
     if(ref.captured_at)item.append(element("p",tr("collected")+" "+date(ref.captured_at)));
-    if(ref.reason&&ref.kind!=="project_link")item.append(element("p",ref.reason));parent.append(item);
+    if(ref.reason&&ref.kind!=="project_link")item.append(element("p",ref.reason));
+    if(ref.kind==="project_link"&&!loaded.report.synthetic)linkedRepositoryAction(item,ref.url);
+    parent.append(item);
   }
 }
 function commentBlock(comment, issue) {
@@ -209,7 +228,7 @@ function renderSearch() {
       startResearch(discovery);
     });
     row.append(button,element("span",tr("storyMetrics",story.points,story.comments)+" - "+date(story.created_at),"hint"));
-    if(story.project_url){const project=element("a",new URL(story.project_url).hostname,"source-link");project.href=story.project_url;project.target="_blank";project.rel="noopener noreferrer";row.append(project);}list.append(row);
+    if(story.project_url){const project=element("a",new URL(story.project_url).hostname,"source-link");project.href=story.project_url;project.target="_blank";project.rel="noopener noreferrer";row.append(project);linkedRepositoryAction(row,story.project_url);}list.append(row);
   }
 }
 async function startResearch(discovery=null, repoLookup=null) {
