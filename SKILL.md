@@ -4,7 +4,7 @@ description: Find public GitHub repositories and research GitHub feature request
 license: MIT
 metadata:
   author: LydiaTools
-  version: "0.6.1"
+  version: "0.6.2"
 ---
 
 # GapCue · read the replies before you build

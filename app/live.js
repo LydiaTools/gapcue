@@ -78,7 +78,7 @@
     return {get, requests, signal};
   }
   function report(client, hn = false) {
-    return {schema_version:hn ? 2 : 1, tool:'GapCue', tool_version:'0.6.1', ...(hn ? {source_kind:'hackernews'} : {}), synthetic:false, started_at:new Date().toISOString(), captured_at:new Date().toISOString(), collection_status:'complete', parameters:{backend:'anonymous browser GET',page_size:PAGE_SIZE,issue_limit:1,reference_limit:2}, repositories:[], requests:client.requests, failures:[], ...(hn ? {threads:[]} : {issues:[]})};
+    return {schema_version:hn ? 2 : 1, tool:'GapCue', tool_version:'0.6.2', ...(hn ? {source_kind:'hackernews'} : {}), synthetic:false, started_at:new Date().toISOString(), captured_at:new Date().toISOString(), collection_status:'complete', parameters:{backend:'anonymous browser GET',page_size:PAGE_SIZE,issue_limit:1,reference_limit:2}, repositories:[], requests:client.requests, failures:[], ...(hn ? {threads:[]} : {issues:[]})};
   }
   function unavailable(result, name, error, client) {
     if (client.signal?.aborted || error.name === 'AbortError' && !error.code) throw error;

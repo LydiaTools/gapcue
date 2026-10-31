@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2 · Find a repository from an HN discussion
+
+From an HN story that points to a website, prepare an editable project-name search on GitHub and review candidate repositories. The starting discussion stays accessible during the search; name matches are not verified identities and are not saved with repository snapshots. Direct GitHub story links can also be checked on demand. These browser features and the current research cases are included in this preview.
+
 ## 0.6.1 · Keep the path from project to discussion
 
 Find Hacker News discussions by name from a GitHub or AgentAtlas project result and return to the project list. A saved review retains the starting repository as an unverified search origin; a name match is not proof of a relationship. Existing reviews remain readable. This preview also includes the latest bilingual project documentation and research example.

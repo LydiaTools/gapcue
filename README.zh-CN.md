@@ -4,7 +4,7 @@
 
 GapCue 是一张项目调研台：帮你发现 GitHub 公开项目、查找 Hacker News 讨论，把看到的依据和自己的判断放在一起。
 
-**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.1) · [反馈](https://github.com/LydiaTools/gapcue/issues)
+**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
 网页版无需账号、Python 或 API Key。你也可以让编程 Agent 使用随项目提供的[调研技能](#让编程-agent-直接做调研)。
 
@@ -33,7 +33,7 @@ GapCue 是一张项目调研台：帮你发现 GitHub 公开项目、查找 Hack
    在仓库结果中点击“查找 HN 讨论”，可以按项目名称搜索全部时间的帖子，再返回项目列表。打开帖子后，最初的仓库会作为**尚未核实的搜索起点**随评审文件保存。同名结果可能无关，有些讨论也可能使用不同名称；请打开原文核对。在线调研台与 v0.6.1 预览版包含此入口，v0.6.0 ZIP 早于此功能。
    如果 HN 结果直接链接到 GitHub 仓库，点击“查看链接的 GitHub 仓库”可按需读取当前 Star 和创建时间；如为归档或派生仓库也会标注。实时信息不会保存进评审文件，不能当作增长或需求分数。v0.6.1 ZIP 早于此按钮。
 
-   如果帖子先指向官网，可点击“按名称查找仓库”，修改建议的名称后搜索 GitHub；候选列表保留回到 HN 结果或打开原讨论的入口。同名项目可能无关，目标仓库也可能不在前八条中；请对照项目自己的链接核实。仓库快照不保存原讨论。当前源码和在线调研台包含该入口，v0.6.1 ZIP 早于此功能。
+   如果帖子先指向官网，可点击“按名称查找仓库”，修改建议的名称后搜索 GitHub；候选列表保留回到 HN 结果或打开原讨论的入口。同名项目可能无关，目标仓库也可能不在前八条中；请对照项目自己的链接核实。仓库快照不保存原讨论。在线调研台与 v0.6.2 预览版包含该入口，v0.6.1 ZIP 早于此功能。
 
    ![从 HN 讨论搜索 corgi terminal，展示 GitHub 候选仓库和原讨论入口](docs/assets/hn-name-candidates-zh.png)
 
@@ -54,7 +54,7 @@ GapCue 是一张项目调研台：帮你发现 GitHub 公开项目、查找 Hack
 
 有时候，调研带来的收获不是一个马上要做的项目，而是更清楚：问题在哪里，接下来还要核对什么。
 
-- **[下载模型后，空间去哪了？](docs/case-model-storage-research.zh-CN.md)：** 从本地 AI 讨论出发，我们找到具体的 Ollama 报告、修复提案和已有工具；目前的决定是继续研究。此案例晚于 v0.6.1 下载包。
+- **[下载模型后，空间去哪了？](docs/case-model-storage-research.zh-CN.md)：** 从本地 AI 讨论出发，我们找到具体的 Ollama 报告、修复提案和已有工具；目前的决定是继续研究。此案例包含在 v0.6.2 中，v0.6.1 下载包早于此案例。
 - **[看起来已经完成的交接](docs/case-worktree-handoff.zh-CN.md)：** Agent 可能报告工作已合并，但未提交的文件还留在另一个工作区。我们在本地复现了 Git 状态，也核对了现有方案；这个问题值得继续研究，但还不能据此认定需要做一个新产品。
 - **[一条关于界面验证的热门讨论](docs/case-mobile-ui-research.zh-CN.md)：** 从移动端和桌面测试的讨论出发，我们查看了现有方案，决定先继续研究，再考虑是否需要做通用模拟器工具。
 - **[一条字幕，三个工具](docs/case-caption-research.zh-CN.md)：** 从竖屏视频讨论出发，我们用中文字幕样本试用了三个工具，并以英文样本作对照。这帮助我们缩小了下一步的问题，但一个样本还不能证明市场需求。
@@ -65,7 +65,7 @@ GapCue 想帮你留下的，就是这样的过程：**原始讨论、你核对�
 
 想观察一段时间内的变化？选择“GitHub 仓库”搜索并点击“保存搜索快照”；稍后用相同主题和时间范围重新搜索，再保存第二份。打开[快照对比页](https://lydiatools.github.io/gapcue/compare.html?lang=zh)，本地选择两份文件。工具按 GitHub 仓库 ID 对齐，只计算两次都出现的项目。每次最多 8 条，未出现不代表零；滚动创建日期筛选也可能变化。数字和设备时钟记录的是观察值，不代表需求或未来增长。搜索快照与讨论评审文件分开保存。
 
-离线对比时，解压 v0.6.1 预览 ZIP，在 Chrome 打开 `app/compare.html`；重新搜索需要连接 GitHub。旧版 CLI 的 `repos.json` 与浏览器快照格式不兼容。
+离线对比时，解压 v0.6.2 预览 ZIP，在 Chrome 打开 `app/compare.html`；重新搜索需要连接 GitHub。旧版 CLI 的 `repos.json` 与浏览器快照格式不兼容。
 
 ![实际的仓库快照对比页面，显示仓库、两次 Star 和变化](docs/assets/repo-snapshot-compare.png)
 
@@ -130,7 +130,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 3. 选择下一步、写一条笔记，点击“保存评审文件”。
 4. 刷新页面，再打开保存的 JSON，检查来源和笔记是否还在。
 
-也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.1)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
+也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
 
 ## 可选：用 Python 批量采集 GitHub
 
