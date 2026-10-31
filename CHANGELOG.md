@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.1 · Keep the path from project to discussion
+
+Find Hacker News discussions by name from a GitHub or AgentAtlas project result and return to the project list. A saved review retains the starting repository as an unverified search origin; a name match is not proof of a relationship. Existing reviews remain readable. This preview also includes the latest bilingual project documentation and research example.
+
 ## 0.6.0 · Compare repository observations
 
 Save a bounded GitHub repository search as a local snapshot and compare two files in English or Chinese. Repository IDs align renamed projects; only entries present in both snapshots receive a Star difference. Capture times come from the device, files can be edited, and date filters or incomplete results can change the sample. Comparison also works offline; collecting a new snapshot requires GitHub access. The saved snapshot is distinct from a discussion review and is not a demand forecast.

@@ -4,7 +4,7 @@
 
 GapCue 是一张项目调研台：帮你发现 GitHub 公开项目、查找 Hacker News 讨论，把看到的依据和自己的判断放在一起。
 
-**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
+**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.1) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
 网页版无需账号、Python 或 API Key。你也可以让编程 Agent 使用随项目提供的[调研技能](#让编程-agent-直接做调研)。
 
@@ -30,7 +30,7 @@ GapCue 是一张项目调研台：帮你发现 GitHub 公开项目、查找 Hack
 
 1. **先找线索。** 打开[中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)，输入 `PDF tables` 这样的主题，选择“Hacker News”或“GitHub 仓库”搜索。可选时间范围；HN 还可按最新或相关排序。
 
-   在仓库结果中点击“查找 HN 讨论”，可以按项目名称搜索全部时间的帖子，再返回项目列表。打开帖子后，最初的仓库会作为**尚未核实的搜索起点**随评审文件保存。同名结果可能无关，有些讨论也可能使用不同名称；请打开原文核对。在线调研台与当前源码包含此入口，v0.6.0 ZIP 早于此功能。
+   在仓库结果中点击“查找 HN 讨论”，可以按项目名称搜索全部时间的帖子，再返回项目列表。打开帖子后，最初的仓库会作为**尚未核实的搜索起点**随评审文件保存。同名结果可能无关，有些讨论也可能使用不同名称；请打开原文核对。在线调研台与 v0.6.1 预览版包含此入口，v0.6.0 ZIP 早于此功能。
 2. **看看后来发生了什么。** 直接选择一条 HN 帖子，或粘贴公开的 GitHub Issue、HN 帖子链接。看到感兴趣的仓库时，可以先打开源码或问题列表，再把具体的 Issue 链接带回调研台。
 3. **留下你的判断。** 对照讨论和现有方案，选择下一步，写一条笔记，点击“保存评审文件”。
 4. **下次从这里继续。** 重新打开文件，就能看到同一份来源快照和自己的笔记；保存后的评审也可以离线查看。
@@ -53,7 +53,7 @@ GapCue 想帮你留下的，就是这样的过程：**原始讨论、你核对�
 
 想观察一段时间内的变化？选择“GitHub 仓库”搜索并点击“保存搜索快照”；稍后用相同主题和时间范围重新搜索，再保存第二份。打开[快照对比页](https://lydiatools.github.io/gapcue/compare.html?lang=zh)，本地选择两份文件。工具按 GitHub 仓库 ID 对齐，只计算两次都出现的项目。每次最多 8 条，未出现不代表零；滚动创建日期筛选也可能变化。数字和设备时钟记录的是观察值，不代表需求或未来增长。搜索快照与讨论评审文件分开保存。
 
-离线对比时，解压 v0.6.0 预览 ZIP，在 Chrome 打开 `app/compare.html`；重新搜索需要连接 GitHub。旧版 CLI 的 `repos.json` 与浏览器快照格式不兼容。
+离线对比时，解压 v0.6.1 预览 ZIP，在 Chrome 打开 `app/compare.html`；重新搜索需要连接 GitHub。旧版 CLI 的 `repos.json` 与浏览器快照格式不兼容。
 
 ![实际的仓库快照对比页面，显示仓库、两次 Star 和变化](docs/assets/repo-snapshot-compare.png)
 
@@ -118,7 +118,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 3. 选择下一步、写一条笔记，点击“保存评审文件”。
 4. 刷新页面，再打开保存的 JSON，检查来源和笔记是否还在。
 
-也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
+也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.1)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
 
 ## 可选：用 Python 批量采集 GitHub
 

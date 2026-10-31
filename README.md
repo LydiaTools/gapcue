@@ -4,7 +4,7 @@
 
 GapCue is a research desk for finding public GitHub projects and Hacker News discussions, reading the evidence, and keeping it beside your own decisions.
 
-**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.1) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
 The browser desk needs no account, Python, or API key. You can also use the included [research skill](#use-it-from-your-coding-agent) with a coding agent.
 
@@ -30,7 +30,7 @@ Start with a topic, a project, or a question you cannot quite let go of. Follow 
 
 1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
 
-   From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. If you open a story, the originating repository is kept with the review as an **unverified search origin**. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available in the online desk and current source; the v0.6.0 ZIP predates it.
+   From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. If you open a story, the originating repository is kept with the review as an **unverified search origin**. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available online and in the v0.6.1 preview; the v0.6.0 ZIP predates it.
 2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
 3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
 4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
@@ -53,7 +53,7 @@ Each trail keeps the discussion, the checks and the decision together—so you c
 
 Want to compare interest over time? Search **GitHub repositories** and select **Save search snapshot**. Later, repeat the same query and period, save a second snapshot, then [compare the files locally](https://lydiatools.github.io/gapcue/compare.html). The comparison uses stable GitHub repository IDs and shows the change only for projects in both samples. Each search returns at most eight projects, so a missing project is not zero; the rolling creation-date cutoff can move. Counts and client-clock timestamps are observations, not proof of demand or future growth. This snapshot is separate from your saved discussion review.
 
-To compare saved files without internet, extract the v0.6.0 preview ZIP and open `app/compare.html` in Chrome. New searches require a connection to GitHub. Older CLI `repos.json` files are not compatible with the browser snapshot format.
+To compare saved files without internet, extract the v0.6.1 preview ZIP and open `app/compare.html` in Chrome. New searches require a connection to GitHub. Older CLI `repos.json` files are not compatible with the browser snapshot format.
 
 ![Actual snapshot comparison showing repository names, both Star counts and their difference](docs/assets/repo-snapshot-compare.png)
 
@@ -118,7 +118,7 @@ The browser app uses plain HTML, CSS and JavaScript: no build step, model API, d
 3. Choose a next step, write a note, and select **Save review file**.
 4. Reload the page, open that file, and continue with the same sources and notes.
 
-For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0), then open `app/index.html` in Chrome. No server is needed for the viewer.
+For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.1), then open `app/index.html` in Chrome. No server is needed for the viewer.
 
 ## Optional Python collector for several GitHub issues
 
