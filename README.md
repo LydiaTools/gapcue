@@ -31,6 +31,11 @@ Start with a topic, a project, or a question you cannot quite let go of. Follow 
 1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
 
    From a repository result, select **Find HN discussions** to search the project name across all time, then return to the project list. If you open a story, the originating repository is kept with the review as an **unverified search origin**. Names can match unrelated stories, and some discussions use a different name; check the original source. This is available online and in the v0.6.1 preview; the v0.6.0 ZIP predates it.
+   If an HN result links directly to a GitHub repository, choose **Check linked GitHub repository** to read its current Stars and creation time on demand. Archived and fork status are shown when applicable. This live information is not saved in the review and is not a growth or demand score. The v0.6.1 ZIP predates this button.
+
+   ![Actual on-demand GitHub repository lookup from an HN story showing the repository and current Stars](docs/assets/hn-linked-repo-en.png)
+
+   *Actual anonymous lookup from the Hob HN story on 2026-10-31 UTC; the count changes over time.*
 2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
 3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
 4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
@@ -110,7 +115,7 @@ CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sourc
 | Return to the same evidence | Download and reopen a review containing the exact report text, its SHA-256 and your notes |
 | Work in either language | English/Chinese controls; original source language is preserved |
 
-The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search, choose a discussion, request an HN parent comment, or request the AgentAtlas snapshot. Search terms go to the selected GitHub or HN Search service; the snapshot request goes to AgentAtlas without search terms. Discussion requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. Parent comments fetched on demand are shown live and are not added to the saved review; an already-collected parent comes from the original snapshot. The optional multi-issue collector uses Python's standard library.
+The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search, choose a discussion, check a linked GitHub repository, request an HN parent comment, or request the AgentAtlas snapshot. Search terms go to the selected GitHub or HN Search service; the snapshot request goes to AgentAtlas without search terms. Discussion requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. Parent comments fetched on demand are shown live and are not added to the saved review; an already-collected parent comes from the original snapshot. The optional multi-issue collector uses Python's standard library.
 
 ## Try the offline review workflow
 
