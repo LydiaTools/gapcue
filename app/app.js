@@ -56,7 +56,24 @@ function commentBlock(comment, issue) {
   if(role)who.append(element("span",role,"comment-role"));
   const link=element("a",tr("source"),"source-link");link.target="_blank";link.rel="noopener";sourceLink(link,comment.url);heading.append(who,link);block.append(heading);
   excerpt(block,comment.body);
-  if(issue.source_kind==="hackernews"&&comment.parent_id!==issue.number){const parent=element("a",tr("parent")+" #"+comment.parent_id,"source-link");parent.target="_blank";parent.rel="noopener noreferrer";sourceLink(parent,"https://news.ycombinator.com/item?id="+comment.parent_id);block.append(parent);}
+  if(issue.source_kind==="hackernews"&&comment.parent_id!==issue.number){
+    const parent=element("a",tr("parent")+" #"+comment.parent_id,"source-link");parent.target="_blank";parent.rel="noopener noreferrer";sourceLink(parent,"https://news.ycombinator.com/item?id="+comment.parent_id);block.append(parent);
+    if(!loaded.report.synthetic){
+      const button=element("button",tr("readParent"),"parent-read"),detail=element("div",undefined,"parent-context");button.type="button";detail.setAttribute("role","status");
+      button.addEventListener("click",async()=>{
+        button.disabled=true;detail.replaceChildren(element("p",tr("parentLoading"),"hint"));
+        try{
+          const captured=issue.comments.entries.find(entry=>entry.id===comment.parent_id);
+          const item=captured||await live.readHNParent(comment.parent_id);
+          if(!block.isConnected)return;
+          detail.replaceChildren(element("p",tr("parentContext")+" · "+item.author+" · "+date(item.created_at),"hint"));excerpt(detail,item.body);
+          detail.append(element("p",tr(captured?"parentInSnapshot":"parentNotSaved"),"hint"));
+        }catch(error){if(block.isConnected)detail.replaceChildren(element("p",tr("parentFailed"),"hint"));}
+        finally{if(block.isConnected)button.disabled=false;}
+      });
+      block.append(button,detail);
+    }
+  }
   block.append(element("p",date(comment.created_at)+" · "+tr("page",comment.page),"comment-date"));return block;
 }
 function renderThread(issue) {

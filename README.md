@@ -74,13 +74,14 @@ CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sourc
 | Read a real thread without installing anything | Paste one public GitHub Issue or HN story URL into the browser |
 | Collect several GitHub issues | Python CLI: explicit issue URLs, or bounded search within one public repository |
 | Check what happened later | First and last comment pages, shown with the newest collected comments first |
+| Read a reply in context | Show its collected parent, or read one public HN parent on demand |
 | Know what you missed | Collected/reported counts, visible omissions, shortened excerpts and unavailable sources |
 | Inspect mentioned work | Current state checks for mentioned issues/PRs; branch and commit links stay clearly marked as links |
 | Separate sources from judgment | Original excerpts and bot/association metadata beside your own decision notes |
 | Return to the same evidence | Download and reopen a review containing the exact report text, its SHA-256 and your notes |
 | Work in either language | English/Chinese controls; original source language is preserved |
 
-The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search or choose a discussion. Search terms go to the selected GitHub or HN Search service; public source requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. The optional multi-issue collector uses Python's standard library.
+The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search, choose a discussion, or request an HN parent comment. Search terms go to the selected GitHub or HN Search service; public source requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. Parent comments fetched on demand are shown live and are not added to the saved review; an already-collected parent comes from the original snapshot. The optional multi-issue collector uses Python's standard library.
 
 ## Try the offline review workflow
 

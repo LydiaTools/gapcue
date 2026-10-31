@@ -40,6 +40,14 @@ test('HN missing comment page remains partial with retained source, not a zero-c
  const report=await live.collectHN(101,{fetcher:fake(url=>url.includes('page=2')?{status:503,body:{error:'unavailable'}}:hnRoutes(url))});
  assert.equal(report.collection_status,'partial');assert.equal(report.threads[0].comments.available,false);assert.equal(report.threads[0].comments.entries.length,2);assert.equal(report.threads[0].comments.reported_total,23);assert.ok(report.failures.length);
 });
+test('on-demand HN parent reads one public comment and handles missing or mismatched data',async()=>{
+ const calls=[],parent={id:1001,type:'comment',by:'parent-reader',time:1780000000,text:'A &lt;script&gt;literal&lt;/script&gt; question.'};
+ const result=await live.readHNParent(1001,{fetcher:fake(()=>parent,calls)});
+ assert.equal(result.id,1001);assert.match(result.body.text,/<script>literal<\/script>/);assert.equal(calls.length,1);
+ assert.equal(calls[0].url,'https://hacker-news.firebaseio.com/v0/item/1001.json');assert.equal(calls[0].options.credentials,'omit');
+ for(const invalid of [null,{...parent,id:1002},{...parent,deleted:true},{...parent,type:'story'}])await assert.rejects(live.readHNParent(1001,{fetcher:fake(()=>invalid)}),/unavailableThread/);
+ await assert.rejects(live.readHNParent(0,{fetcher:fake(()=>parent)}),/invalidInput/);
+});
 test('an empty search index does not erase the official HN comment count',async()=>{
  const report=await live.collectHN(101,{fetcher:fake(url=>url.includes('firebaseio')?story:{page:0,nbPages:0,nbHits:0,hits:[]})});
  assert.equal(report.collection_status,'partial');assert.equal(report.threads[0].comments.reported_total,23);assert.equal(report.threads[0].comments.available,false);

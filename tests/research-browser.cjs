@@ -21,12 +21,17 @@ const comment=(id,parent,date)=>({objectID:String(id),story_id:101,parent_id:par
  if(!real)await context.route(/https:\/\/(hn\.algolia\.com|hacker-news\.firebaseio\.com|api\.github\.com)\//,async route=>{
   const url=new URL(route.request().url());let data,status=200;
   if(mode==='rate')status=429,data={message:'Synthetic rate limit'};
-  else if(url.hostname==='hacker-news.firebaseio.com')data=story;
+  else if(url.hostname==='hacker-news.firebaseio.com'){
+   if(url.pathname.endsWith('/1005.json')){
+    if(mode==='parent-fail')status=503,data={};
+    else data={id:1005,type:'comment',by:'parent-reader',time:1780000000,text:'Parent question: &lt;script&gt;window.injected=true&lt;/script&gt;'};
+   }else data=story;
+  }
   else if(url.hostname==='hn.algolia.com'&&!url.searchParams.get('tags').includes('comment')){
    const query=url.searchParams.get('query');
    if(query==='slow')await new Promise(resolve=>{releaseSlow=resolve;});
    data={nbHits:1,hits:[{objectID:'101',title:query==='fresh'?'Fresh synthetic result':story.title,author:'fixture-author',points:7,num_comments:13,created_at:'2026-10-01T10:00:00Z',url:story.url}]};
-  }else if(url.hostname==='hn.algolia.com')data={page:Number(url.searchParams.get('page')),nbHits:13,nbPages:2,hits:url.searchParams.get('page')==='1'?[comment(1001,101,'2026-09-01T10:00:00Z')]:[comment(1003,1001,'2026-10-01T10:00:00Z'),comment(1002,101,'2026-09-30T10:00:00Z')]};
+  }else if(url.hostname==='hn.algolia.com')data={page:Number(url.searchParams.get('page')),nbHits:13,nbPages:2,hits:url.searchParams.get('page')==='1'?[comment(1001,101,'2026-09-01T10:00:00Z')]:[comment(1004,1005,'2026-10-02T10:00:00Z'),comment(1003,1001,'2026-10-01T10:00:00Z'),comment(1002,101,'2026-09-30T10:00:00Z')]};
   else if(url.pathname==='/repos/example/project')data={private:false,visibility:'public',full_name:'example/project',stargazers_count:5,html_url:'https://github.com/example/project'};
   else if(url.pathname.endsWith('/comments')){
    if(url.searchParams.get('page')==='2')status=503,data={};
@@ -52,10 +57,24 @@ const comment=(id,parent,date)=>({objectID:String(id),story_id:101,parent_id:par
   assert.ok(await page.locator('#comments a').count()>0);
   assert.equal(await page.evaluate(()=>window.injected),undefined);
   assert.equal(await page.locator('#coverage').textContent().then(v=>v.includes('bot comments')),false);
+  if(!real){
+   const liveParent=page.locator('.comment').filter({has:page.locator('a[href="https://news.ycombinator.com/item?id=1005"]')});
+   const savedParent=page.locator('.comment').filter({has:page.locator('a[href="https://news.ycombinator.com/item?id=1001"]')});
+   let before=reads.length;await savedParent.getByRole('button',{name:'Read parent here'}).click();
+   assert.equal(reads.length,before);assert.match(await savedParent.locator('.parent-context').textContent(),/From the source snapshot/);
+   await liveParent.getByRole('button',{name:'Read parent here'}).click();
+   await liveParent.getByText(/not included in the saved review/).waitFor();
+   assert.equal(reads.length,before+1);assert.match(await liveParent.locator('.parent-context').textContent(),/Parent question/);
+   assert.equal(await page.evaluate(()=>window.injected),undefined);
+   mode='parent-fail';await liveParent.getByRole('button',{name:'Read parent here'}).click();
+   await liveParent.getByText(/Parent unavailable/).waitFor();assert.equal(reads.length,before+2);mode='normal';
+   checks.push('Parent context reuses captured text or reads one public item on demand; failure is visible and live text is not saved.');
+  }
   await page.locator('#verdict').selectOption('followup');await page.locator('#notes').fill('Check the alternative before making a prototype. Source stays original.');
   const downloadEvent=page.waitForEvent('download');await page.locator('#export').click();const downloaded=await downloadEvent;
   const saved=path.join(output,'actual-review.json');await downloaded.saveAs(saved);assert.equal(await downloaded.failure(),null);
   const review=JSON.parse(await fs.readFile(saved,'utf8')),report=JSON.parse(review.source_text);
+  if(!real)assert.equal(review.source_text.includes('Parent question'),false);
   assert.equal(report.source_kind,'hackernews');assert.equal(report.discovery.search.query,query);assert.equal(report.discovery.selected_id,report.threads[0].number);
   assert.equal(report.threads[0].state,'discussion');assert.ok(report.requests.every(r=>r.url.startsWith('https://')));
   await fs.writeFile(path.join(output,'collected-source.json'),review.source_text);
