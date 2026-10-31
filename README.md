@@ -24,6 +24,8 @@ That's the kind of trail GapCue helps you keep: **the original discussion, what 
 
 Another trail started with a popular request for [mobile and desktop UI evidence](docs/case-mobile-ui-research.md). Looking at what exists today led us to keep researching instead of starting another general simulator tool.
 
+A third follows a [portrait-caption discussion](docs/case-caption-research.md) through a Chinese sample, an English control and three existing tools.
+
 ## From an idea to a decision
 
 You don't need a finished idea to begin. Start with a question, follow the conversation, and leave yourself a record of what you found and why it mattered.
