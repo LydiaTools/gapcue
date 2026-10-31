@@ -8,7 +8,7 @@
 
 GapCue 陪你把这条线索找下去。搜索 GitHub 项目和 Hacker News，阅读公开讨论，把来源和自己的判断放在一起。你可以直接在网页使用，也可以让编程 Agent 使用随项目提供的调研技能。
 
-**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases) · [反馈](https://github.com/LydiaTools/gapcue/issues)
+**[打开 GapCue 中文版](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
 网页版无需账号、Python 或 API Key。输入主题开始搜索，也可以先打开内置虚构示例，体验评审流程。
 
@@ -33,7 +33,7 @@ GapCue 想帮你留下的，就是这样的过程：**原始讨论、你核对�
 3. **留下你的判断。** 对照讨论和现有方案，选择下一步，写一条笔记，点击“保存评审文件”。
 4. **下次从这里继续。** 重新打开文件，就能看到同一份来源快照和自己的笔记；保存后的评审也可以离线查看。
 
-想找选题？在网页点击“发现热门 Agent 项目”，查看 [AgentAtlas 的精选快照](https://agentatlas.dev/trending)：它展示榜单生成时间和项目自创建以来的日均 Star，不代表实时日增长或已验证的需求。这不是关键词搜索，榜单不会写入评审文件，简介可能被缩短。数据来自 AgentAtlas，遵循 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)；此功能在当前源码和在线调研台中，固定 v0.4.0 ZIP 不包含。
+想找选题？在网页点击“发现热门 Agent 项目”，查看 [AgentAtlas 的精选快照](https://agentatlas.dev/trending)：它展示榜单生成时间和项目自创建以来的日均 Star，不代表实时日增长或已验证的需求。这不是关键词搜索，榜单不会写入评审文件，简介可能被缩短。数据来自 AgentAtlas，遵循 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)；在线调研台和 v0.5.0 预览版均包含此功能，旧 v0.4.0 源码包不包含。
 
 <details>
 <summary>仓库搜索和结果数字说明</summary>
@@ -92,7 +92,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 3. 选择下一步、写一条笔记，点击“保存评审文件”。
 4. 刷新页面，再打开保存的 JSON，检查来源和笔记是否还在。
 
-也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
+也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.5.0)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
 
 ## 可选：用 Python 批量采集 GitHub
 
