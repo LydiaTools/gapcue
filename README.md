@@ -1,12 +1,14 @@
 # GapCue · Project Research Desk
 
-**A promising idea is a beginning. The conversation tells you where to look next.**
+**A good idea is exciting. Knowing what to build next takes a closer look.**
 
-You find a project people are talking about. Then an open issue catches your eye: someone is asking for exactly the tool you had in mind. You can already picture building it.
+You find a project people are talking about. An open issue describes exactly the tool you had in mind. For a moment, you can already picture building it.
 
-Then you read on. Someone has found a workaround. A maintainer has linked a pull request. The issue is still open, but now there is a better question: **what part of this problem still needs solving?**
+Then you read on. Someone found a workaround. A maintainer linked a pull request. The issue is still open, but the question has changed: **what part of this problem still needs solving?**
 
-I built GapCue for that moment between finding an idea and deciding what to do with it. Search GitHub projects and Hacker News, follow public discussions, and keep the sources next to your own notes and decision. Start in your browser, or use the included research skill with your coding agent.
+I built GapCue for that moment between finding an idea and deciding what to do next. Search GitHub and Hacker News, follow public discussions, and keep the sources beside your own notes. **So when you come back to an idea, you can see what you found—and why you made that decision.**
+
+Use it in your browser, or bring the included research skill to your coding agent.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
@@ -15,6 +17,15 @@ The browser desk needs no account, Python, or API key. Search a topic, or open t
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
 *An actual anonymous repository search, captured 2026-10-29 UTC. Results and Star counts change over time.*
+
+## From an idea to a decision
+
+Start with a topic, a project, or a question you cannot quite let go of. Follow the discussion, compare what already exists, and leave yourself a record of what you found and why it mattered.
+
+1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
+2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
+3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
+4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
 
 ## Follow a real research trail
 
@@ -26,14 +37,7 @@ Sometimes the most useful result isn't another idea to build. It's a clearer vie
 
 Each trail keeps the discussion, the checks and the decision together—so you can revisit the reasoning, not just the idea.
 
-## From an idea to a decision
-
-Start with a topic, a project, or a question you cannot quite let go of. Follow the discussion, compare what already exists, and leave yourself a record of what you found and why it mattered.
-
-1. **Find a lead.** In the [research desk](https://lydiatools.github.io/gapcue/), search a topic such as `PDF tables` on **Hacker News** or **GitHub repositories**. Choose a time period; HN also offers recent/relevant order.
-2. **Read what happened next.** Choose an HN story, or paste a public GitHub Issue or HN story URL. For a repository result, open its source or issues first, then bring a specific Issue URL back to the desk.
-3. **Make your call.** Compare the discussion with existing options. Choose **Follow up**, **Prototype candidate** or **Pass for my task**, add a note, and select **Save review file**.
-4. **Come back to the evidence.** Reopen the file later to see the same source snapshot and your notes. Saved reviews work offline too.
+## See how a project changes over time
 
 Want to compare interest over time? Search **GitHub repositories** and select **Save search snapshot**. Later, repeat the same query and period, save a second snapshot, then [compare the files locally](https://lydiatools.github.io/gapcue/compare.html). The comparison uses stable GitHub repository IDs and shows the change only for projects in both samples. Each search returns at most eight projects, so a missing project is not zero; the rolling creation-date cutoff can move. Counts and client-clock timestamps are observations, not proof of demand or future growth. This snapshot is separate from your saved discussion review.
 
