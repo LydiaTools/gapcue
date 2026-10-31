@@ -2,17 +2,23 @@
 
 **A good idea is exciting. Knowing what to build next takes a closer look.**
 
+GapCue is a research desk for finding public GitHub projects and Hacker News discussions, reading the evidence, and keeping it beside your own decisions.
+
+**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+
+The browser desk needs no account, Python, or API key. You can also use the included [research skill](#use-it-from-your-coding-agent) with a coding agent.
+
 You find a project people are talking about. An open issue describes exactly the tool you had in mind. For a moment, you can already picture building it.
 
 Then you read on. Someone found a workaround. A maintainer linked a pull request. The issue is still open, but the question has changed: **what part of this problem still needs solving?**
 
-I built GapCue for that moment between finding an idea and deciding what to do next. Search GitHub and Hacker News, follow public discussions, and keep the sources beside your own notes. **So when you come back to an idea, you can see what you found—and why you made that decision.**
+I built GapCue for that moment between finding an idea and deciding what to do next:
 
-Use it in your browser, or bring the included research skill to your coding agent.
+- **Find the conversation.** Search GitHub repositories or Hacker News, then open a public issue or story to read its collected discussion.
+- **Look beyond the first impression.** Check sampled replies and mentioned changes, then follow the original sources for context.
+- **Keep the trail.** Save a review with the source snapshot and your notes, or compare two saved repository search snapshots over time.
 
-**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
-
-The browser desk needs no account, Python, or API key. Search a topic, or open the included fictional example to try the review workflow.
+When you come back to an idea, you can see what you found—and why you made that decision.
 
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
