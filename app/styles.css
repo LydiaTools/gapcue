@@ -8,3 +8,5 @@
 @media(max-width:680px){.research{padding:15px}.research-controls{flex-wrap:wrap;align-items:stretch}.research-controls>input{flex-basis:100%}.sort-control{flex:1}.research-controls>button{align-self:end}.search-result{display:flex;flex-direction:column;gap:3px}.search-result>a{align-self:start}.intro h1{font-size:29px}}
 
 .repo-result{padding:12px 0;border-bottom:1px solid #e9e4ef}.repo-title{font-weight:650;font-size:15px;overflow-wrap:anywhere}.repo-result .hint{margin:4px 0;color:var(--muted)}.repo-description{font-size:14px;margin:6px 0;overflow-wrap:anywhere}.repo-result .source-link{font-size:13px}
+.parent-read{margin-left:12px;font-size:12px}
+.parent-context:not(:empty){border-left:2px solid var(--line);padding-left:12px;margin-top:10px}

@@ -152,6 +152,12 @@
     thread.comments.has_unread=thread.comments.entries.length < Math.max(thread.comments.reported_total,thread.comments.indexed_total||0);
     result.captured_at=new Date().toISOString();core.validate(result);return result;
   }
+  async function readHNParent(id, options) {
+    if (!positive(id)) throw new SourceError('invalidInput');
+    const c = client(options), item = await c.get(FIREBASE+'item/'+id+'.json');
+    if (!item || item.id!==id || item.type!=='comment' || item.deleted || item.dead || typeof item.text!=='string' || !positive(item.time)) throw new SourceError('unavailableThread');
+    return {id, url:'https://news.ycombinator.com/item?id='+id, author:String(item.by||'[unavailable]').slice(0,200), created_at:new Date(item.time*1000).toISOString(), body:excerpt(plain(item.text))};
+  }
   function references(repository, text) {
     const entries = [], seen = new Set();
     function add(repo, number) {
@@ -206,6 +212,6 @@
     if (parsed.kind==='github') return collectGitHub(parsed.repository,parsed.number,options);
     throw new SourceError('invalidInput');
   }
-  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,collect,collectHN,collectGitHub};
+  const api={PAGE_SIZE,MAX_RESPONSE,SourceError,plain,excerpt,input,search,searchRepositories,collect,collectHN,collectGitHub,readHNParent};
   if (typeof module==='object'&&module.exports) module.exports=api;else globalThis.GapCueLive=api;
 })();

@@ -14,6 +14,8 @@ node scripts/research.cjs collect "https://news.ycombinator.com/item?id=47499672
 
 Use a new output directory. Our anonymous collection on 31 October 2026 fetched 16 of 106 reported comments from the earliest and latest indexed pages, with no request failures. **The middle of the discussion was not collected.** Read the original thread before drawing conclusions; its content and counts may change. `complete` describes the requested reads, not a complete conversation.
 
+Seven of those 16 comments were replies whose parent was outside the sample. In the browser, choose **Read parent here** beside a reply: GapCue shows a parent already in the snapshot, or fetches that single public comment. A live-fetched parent is temporary and is not included in the saved review; use its source link or your own notes when you need to revisit it.
+
 ## Check what exists now
 
 The HN discussion is from March 2026. Before treating its mobile requests as a current gap, we checked project descriptions on 31 October 2026:
