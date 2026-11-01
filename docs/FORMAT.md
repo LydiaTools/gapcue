@@ -58,3 +58,11 @@ When an HN search starts from a GitHub or AgentAtlas repository result, the sele
 The version-1 review wrapper supports either report version in its exact `source_text` and SHA-256. Existing version-1 reports/reviews remain readable. There is no migration that rewrites an old source snapshot.
 
 Primary endpoints: [HN Search API](https://hn.algolia.com/api), [official HN item API](https://github.com/HackerNews/API#items).
+
+## Stack Overflow browser review
+
+The Stack Overflow page uses a separate `GapCueStackOverflowReview` file with `schema: 1`, an exact JSON `source_text`, its SHA-256, and the user's verdict and notes. Open it only in `app/stackoverflow.html`; it is not a `GapCueReview`, CLI report, or HN report. The source snapshot holds one question and at most 10 vote-sorted answers. It includes the post author and profile link, original post link, reported content license and a shortened plain-text excerpt (up to 6,000 Unicode code points). HTML formatting is flattened; link destinations in the text are kept inline. This is a bounded sample, not a full discussion or demand measurement.
+
+The browser search uses a safe Stack Exchange API filter that adds the per-question content-license field without fetching post bodies. Search results show the title, author/profile, license, and original question link. Selecting a result reads the question and answers from the API. Requests are anonymous GETs, limited to 1 MiB and 20 seconds, with no automatic retry; the app observes API backoff and a 60-second same-query window. It stores only hashed request fingerprints and pause timestamps in local browser storage. It does not upload searches, reports, or notes. Current content can change; the snapshot records the time it was read.
+
+Primary references: [Stack Exchange API terms](https://stackoverflow.com/legal/api-terms-of-use), [content license guidance](https://stackoverflow.com/help/licensing), [API question search](https://api.stackexchange.com/docs/advanced-search), and [API filters](https://api.stackexchange.com/docs/filters).

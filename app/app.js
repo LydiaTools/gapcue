@@ -141,6 +141,7 @@ function render() {
   document.documentElement.lang=lang==="zh"?"zh-CN":"en";
   for(const node of document.querySelectorAll("[data-i18n]"))node.textContent=tr(node.dataset.i18n);
   $("language").textContent=lang==="en"?"中文":"English";
+  $("stackLink").href="stackoverflow.html"+(lang==="zh"?"?lang=zh":"");
   for(const option of $("verdict").options)option.textContent=tr(option.value);
   $("notes").placeholder=tr("notePlaceholder");
   if(!loaded)return;

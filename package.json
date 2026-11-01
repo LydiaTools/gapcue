@@ -2,7 +2,7 @@
   "name": "gapcue",
   "version": "0.6.2",
   "private": true,
-  "description": "Browser research desk for public GitHub issues and Hacker News discussions.",
+  "description": "Browser research desk for public GitHub, Hacker News, and Stack Overflow sources.",
   "license": "MIT",
   "scripts": {
     "start": "node scripts/serve.cjs",
@@ -15,7 +15,8 @@
     "test:atlas": "node tests/atlas-browser.cjs",
     "test:provenance": "node tests/repo-hn-provenance.cjs",
     "test:hn-repo": "node tests/hn-linked-repo.cjs",
-    "test:hn-find-repos": "node tests/hn-find-repos.cjs"
+    "test:hn-find-repos": "node tests/hn-find-repos.cjs",
+    "test:stackoverflow": "node tests/stackoverflow-browser.cjs"
   },
   "devDependencies": {
     "playwright": "1.64.1"
