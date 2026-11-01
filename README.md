@@ -1,12 +1,12 @@
 # GapCue · Project Research Desk
 
-**A project's Stars catch your eye. Its issue thread may change your mind.**
+**Stars can put a project on your radar. The discussion is where you find what still needs work.**
 
-You find an open request that sounds just like the tool you want to build. For a moment, you can already picture it.
+You find a project or an open feature request that sounds a lot like the tool you want to build. It is easy to think, “I could make this.” The idea starts to take shape.
 
-Then you read the replies. Someone has found a workaround; a maintainer has linked a pull request. The issue is still open, but that does not tell you what remains unsolved. **What does the person behind that request still need?**
+Then you read on. Someone may already have found a workaround; a maintainer may have linked a PR. An issue can stay open even after the need has changed or been met another way. The question worth following is: what does the person who asked still need?
 
-I built GapCue for the moment between finding an idea and deciding whether to build it. It’s a free, open-source research desk: search GitHub repositories and Hacker News, read a bounded sample of public replies, and check explicitly mentioned issues or pull requests. Then save the source snapshot beside your next step—follow up, prototype, or pass. The choice stays yours; the trail will be there when you come back.
+I built GapCue to keep the trail from finding an idea to choosing a next step. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; review a bounded sample of public replies; check the status of explicitly mentioned issues or pull requests; and save the source snapshot beside your own judgment. Follow up, prototype, or set it aside. The decision is yours, and you can return to the same trail later.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.7.0 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
