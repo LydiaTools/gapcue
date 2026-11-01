@@ -2,15 +2,17 @@
 
 **An idea is exciting. Knowing what to build takes a closer look.**
 
+GapCue is a free, open-source research desk for people exploring what to build. Find public projects and discussions, follow the sources, and save your own notes alongside them.
+
 You find a project people are talking about. An open issue sounds exactly like the tool you had in mind. You can already picture building it.
 
 Then you read on. Someone has a workaround. A maintainer has linked a pull request. The issue is still open, but the question has changed: **what part of the problem still needs solving?**
 
-I built GapCue for that moment: a place to explore public GitHub projects and Hacker News discussions, follow the evidence, and keep it beside your own decisions.
+I built GapCue for that moment between finding an idea and deciding what to do next. It won't make that decision for you; it helps you return to the evidence when you're ready to make it.
 
 **[Open the research desk](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.6.2 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
-The browser desk needs no account, Python, or API key. Prefer working with a coding agent? The repository also includes a [research skill](#use-it-from-your-coding-agent).
+**Start in your browser:** open the desk and try the fictional sample already on the page, or search a topic such as `PDF tables`. No account, Python, or API key is needed. Prefer working with a coding agent? The repository also includes a [research skill](#use-it-from-your-coding-agent).
 
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
