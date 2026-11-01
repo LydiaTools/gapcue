@@ -1,12 +1,12 @@
 # GapCue · Project Research Desk
 
-**A project's Stars can catch your eye. The issue thread tells a more complicated story.**
+**A project's Stars catch your eye. Its issue thread may change your mind.**
 
 You find an open request that sounds just like the tool you want to build. For a moment, you can already picture it.
 
 Then you read the replies. Someone has found a workaround; a maintainer has linked a pull request. The issue is still open, but that does not tell you what remains unsolved. **What does the person behind that request still need?**
 
-I built GapCue for the moment between finding an idea and deciding whether to build it. It’s a free, open-source research desk: search GitHub repositories and Hacker News discussions, inspect public replies and the work they point to, then save the sources beside your next step—follow up, prototype, or pass. The choice stays yours; the trail will be there when you come back.
+I built GapCue for the moment between finding an idea and deciding whether to build it. It’s a free, open-source research desk: search GitHub repositories and Hacker News, read a bounded sample of public replies, and check explicitly mentioned issues or pull requests. Then save the source snapshot beside your next step—follow up, prototype, or pass. The choice stays yours; the trail will be there when you come back.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.6.2 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
@@ -18,7 +18,7 @@ I built GapCue for the moment between finding an idea and deciding whether to bu
 
 ## From an idea to a decision
 
-Start with a topic, a project, or a question you cannot quite let go of. You do the thinking; GapCue helps you keep the trail.
+Start with a topic, a project, or a question you cannot quite let go of. Keep the sources beside your notes; when you return, you can see what you found and why you chose to follow up, prototype, or pass.
 
 1. **Find a lead.** Search public GitHub repositories or Hacker News for a topic such as `PDF tables`. Follow a repository to related HN searches, or look for GitHub candidates from an HN discussion.
 2. **Read what happened next.** Open an HN story or paste a public GitHub Issue URL. Review sampled replies and mentioned changes, then follow the source when you need more context.
@@ -209,4 +209,4 @@ If Chrome is installed, the browser scripts use it by default. The research harn
 
 GapCue is independently authored by [LydiaTools](https://github.com/LydiaTools). It is not an internal or leaked prompt, a vendor product, an official GitHub integration, or a renamed copy of an upstream repository. Public issue content remains attributable to its original authors; no real third-party discussion is bundled as demo content. The source code and original fictional examples are **MIT licensed**. Related projects and GitHub are not affiliated with or endorsing this project.
 
-If this helps your research, a Star makes the project easier to find. More useful still: [tell me where the sources or workflow let you down](https://github.com/LydiaTools/gapcue/issues).
+If GapCue missed a source, or a line made the evidence sound more certain than it is, [show me the example](https://github.com/LydiaTools/gapcue/issues). That is where I want the next improvement to start.
