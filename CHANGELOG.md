@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.7.0 · Research developer questions
+
+Search Stack Overflow questions by topic, open a question with up to 10 vote-sorted answers, and save a bounded review with the original excerpts. Each post links to its author and source, and shows the applicable CC BY-SA license. Search and answer reads are anonymous GET requests; source backoff and duplicate-search delays are respected. The review file is separate from the GitHub/Hacker News formats.
+
+This preview includes the online research desk and current bilingual documentation. It is a source-reading tool, not a measure of demand.
+
 ## 0.6.2 · Find a repository from an HN discussion
 
 From an HN story that points to a website, prepare an editable project-name search on GitHub and review candidate repositories. The starting discussion stays accessible during the search; name matches are not verified identities and are not saved with repository snapshots. Direct GitHub story links can also be checked on demand. These browser features and the current research cases are included in this preview.
