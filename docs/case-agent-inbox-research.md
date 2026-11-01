@@ -28,6 +28,28 @@ On the same date we inspected these public READMEs. Descriptions are the maintai
 
 The 1,135 Stars belong to the other project; they are a snapshot, not evidence that GapCue has users or that a new dashboard would gain Stars. The other tools may cover the Codex waiting-state scenario differently; their actual behavior needs testing. Separately, an [AI-DLC feature request](https://github.com/awslabs/aidlc-workflows/issues/3331) asks for a read-only progress page for people following a team workflow. It is a related but different job from monitoring several local agent sessions.
 
+## What does “waiting” mean?
+
+We tested selected functions from two pinned versions with the same fictional lifecycle inputs. For an open session, Agent Lookout's status mapper returned `working` for `task_started`, and `idle` for both `task_complete` and `turn_aborted`. Agent Monitor's lifecycle handler set `waiting` with reason `stop` after `task_complete`, and `waiting` with reason `interrupted` after `turn_aborted`. These labels describe different interpretations of the input; neither result demonstrates that a real session is waiting for an approval.
+
+The test called the actual upstream functions but replaced Agent Monitor's database with an in-memory stub. It did not run either complete application, Codex, a real approval, hooks or an interface. OpenAI's [app-server documentation](https://learn.chatgpt.com/docs/app-server#track-thread-status-changes) separately describes a `waitingOnApproval` flag for a loaded thread. That does not establish that a new app-server can see another process's live state.
+
+<details>
+<summary>Reproduce the isolated source-function check</summary>
+
+Requires Node 22.23 (tested), Python 3 and an authenticated GitHub CLI. The commands fetch the two pinned MIT-licensed upstream source files into a new temporary directory. The comparison script verifies their SHA-256 values before loading them; it does not access Codex session files or start a server.
+
+```sh
+probe_dir=$(mktemp -d)
+gh api 'repos/Olanetsoft/agent-lookout/contents/src/core/mapping/codexMapping.ts?ref=7eceec6d9685496fdd64223cd1af3b08d2f65ccf' --jq .content | python3 -c 'import base64,sys;sys.stdout.buffer.write(base64.b64decode(sys.stdin.read()))' > "$probe_dir/lookout-codexMapping.ts"
+gh api 'repos/hoangsonww/Claude-Code-Agent-Monitor/contents/server/lib/codex-ingest.js?ref=3cb22ae4a4e2ca31145351e1d73e05d0ff41f2dc' --jq .content | python3 -c 'import base64,sys;sys.stdout.buffer.write(base64.b64decode(sys.stdin.read()))' > "$probe_dir/monitor-codex-ingest.cjs"
+node --experimental-strip-types examples/agent-inbox/compare.cjs "$probe_dir"
+```
+
+Run from the current GapCue source checkout. The script and this comparison were added after the v0.6.2 preview ZIP. Its unrecognized event is a synthetic control, not a statement about a real Codex event name. The fetched upstream files remain in the temporary directory for inspection.
+
+</details>
+
 ## Decision
 
 **Keep researching; do not build a generic agent dashboard from this sample.** Several tools already describe overlapping workflows. The HN discussion contains useful leads, but this small sample does not establish an unmet need or a distinct product.
