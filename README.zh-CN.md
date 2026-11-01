@@ -8,7 +8,7 @@
 
 我做 GapCue，是想帮你留住从发现一个点子到决定要不要动手的那段过程。它是一款免费、开源的项目调研台：搜索 GitHub 仓库与 Hacker News，查看部分公开回复，并核对其中明确提到的 Issue 或 PR 状态。再把来源快照和下一步一起保存——继续跟进、试做原型，或先放一放。做不做由你决定；下次回来时，还能从这条线索接着看。
 
-**[打开中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载 v0.6.2 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [反馈](https://github.com/LydiaTools/gapcue/issues)
+**[打开中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载 v0.7.0 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
 **现在就试：**在网页搜索一个话题，例如 `PDF tables`；也可以先打开明确标注的虚构示例。网页无需账号、Python 或 API Key。如果你习惯和编程 Agent 一起工作，也可以使用仓库里的[调研技能](#让编程-agent-直接做调研)。
 
@@ -27,7 +27,7 @@
 
 等你回来看这个点子，还能找到当时看到了什么、为什么这样决定。
 
-Stack Overflow 调研页会读取问题和最多 10 条按票数排序的回答。每条结果都保留原文、作者和内容许可证链接。它是讨论样本，不是完整讨论，也不是需求度量。该浏览器功能已上线网页，v0.6.2 ZIP 尚未包含。
+Stack Overflow 调研页会读取问题和最多 10 条按票数排序的回答。每条结果都保留原文、作者和内容许可证链接。它是讨论样本，不是完整讨论，也不是需求度量。在线调研台与 v0.7.0 预览版均包含该页面。
 
 <details>
 <summary>看看如何在 Hacker News 和 GitHub 之间寻找线索</summary>
@@ -56,9 +56,9 @@ Stack Overflow 调研页会读取问题和最多 10 条按票数排序的回答�
 
 有时候，调研带来的收获不是一个马上要做的项目，而是更清楚：问题在哪里，接下来还要核对什么。
 
-- **[哪个 Agent 在等你？](docs/case-agent-inbox-research.zh-CN.md)：** 一条社区讨论让我们找到五个已有的 Agent 看板或审核工具；在再做一个之前，先研究它们对 Codex 的实际支持。新案例在当前源码中，v0.6.2 下载包早于此案例。
-- **[下载模型后，空间去哪了？](docs/case-model-storage-research.zh-CN.md)：** 从本地 AI 讨论出发，我们找到具体的 Ollama 报告、修复提案和已有工具；目前的决定是继续研究。此案例包含在 v0.6.2 中，v0.6.1 下载包早于此案例。
-- **[看起来已经完成的交接](docs/case-worktree-handoff.zh-CN.md)：** 提交一致时，未提交的文件仍可能留在另一个工作区。本地 Git 测试还展示了：清理前状态看似干净，也可能漏掉被忽略的文件。新增的清理检查在 main；v0.6.2 下载包早于这次补充。
+- **[哪个 Agent 在等你？](docs/case-agent-inbox-research.zh-CN.md)：** 一条社区讨论让我们找到五个已有的 Agent 看板或审核工具；在再做一个之前，先研究它们对 Codex 的实际支持。该案例已包含在 v0.7.0 预览版中。
+- **[下载模型后，空间去哪了？](docs/case-model-storage-research.zh-CN.md)：** 从本地 AI 讨论出发，我们找到具体的 Ollama 报告、修复提案和已有工具；目前的决定是继续研究。此案例已包含在 v0.7.0 预览版中；v0.6.1 下载包早于此案例。
+- **[看起来已经完成的交接](docs/case-worktree-handoff.zh-CN.md)：** 提交一致时，未提交的文件仍可能留在另一个工作区。本地 Git 测试还展示了：清理前状态看似干净，也可能漏掉被忽略的文件。新增的清理检查已包含在 v0.7.0 预览版中。
 - **[一条关于界面验证的热门讨论](docs/case-mobile-ui-research.zh-CN.md)：** 从移动端和桌面测试的讨论出发，我们查看了现有方案，决定先继续研究，再考虑是否需要做通用模拟器工具。
 - **[一条字幕，三个工具](docs/case-caption-research.zh-CN.md)：** 从竖屏视频讨论出发，我们用中文字幕样本试用了三个工具，并以英文样本作对照。这帮助我们缩小了下一步的问题，但一个样本还不能证明市场需求。
 
@@ -68,7 +68,7 @@ GapCue 想帮你留下的，就是这样的过程：**原始讨论、你核对�
 
 想观察一段时间内的变化？选择“GitHub 仓库”搜索并点击“保存搜索快照”；稍后用相同主题和时间范围重新搜索，再保存第二份。打开[快照对比页](https://lydiatools.github.io/gapcue/compare.html?lang=zh)，本地选择两份文件。工具按 GitHub 仓库 ID 对齐，只计算两次都出现的项目。每次最多 8 条，未出现不代表零；滚动创建日期筛选也可能变化。数字和设备时钟记录的是观察值，不代表需求或未来增长。搜索快照与讨论评审文件分开保存。
 
-离线对比时，解压 v0.6.2 预览 ZIP，在 Chrome 打开 `app/compare.html`；重新搜索需要连接 GitHub。旧版 CLI 的 `repos.json` 与浏览器快照格式不兼容。
+离线对比时，解压 v0.7.0 预览 ZIP，在 Chrome 打开 `app/compare.html`；重新搜索需要连接 GitHub。旧版 CLI 的 `repos.json` 与浏览器快照格式不兼容。
 
 ![实际的仓库快照对比页面，显示仓库、两次 Star 和变化](docs/assets/repo-snapshot-compare.png)
 
@@ -135,7 +135,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 3. 选择下一步、写一条笔记，点击“保存评审文件”。
 4. 刷新页面，再打开保存的 JSON，检查来源和笔记是否还在。
 
-也可下载并解压 [ZIP 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
+也可下载并解压 [v0.7.0 预览 ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0)，在 Chrome 打开 `app/index.html`。查看器不需要服务器。
 
 ## 可选：用 Python 批量采集 GitHub
 

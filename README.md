@@ -8,7 +8,7 @@ Then you read the replies. Someone has found a workaround; a maintainer has link
 
 I built GapCue for the moment between finding an idea and deciding whether to build it. It’s a free, open-source research desk: search GitHub repositories and Hacker News, read a bounded sample of public replies, and check explicitly mentioned issues or pull requests. Then save the source snapshot beside your next step—follow up, prototype, or pass. The choice stays yours; the trail will be there when you come back.
 
-**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.6.2 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.7.0 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
 **Try it in your browser:** search a topic such as `PDF tables`, or open the clearly labeled fictional sample. No account, Python, or API key is needed. If you work with a coding agent, you can use the included [research skill](#use-it-from-your-coding-agent), too.
 
@@ -27,7 +27,7 @@ Start with a topic, a project, or a question you cannot quite let go of. Keep th
 
 When you come back to an idea, you can see what you found—and why you made that decision.
 
-The Stack Overflow desk reads a question and up to 10 answers sorted by votes. Each result links to its source and author, with the post's CC BY-SA license shown. It is a sample, not a complete discussion or a measure of demand. This browser feature is online; the v0.6.2 ZIP predates it.
+The Stack Overflow desk reads a question and up to 10 answers sorted by votes. Each result links to its source and author, with the post's CC BY-SA license shown. It is a sample, not a complete discussion or a measure of demand. The online desk and v0.7.0 preview include this page.
 
 <details>
 <summary>See how to move between Hacker News and GitHub</summary>
@@ -56,9 +56,9 @@ If a story points to a website, **Find repositories by name** lets you edit the 
 
 Sometimes the most useful result isn't another idea to build. It's a clearer view of the problem—and what to check next.
 
-- **[Which agent is waiting for you?](docs/case-agent-inbox-research.md):** A community discussion led us to five existing agent dashboards and review tools. We decided to research their actual Codex support before building another. This new case is in the current source; the v0.6.2 ZIP predates it.
-- **[Where did the model storage go?](docs/case-model-storage-research.md):** A local AI discussion led us to a specific Ollama report, a proposed fix and existing tools. The next step is further research, not another duplicate app. This case is included in v0.6.2; the v0.6.1 ZIP predates it.
-- **[A handoff that looked complete](docs/case-worktree-handoff.md):** Uncommitted work can remain in another worktree even when commits match. Our local Git test also shows why a clean status can miss ignored files before cleanup. The updated cleanup check is on main; the v0.6.2 ZIP predates it.
+- **[Which agent is waiting for you?](docs/case-agent-inbox-research.md):** A community discussion led us to five existing agent dashboards and review tools. We decided to research their actual Codex support before building another. This case is included in the v0.7.0 preview.
+- **[Where did the model storage go?](docs/case-model-storage-research.md):** A local AI discussion led us to a specific Ollama report, a proposed fix and existing tools. The next step is further research, not another duplicate app. This case is included in the v0.7.0 preview; the v0.6.1 ZIP predates it.
+- **[A handoff that looked complete](docs/case-worktree-handoff.md):** Uncommitted work can remain in another worktree even when commits match. Our local Git test also shows why a clean status can miss ignored files before cleanup. The updated cleanup check is included in the v0.7.0 preview.
 - **[A popular request for UI evidence](docs/case-mobile-ui-research.md):** A discussion about mobile and desktop testing led us to compare existing options and continue researching before building a general simulator tool.
 - **[One caption, three tools](docs/case-caption-research.md):** A portrait-video discussion led us to try a Chinese subtitle sample in three tools, with an English control. It narrowed the next question; one sample can't establish a market.
 
@@ -68,7 +68,7 @@ Each trail keeps the discussion, the checks and the decision together—so you c
 
 Want to compare interest over time? Search **GitHub repositories** and select **Save search snapshot**. Later, repeat the same query and period, save a second snapshot, then [compare the files locally](https://lydiatools.github.io/gapcue/compare.html). The comparison uses stable GitHub repository IDs and shows the change only for projects in both samples. Each search returns at most eight projects, so a missing project is not zero; the rolling creation-date cutoff can move. Counts and client-clock timestamps are observations, not proof of demand or future growth. This snapshot is separate from your saved discussion review.
 
-To compare saved files without internet, extract the v0.6.2 preview ZIP and open `app/compare.html` in Chrome. New searches require a connection to GitHub. Older CLI `repos.json` files are not compatible with the browser snapshot format.
+To compare saved files without internet, extract the v0.7.0 preview ZIP and open `app/compare.html` in Chrome. New searches require a connection to GitHub. Older CLI `repos.json` files are not compatible with the browser snapshot format.
 
 ![Actual snapshot comparison showing repository names, both Star counts and their difference](docs/assets/repo-snapshot-compare.png)
 
@@ -135,7 +135,7 @@ The browser app uses plain HTML, CSS and JavaScript: no build step, model API, d
 3. Choose a next step, write a note, and select **Save review file**.
 4. Reload the page, open that file, and continue with the same sources and notes.
 
-For a local copy, download and extract the [preview ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2), then open `app/index.html` in Chrome. No server is needed for the viewer.
+For a local copy, download and extract the [v0.7.0 preview ZIP](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0), then open `app/index.html` in Chrome. No server is needed for the viewer.
 
 ## Optional Python collector for several GitHub issues
 
