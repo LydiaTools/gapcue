@@ -1,12 +1,12 @@
 # GapCue · Project Research Desk
 
-**A good idea is exciting. The harder question is: what still needs solving?**
+**A project's Stars can catch your eye. The issue thread tells a more complicated story.**
 
 You find an open request that sounds just like the tool you want to build. For a moment, you can already picture it.
 
-Then you read the replies. Someone has found a workaround; a maintainer has linked a pull request. The issue is still open, but that does not tell you what remains unsolved. **What part is still worth working on?**
+Then you read the replies. Someone has found a workaround; a maintainer has linked a pull request. The issue is still open, but that does not tell you what remains unsolved. **What does the person behind that request still need?**
 
-I built GapCue for the moment between finding an idea and deciding whether to build it. It's a free, open-source research desk for following public GitHub and Hacker News discussions, comparing what you find, and keeping your own notes beside the sources. It won't choose what to build for you; it gives you a trail to return to when you decide.
+I built GapCue for the moment between finding an idea and deciding whether to build it. It’s a free, open-source research desk: search GitHub repositories and Hacker News discussions, inspect public replies and the work they point to, then save the sources beside your next step—follow up, prototype, or pass. The choice stays yours; the trail will be there when you come back.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.6.2 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
