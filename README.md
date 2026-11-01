@@ -1,18 +1,16 @@
 # GapCue · Project Research Desk
 
-**A good idea is exciting. The next question is: what do people still need?**
+**A good idea is exciting. The harder question is: what still needs solving?**
 
 You find an open request that sounds just like the tool you want to build. For a moment, you can already picture it.
 
-Then you read the replies. Someone has a workaround. A maintainer has linked a pull request. The issue is still open, but now the more useful question is: **what part of the problem is still worth working on?**
+Then you read the replies. Someone has found a workaround; a maintainer has linked a pull request. The issue is still open, but that does not tell you what remains unsolved. **What part is still worth working on?**
 
-I built GapCue for that moment. It's a free, open-source research desk that helps you follow public GitHub and Hacker News discussions, compare what you find, and keep your own notes with the sources. It won't decide what to build for you. It gives you a trail you can return to before you decide.
+I built GapCue for the moment between finding an idea and deciding whether to build it. It's a free, open-source research desk for following public GitHub and Hacker News discussions, comparing what you find, and keeping your own notes beside the sources. It won't choose what to build for you; it gives you a trail to return to when you decide.
 
-**[Open the research desk](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.6.2 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
+**[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.6.2 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.6.2) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
-**Try it in a minute:** open the desk and explore the labeled fictional sample, or search a topic such as `PDF tables`. No account, Python, or API key is needed for the browser desk. Prefer to work with a coding agent? There's a [research skill](#use-it-from-your-coding-agent), too.
-
-Find a lead. Read what happened next. Save the evidence and your own judgment—so the next time you come back to an idea, you don't have to start from a blank page.
+**Try it in your browser:** search a topic such as `PDF tables`, or open the clearly labeled fictional sample. No account, Python, or API key is needed. If you work with a coding agent, you can use the included [research skill](#use-it-from-your-coding-agent), too.
 
 ![Actual GitHub repository search in the GapCue desk, showing current Stars and links to issues.](docs/assets/github-repo-search.png)
 
