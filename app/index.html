@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="A local review desk for public GitHub issue research. Read source samples, inspect mentioned PR states, and keep your own decision with the evidence.">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';connect-src 'self' https://api.github.com https://hn.algolia.com https://hacker-news.firebaseio.com https://agentatlas.dev;img-src 'self' data:;font-src 'none';object-src 'none';base-uri 'none';form-action 'none'">
+  <meta name="description" content="Research GitHub, Hacker News and Stack Overflow projects. Read the questions behind an idea and keep your sources and decisions together.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';connect-src 'self' https://api.github.com https://api.stackexchange.com https://hn.algolia.com https://hacker-news.firebaseio.com https://agentatlas.dev;img-src 'self' data:;font-src 'none';object-src 'none';base-uri 'none';form-action 'none'">
   <title>GapCue — Project research desk</title>
   <link rel="stylesheet" href="styles.css">
   <script src="core.js" defer></script>
@@ -17,7 +17,7 @@
 <body>
   <header class="masthead">
     <a class="brand" href="./" aria-label="GapCue home"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 8h20l6 6v20H7z" fill="#ece7f4" stroke="currentColor" stroke-width="2"/><path d="M27 8v7h6M13 18h12M13 24h16M13 29h9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="29" r="6" fill="#466346" stroke="#fff" stroke-width="2"/></svg><span>GapCue<small data-i18n="subtitle">GitHub Issue Scout</small></span></a>
-    <nav><a href="#research" data-i18n="collectNav">Find discussions</a><a href="https://github.com/LydiaTools/gapcue" target="_blank" rel="noopener">GitHub</a><button id="language" class="quiet" type="button">中文</button></nav>
+    <nav><a href="#research" data-i18n="collectNav">Find discussions</a><a id="stackLink" href="stackoverflow.html">Stack Overflow</a><a href="https://github.com/LydiaTools/gapcue" target="_blank" rel="noopener">GitHub</a><button id="language" class="quiet" type="button">中文</button></nav>
   </header>
   <main>
     <section class="intro">

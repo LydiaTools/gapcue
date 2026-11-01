@@ -8,6 +8,10 @@ files.set('/compare.html', ['compare.html','text/html']);
 files.set('/compare.css', ['compare.css','text/css']);
 files.set('/compare.js', ['compare.js','text/javascript']);
 files.set('/compare-core.js', ['compare-core.js','text/javascript']);
+files.set('/stackoverflow.html', ['stackoverflow.html','text/html']);
+files.set('/stackoverflow.css', ['stackoverflow.css','text/css']);
+files.set('/stackoverflow-core.js', ['stackoverflow-core.js','text/javascript']);
+files.set('/stackoverflow-app.js', ['stackoverflow-app.js','text/javascript']);
 function createServer() {
   return http.createServer(async(req,res)=>{
     const url = new URL(req.url, 'http://127.0.0.1');

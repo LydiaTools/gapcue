@@ -20,12 +20,14 @@
 
 从一个项目、一条需求，或一个你一直惦记的问题开始。把来源和当时的想法一起留下；下次回来时，你能看见自己查到了什么，也能想起为什么选择继续、试做，或先放一放。
 
-1. **先找线索。** 搜索 GitHub 公开仓库或 Hacker News，例如输入 `PDF tables`。从仓库查找 HN 讨论，也可以从 HN 讨论查找 GitHub 候选仓库。
-2. **看看后来发生了什么。** 打开 HN 帖子，或粘贴公开的 GitHub Issue 链接。看看抽样评论和提到的变更；需要更多上下文时，回到原始来源。
+1. **先找线索。** 搜索 GitHub 公开仓库、Hacker News 讨论或 Stack Overflow 问题，例如输入 `PDF tables`。从仓库查找 HN 讨论，也可以从 HN 讨论查找 GitHub 候选仓库。
+2. **看看后来发生了什么。** 打开 HN 帖子或 Stack Overflow 问题，或粘贴公开的 GitHub Issue 链接。看看抽样评论和提到的变更；需要更多上下文时，回到原始来源。
 3. **留下你的判断。** 对照讨论和现有方案，选择“继续核对”“候选小样”或“不适合当前任务”，并写下自己的想法。
 4. **下次从这里继续。** 保存包含来源快照和笔记的评审文件；之后即使离线，也能重新打开。你还可以保存并[对比仓库搜索快照](#看一个项目随时间发生了什么变化)。
 
 等你回来看这个点子，还能找到当时看到了什么、为什么这样决定。
+
+Stack Overflow 调研页会读取问题和最多 10 条按票数排序的回答。每条结果都保留原文、作者和内容许可证链接。它是讨论样本，不是完整讨论，也不是需求度量。该浏览器功能已上线网页，v0.6.2 ZIP 尚未包含。
 
 <details>
 <summary>看看如何在 Hacker News 和 GitHub 之间寻找线索</summary>
@@ -112,7 +114,9 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 | --- | --- |
 | 发现候选仓库 | GitHub 仓库搜索，按创建时间和当前累计 Star 查看 |
 | 在其他平台发现项目 | Hacker News 主题搜索，可选相关/最新和时间范围 |
+| 搜索开发者问题 | Stack Overflow 问题搜索，显示作者、原文和许可证链接 |
 | 不安装工具就读真实讨论 | 在网页粘贴一个公开 GitHub Issue 或 HN 帖子地址 |
+| 阅读开发者回答 | 查看 Stack Overflow 问题及最多 10 条按票数排序的回答，并可回到每条原文 |
 | 批量采集 GitHub 问题 | 可选 Python 采集器：指定地址或限定一个仓库搜索 |
 | 查看后续讨论 | 采集首尾评论页，优先展示已采到的最新评论 |
 | 看懂回复的上文 | 展示已采集的上文，或按需读取一条公开 HN 上文评论 |
@@ -122,7 +126,7 @@ node scripts/research.cjs review ./thread-01/review.json --verdict followup --no
 | 下次接着看 | 评审文件保留原始报告文本、SHA-256 和笔记，可重新打开 |
 | 分享给海外用户 | 中英文界面和文档，来源语言保持原样 |
 
-网页使用原生 HTML/CSS/JavaScript，无需构建、数据库、模型 API 或账号。点击搜索、读取讨论、查询链接的 GitHub 仓库、查看 HN 上文或请求 AgentAtlas 快照后才请求公开来源：搜索词发给选择的 GitHub 或 HN Search；快照请求发给 AgentAtlas，不包含搜索词；讨论来源请求发给 GitHub、HN Search 或 HN 官方 API。请求不携带 Cookie 或认证信息。报告与笔记不上传、不自动持久保存。按需读取的上文为实时展示，不会加入保存的评审文件；如果上文已在采集样本中，则展示原始快照。可选批量采集器仅依赖 Python 标准库。
+网页使用原生 HTML/CSS/JavaScript，无需构建、数据库、模型 API 或账号。点击搜索、读取讨论、查询链接的 GitHub 仓库、查看 HN 上文或请求 AgentAtlas 快照后才请求公开来源：搜索词会发给 GitHub、Hacker News Search 或 Stack Exchange API；选择 Stack Overflow 问题后，工具再读取问题和回答；快照请求发给 AgentAtlas，不包含搜索词。页面为 Stack Overflow 每条内容提供来源、作者和许可证链接，将 HTML 转为纯文本，并标记缩短的片段。请求不携带 Cookie 或认证信息。为避免短时间重复搜索，Stack Overflow 页面会在浏览器本地存储已哈希的请求指纹和来源要求的暂停时间。报告与笔记不上传、不自动持久保存。Stack Overflow 的下载评审文件使用独立格式，只能在对应页面打开；旧版 CLI 报告不兼容。按需读取的 HN 上文为实时展示，不会加入保存的评审文件；如果上文已在采集样本中，则展示原始快照。可选批量采集器仅依赖 Python 标准库。
 
 ## 试用离线评审流程
 

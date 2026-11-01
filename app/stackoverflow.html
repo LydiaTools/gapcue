@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Find Stack Overflow questions and follow links to public projects.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';script-src 'self';style-src 'self';connect-src 'self' https://api.stackexchange.com https://api.github.com;img-src 'self' data:;font-src 'none';object-src 'none';base-uri 'none';form-action 'none'">
+  <title>Stack Overflow research · GapCue</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="stackoverflow.css">
+  <script src="core.js" defer></script>
+  <script src="live.js" defer></script>
+  <script src="stackoverflow-core.js" defer></script>
+  <script src="stackoverflow-app.js" defer></script>
+</head>
+<body>
+<header class="masthead">
+  <a class="brand" href="./" aria-label="GapCue home"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M7 8h20l6 6v20H7z" fill="#ece7f4" stroke="currentColor" stroke-width="2"/><path d="M27 8v7h6M13 18h12M13 24h16M13 29h9" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="30" cy="29" r="6" fill="#466346" stroke="#fff" stroke-width="2"/></svg><span>GapCue<small data-i18n="subtitle">Project research desk</small></span></a>
+  <nav><a id="homeLink" href="./" data-i18n="back">Research desk</a><button id="language" class="quiet" type="button">中文</button></nav>
+</header>
+<main>
+  <section class="intro stack-intro"><div><h1 data-i18n="headline">Find the question behind the project.</h1><p data-i18n="intro">Search Stack Overflow, read the question and answers, then follow project links.</p></div><div class="open-actions"><button id="open" class="secondary" type="button" data-i18n="open">Open saved research</button><input id="file" type="file" accept=".json,application/json" hidden></div></section>
+  <form id="searchForm" class="research">
+    <label for="query" data-i18n="query">What are you researching?</label>
+    <div class="research-controls"><input id="query" type="search" maxlength="120" required autocomplete="off"><label class="sort-control"><span data-i18n="period">Created</span><select id="days"><option value="90" data-i18n="days90">Past 90 days</option><option value="30" data-i18n="days30">Past 30 days</option><option value="365" data-i18n="days365">Past year</option><option value="0" data-i18n="days0">Any time</option></select></label><button class="primary" id="search" type="submit" data-i18n="search">Search questions</button><button id="stop" type="button" hidden data-i18n="stop">Stop</button></div>
+    <p id="status" class="hint" role="status" data-i18n="hint">Search results come from Stack Overflow.</p>
+  </form>
+  <section id="resultsSection" class="discover" hidden aria-labelledby="resultsTitle"><h2 id="resultsTitle" data-i18n="results">Questions</h2><p id="resultsMeta" class="hint"></p><div id="results"></div></section>
+  <div id="researchDesk" class="stack-desk" hidden>
+    <section class="reading" aria-labelledby="questionTitle">
+      <div class="thread-heading"><p class="identifier" data-i18n="sourceLabel">Stack Overflow question</p><a id="questionLink" target="_blank" rel="noopener noreferrer" data-i18n="openSource">Open original</a></div>
+      <h2 id="questionTitle" class="issue-title"></h2><div id="questionCredit" class="meta"></div><div id="questionBody"></div><div id="questionRepos" class="stack-repos"></div>
+      <div class="source-heading comments-title"><h3 data-i18n="answers">Answers</h3><span id="answerCoverage"></span></div><div id="answers"></div>
+    </section>
+    <aside class="margin stack-side">
+      <section class="references"><h2 data-i18n="findRepos">Find related projects</h2><p class="hint" data-i18n="repoHint">Links in the source are leads. Check each project's own page and license.</p><a id="githubSearch" target="_blank" rel="noopener noreferrer" data-i18n="githubSearch">Search GitHub for this topic</a></section>
+      <section class="decision"><h2 data-i18n="decision">Your decision</h2><label for="verdict" data-i18n="next">Next step</label><select id="verdict"><option value="unreviewed" data-i18n="unreviewed">Not reviewed</option><option value="followup" data-i18n="followup">Follow up</option><option value="prototype" data-i18n="prototype">Prototype candidate</option><option value="pass" data-i18n="pass">Pass for my task</option></select><label for="notes" data-i18n="notes">What would change your decision?</label><textarea id="notes" rows="7" maxlength="6000"></textarea><button id="save" class="primary wide" type="button" data-i18n="save">Save research file</button><p id="saveStatus" role="status" class="hint"></p></section>
+    </aside>
+  </div>
+  <footer><span data-i18n="attribution">Question and answer content from Stack Overflow, with each author's license shown. Search terms are sent to Stack Exchange only when you search.</span></footer>
+</main>
+</body>
+</html>

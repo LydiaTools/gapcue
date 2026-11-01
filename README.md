@@ -20,12 +20,14 @@ I built GapCue for the moment between finding an idea and deciding whether to bu
 
 Start with a topic, a project, or a question you cannot quite let go of. Keep the sources beside your notes; when you return, you can see what you found and why you chose to follow up, prototype, or pass.
 
-1. **Find a lead.** Search public GitHub repositories or Hacker News for a topic such as `PDF tables`. Follow a repository to related HN searches, or look for GitHub candidates from an HN discussion.
-2. **Read what happened next.** Open an HN story or paste a public GitHub Issue URL. Review sampled replies and mentioned changes, then follow the source when you need more context.
+1. **Find a lead.** Search public GitHub repositories, Hacker News, or Stack Overflow questions for a topic such as `PDF tables`. Follow a repository to related HN searches, or look for GitHub candidates from an HN discussion.
+2. **Read what happened next.** Open an HN story or Stack Overflow question, or paste a public GitHub Issue URL. Review sampled replies and mentioned changes, then follow the source when you need more context.
 3. **Make your call.** Compare what you found with existing options. Choose **Follow up**, **Prototype candidate**, or **Pass for my task**, and add your own note.
 4. **Pick it up again.** Save the review file with its source snapshot and your notes. You can reopen it later, even offline. You can also save and [compare repository search snapshots](#see-how-a-project-changes-over-time).
 
 When you come back to an idea, you can see what you found—and why you made that decision.
+
+The Stack Overflow desk reads a question and up to 10 answers sorted by votes. Each result links to its source and author, with the post's CC BY-SA license shown. It is a sample, not a complete discussion or a measure of demand. This browser feature is online; the v0.6.2 ZIP predates it.
 
 <details>
 <summary>See how to move between Hacker News and GitHub</summary>
@@ -112,7 +114,9 @@ CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sourc
 | --- | --- |
 | Find candidate repositories | GitHub repository search, creation period and current total Stars |
 | Find projects discussed elsewhere | Hacker News keyword search, relevant/recent order and an explicit time period |
+| Search developer questions | Stack Overflow question search, with author, source and license attribution |
 | Read a real thread without installing anything | Paste one public GitHub Issue or HN story URL into the browser |
+| Read developer answers | Stack Overflow question plus up to 10 vote-sorted answers, with links to the original posts |
 | Collect several GitHub issues | Python CLI: explicit issue URLs, or bounded search within one public repository |
 | Check what happened later | First and last comment pages, shown with the newest collected comments first |
 | Read a reply in context | Show its collected parent, or read one public HN parent on demand |
@@ -122,7 +126,7 @@ CLI exit codes: `0` completed reads/local save; `1` partial or unavailable sourc
 | Return to the same evidence | Download and reopen a review containing the exact report text, its SHA-256 and your notes |
 | Work in either language | English/Chinese controls; original source language is preserved |
 
-The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search, choose a discussion, check a linked GitHub repository, request an HN parent comment, or request the AgentAtlas snapshot. Search terms go to the selected GitHub or HN Search service; the snapshot request goes to AgentAtlas without search terms. Discussion requests go to GitHub, HN Search or the official HN API. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. Parent comments fetched on demand are shown live and are not added to the saved review; an already-collected parent comes from the original snapshot. The optional multi-issue collector uses Python's standard library.
+The browser app uses plain HTML, CSS and JavaScript: no build step, model API, database or account setup. Public reads happen only after you search, choose a discussion, check a linked GitHub repository, request an HN parent comment, or request the AgentAtlas snapshot. Search terms go to the selected GitHub, Hacker News Search or Stack Exchange API; the snapshot request goes to AgentAtlas without search terms. Selecting a Stack Overflow result requests that question and its answers. The page shows source, author and license links, converts post HTML to plain text, and marks shortened excerpts. Cookies and authentication are omitted. Reports and notes are not uploaded or saved automatically. The Stack Overflow viewer stores hashed request fingerprints and source backoff times in local browser storage to avoid repeating searches too soon. Its downloaded review is a separate format, opened only in the Stack Overflow viewer; older CLI reports are not compatible. Parent comments fetched on demand are shown live and are not added to the saved review; an already-collected parent comes from the original snapshot. The optional multi-issue collector uses Python's standard library.
 
 ## Try the offline review workflow
 
