@@ -56,6 +56,7 @@ If a story points to a website, **Find repositories by name** lets you edit the 
 
 Sometimes the most useful result isn't another idea to build. It's a clearer view of the problem—and what to check next.
 
+- **[Which agent is waiting for you?](docs/case-agent-inbox-research.md):** A community discussion led us to five existing agent dashboards and review tools. We decided to research their actual Codex support before building another. This new case is in the current source; the v0.6.2 ZIP predates it.
 - **[Where did the model storage go?](docs/case-model-storage-research.md):** A local AI discussion led us to a specific Ollama report, a proposed fix and existing tools. The next step is further research, not another duplicate app. This case is included in v0.6.2; the v0.6.1 ZIP predates it.
 - **[A handoff that looked complete](docs/case-worktree-handoff.md):** Uncommitted work can remain in another worktree even when commits match. Our local Git test also shows why a clean status can miss ignored files before cleanup. The updated cleanup check is on main; the v0.6.2 ZIP predates it.
 - **[A popular request for UI evidence](docs/case-mobile-ui-research.md):** A discussion about mobile and desktop testing led us to compare existing options and continue researching before building a general simulator tool.
