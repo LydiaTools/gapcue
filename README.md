@@ -1,10 +1,12 @@
 # GapCue · Project Research Desk
 
-**An open request can look like your next project. Then a few replies change the picture.**
+**An open request can look like the project you’ve been waiting to build. Until you read what happened next.**
 
-Someone may have found a workaround. A maintainer may have linked a pull request. The issue is still open—but what does the person who asked still need?
+You find a request that sounds like your idea. For a moment, you can picture making it.
 
-I made GapCue for the moment between spotting an idea and deciding whether to build. It helps you search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; read sampled replies; check issues or pull requests explicitly mentioned in a discussion; and save the sources beside your notes. Then decide whether to follow up, prototype, or pass. **You make the call. The trail is there when you return.**
+Then you read the replies. Someone may already have found a workaround; a maintainer may have linked a pull request. The issue is still open, but the need may have changed. **What does the person who asked still need?**
+
+I built GapCue for that pause between getting excited about an idea and deciding what to do with it. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; read a bounded sample of replies; check issues or pull requests named in a discussion; then save the source trail with your own next step. Follow up, prototype, or pass. **The call is yours. The trail stays with you.**
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.7.0 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
@@ -14,9 +16,9 @@ I made GapCue for the moment between spotting an idea and deciding whether to bu
 
 *An actual anonymous repository search, captured 2026-10-29 UTC. Results and Star counts change over time.*
 
-## From an idea to a decision
+## Keep the context with your decision
 
-Start with a topic, a project, or a question you cannot quite let go of. You do the thinking; GapCue keeps the sources and your reasoning together.
+A saved review keeps the source snapshot, what you noticed, and why you chose to follow up, prototype, or pass in one place.
 
 1. **Find a lead.** Search public GitHub repositories, Hacker News, or Stack Overflow questions for a topic such as `PDF tables`. Follow a repository to related HN searches, or look for GitHub candidates from an HN discussion.
 2. **Read what happened next.** Open an HN story or Stack Overflow question, or paste a public GitHub Issue URL. Review sampled replies and mentioned changes, then follow the source when you need more context.
