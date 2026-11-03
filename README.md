@@ -1,10 +1,10 @@
 # GapCue · Project Research Desk
 
-**A feature request can look like your next project. Then you read a few replies, and the story changes.**
+**An open request can look like your next project. Then a few replies change the picture.**
 
-Someone may have found a workaround. A maintainer may have linked a pull request. The person who asked may have moved on. An issue's status tells you whether it is still open; the replies help you see what happened after it was filed.
+Someone may have found a workaround. A maintainer may have linked a pull request. The issue is still open—but what does the person who asked still need?
 
-GapCue helps you follow that trail before you commit to code. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; sample the replies; check issues or pull requests explicitly mentioned in a discussion; and save the sources beside your notes. Then decide whether to follow up, prototype, or pass. **You keep the evidence. You make the call.**
+I made GapCue for the moment between spotting an idea and deciding whether to build. It helps you search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; read sampled replies; check issues or pull requests explicitly mentioned in a discussion; and save the sources beside your notes. Then decide whether to follow up, prototype, or pass. **You make the call. The trail is there when you return.**
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.7.0 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
