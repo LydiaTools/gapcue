@@ -6,7 +6,8 @@
 
 再往下读，有人已经找到替代办法，维护者也提到了 PR。Issue 还开着，却不够说明问题现在走到哪一步。**提出问题的人，现在还缺什么？**
 
-我做 GapCue，是想帮你在写代码前，把一个想法背后的线索看完整。它是一款免费、开源的项目调研台：你可以搜索公开的 GitHub 仓库、Hacker News 讨论和 Stack Overflow 问题，抽样阅读公开回复，核对讨论里明确提到的 GitHub Issue 或 PR 状态，再把来源快照和自己的下一步判断一起保存。继续跟进、试做原型，或先放一放，都由你决定；下次打开评审文件，还能接着看。
+我做 GapCue，是想帮你在写代码前，把一个想法背后的线索放在一起看。它是一款免费开源的项目调研台：搜索公开的 GitHub 仓库、Hacker News 讨论和 Stack Overflow 问题，抽样阅读回复，核对讨论里明确提到的 GitHub Issue 或 PR 状态，再把来源快照和下一步判断一起保存。
+继续跟进、试做原型，还是先放一放，都由你决定。下次打开评审文件，还能从这里接着看。
 
 **[打开中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载 v0.7.0 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 
