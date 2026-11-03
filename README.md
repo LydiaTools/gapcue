@@ -1,10 +1,8 @@
 # GapCue · Project Research Desk
 
-**An open request can look like the project you’ve been waiting to build. Until you read what happened next.**
+**You find an open request that sounds like the tool you’ve been wanting to build. For a moment, you can picture it.**
 
-You find a request that sounds like your idea. For a moment, you can picture making it.
-
-Then you read the replies. Someone may already have found a workaround; a maintainer may have linked a pull request. The issue is still open, but the need may have changed. **What does the person who asked still need?**
+Then you read what happened next. Someone may already have found a workaround; a maintainer may have linked a pull request. The issue is still open, but the need may have changed. **What does the person who asked still need?**
 
 I built GapCue for that pause between getting excited about an idea and deciding what to do with it. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; read a bounded sample of replies; check issues or pull requests named in a discussion; then save the source trail with your own next step. Follow up, prototype, or pass. **The call is yours. The trail stays with you.**
 
