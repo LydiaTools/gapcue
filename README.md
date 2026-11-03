@@ -1,12 +1,12 @@
 # GapCue · Project Research Desk
 
-**Stars can put a project on your radar. The discussion is where you find what still needs work.**
+**A project's Stars catch your eye. Its issue thread can change what you build.**
 
-You find a project or an open feature request that sounds a lot like the tool you want to build. It is easy to think, “I could make this.” The idea starts to take shape.
+You find an open request that sounds just like the tool you want to build. For a moment, you can already picture it.
 
-Then you read on. Someone may already have found a workaround; a maintainer may have linked a PR. An issue can stay open even after the need has changed or been met another way. The question worth following is: what does the person who asked still need?
+Then you read the replies. Someone has found a workaround; a maintainer has linked a PR. The issue is still open, but that alone does not tell you what remains unsolved. **What does the person behind that request still need?**
 
-I built GapCue to keep the trail from finding an idea to choosing a next step. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; review a bounded sample of public replies; check the status of explicitly mentioned issues or pull requests; and save the source snapshot beside your own judgment. Follow up, prototype, or set it aside. The decision is yours, and you can return to the same trail later.
+I built GapCue as a free, open-source research desk for the moment between spotting an idea and deciding whether to build it. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; read a bounded sample of public replies; check the status of issues or pull requests a discussion explicitly mentions; then save the source snapshot with your next step. Follow up, prototype, or pass. The decision is yours; open the saved review when you come back.
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.7.0 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
@@ -18,14 +18,12 @@ I built GapCue to keep the trail from finding an idea to choosing a next step. S
 
 ## From an idea to a decision
 
-Start with a topic, a project, or a question you cannot quite let go of. Keep the sources beside your notes; when you return, you can see what you found and why you chose to follow up, prototype, or pass.
+Start with a topic, a project, or a question you cannot quite let go of. You do the thinking; GapCue keeps the sources and your reasoning together.
 
 1. **Find a lead.** Search public GitHub repositories, Hacker News, or Stack Overflow questions for a topic such as `PDF tables`. Follow a repository to related HN searches, or look for GitHub candidates from an HN discussion.
 2. **Read what happened next.** Open an HN story or Stack Overflow question, or paste a public GitHub Issue URL. Review sampled replies and mentioned changes, then follow the source when you need more context.
 3. **Make your call.** Compare what you found with existing options. Choose **Follow up**, **Prototype candidate**, or **Pass for my task**, and add your own note.
 4. **Pick it up again.** Save the review file with its source snapshot and your notes. You can reopen it later, even offline. You can also save and [compare repository search snapshots](#see-how-a-project-changes-over-time).
-
-When you come back to an idea, you can see what you found—and why you made that decision.
 
 The Stack Overflow desk reads a question and up to 10 answers sorted by votes. Each result links to its source and author, with the post's CC BY-SA license shown. It is a sample, not a complete discussion or a measure of demand. The online desk and v0.7.0 preview include this page.
 
