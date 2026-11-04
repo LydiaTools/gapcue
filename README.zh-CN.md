@@ -2,9 +2,9 @@
 
 **你看到一条还开着的需求，和自己一直想做的工具很像。那一刻，项目的样子好像已经出来了。**
 
-再往下读几条回复。有人可能已经找到替代办法，维护者也可能贴出了 PR。Issue 还开着，但需求或许已经变了。**最初提问的人，现在还缺什么？**
+再往下读几条回复。有人可能已经找到替代办法，维护者也可能贴出了 PR。Issue 还开着，但需求或许已经变了。**动手做之前，先问一句：最初提问的人，现在还缺什么？**
 
-我做 GapCue，是想把“看到一个点子”和“决定怎么做”之间的这段过程留住。搜索 GitHub 公开仓库、Hacker News 讨论和 Stack Overflow 问题，抽样阅读回复，核对讨论里明确提到的 Issue 或 PR，再把来源和你的下一步一起保存。继续跟进、做个原型，或先放一放。**决定权在你，线索可以接着追。**
+我做 GapCue，是想把这个问题和原始讨论一起留住。搜索 GitHub 公开仓库、Hacker News 讨论和 Stack Overflow 问题，抽样阅读回复，核对讨论里明确提到的 Issue 或 PR，再把来源和你的下一步一起保存。继续跟进、做个原型，或先放一放。**决定由你；下次回来，线索还在。**
 
 **[打开中文调研台](https://lydiatools.github.io/gapcue/?lang=zh)** · [English](README.md) · [下载 v0.7.0 预览版](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [反馈](https://github.com/LydiaTools/gapcue/issues)
 

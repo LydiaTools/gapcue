@@ -2,9 +2,9 @@
 
 **You find an open request that sounds like the tool you’ve been wanting to build. For a moment, you can picture it.**
 
-Then you read what happened next. Someone may already have found a workaround; a maintainer may have linked a pull request. The issue is still open, but the need may have changed. **What does the person who asked still need?**
+Then you read what happened next. Someone may already have found a workaround; a maintainer may have linked a pull request. The issue is still open, but the need may have moved on. **Before you start building, ask: what does the person who asked still need?**
 
-I built GapCue for that pause between getting excited about an idea and deciding what to do with it. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; read a bounded sample of replies; check issues or pull requests named in a discussion; then save the source trail with your own next step. Follow up, prototype, or pass. **The call is yours. The trail stays with you.**
+I built GapCue to keep that question attached to the source. Search public GitHub repositories, Hacker News discussions, and Stack Overflow questions; read a bounded sample of replies; check issues or pull requests named in a discussion; then save the source trail with your own next step. Follow up, prototype, or pass. **The call is yours. The trail stays with you.**
 
 **[Open GapCue](https://lydiatools.github.io/gapcue/)** · [中文说明](README.zh-CN.md) · [Download v0.7.0 preview](https://github.com/LydiaTools/gapcue/releases/tag/v0.7.0) · [Report a problem](https://github.com/LydiaTools/gapcue/issues)
 
